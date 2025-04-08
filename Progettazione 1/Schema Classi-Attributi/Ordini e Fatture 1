@@ -1,0 +1,21 @@
+1.0 Dipartimenti aziendali:
+   1.1. nome
+   1.2. indirizzo 
+   1.3. direttore (nome, cognome, codice fiscale, data e luogo di nascita, anni di servizio 
+   		  nell'azienda)
+   
+  2.0 Fornitori:
+     2.1. ragione sociale (Nome ditta)
+     2.2. Partita iva (stringa numerica 11 caratteri)
+     2.3. indirizzo
+     2.4. numero di telefono
+     2.5. indirizzo email
+    
+ 3.0 Ordini:
+    3.1. dipartimento stipulato
+    3.2. data di stipula
+    3.3. fornitore
+    3.4. descrizione beni e/o servizi acquistati
+    3.5. aliquota IVA (reale)
+    3.6. stato ordine (preparazione, inviato, saldare, saldato)
+    

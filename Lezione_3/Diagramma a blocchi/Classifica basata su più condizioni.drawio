@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.10">
+  <diagram name="Pagina-1" id="hyAgKUkSppmL8DwpNF7T">
+    <mxGraphModel dx="1050" dy="557" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-1" target="gokgY6QEcxuaWLTDmFIb-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-1" value="inizio" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-2" target="gokgY6QEcxuaWLTDmFIb-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-2" value="read n" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-4" target="gokgY6QEcxuaWLTDmFIb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-4" value="n%1==0" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="340" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-9" value="TRUE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-6" target="gokgY6QEcxuaWLTDmFIb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-10" value="FALSE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-6" target="gokgY6QEcxuaWLTDmFIb-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="540" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="530" y="460" />
+              <mxPoint x="401" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-6" value="n%2==0 AND n&amp;gt;10" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="330" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-8" target="gokgY6QEcxuaWLTDmFIb-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-8" value="write &quot;numero valido&quot;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="515" y="510" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-13" value="TRUE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-11" target="gokgY6QEcxuaWLTDmFIb-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-14" value="FALSE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-11" target="gokgY6QEcxuaWLTDmFIb-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="595" />
+              <mxPoint x="230" y="250" />
+              <mxPoint x="346" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-11" value="n%2 != 0 OR n&amp;lt;=10" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="550" width="100" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gokgY6QEcxuaWLTDmFIb-12" target="gokgY6QEcxuaWLTDmFIb-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-12" value="write &quot;numero non valido&quot;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="735" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gokgY6QEcxuaWLTDmFIb-15" value="fine" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="690" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
