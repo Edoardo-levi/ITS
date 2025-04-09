@@ -1,0 +1,19 @@
+E' un'insieme di simboli ovvero una stringa che identifica un gruppo specifico di stringe.
+ci da la possibilità di identificare all'interno di un testo una serie di stringhe
+
+Per esempio:
+abbiamo un grande test contente delle e-mail. Attraverso le RegEx possiamo estrarre solo le e-mail lasciando da parte il testo.
+
+Hanno diversi elementi:
+-Ancore:
+  -Ancore di inzio linea:
+    ^Hello    esempio: se ho un testo e utilizzo questa scrittura (^Hello) posso rintracciare all'interno del testo qualsiasi linea che iniza per Hello
+    Hello $   esempio: e ho un testo e utilizzo questa scrittura (Hello$) posso rintracciare all'interno del testo qualsiasi linea che finice per Hello
+    ^Hello$   esempio: e ho un testo e utilizzo questa scrittura (^Hello$) posso rintracciare all'interno del testo qualsiasi parola  Hello
+-Quantificatori:
+ *  Zero o più Corrisponde a 0 o più occorrenze dell'elemento precedente quindi in questo caso l'elemento precedente è c.
+      Esempio: abc* corrisponde a "ab", "abc", "abcc", "abccc", ecc.
++  Uno o più: Corrisponde a 1 o più occorrenze dell'elemento precedente quindi in questo caso l'elemento precedente è c.
+Esempio: abc+ corrisponde a "abc", "abcc", "abccc", ma non a "ab".
+?  Zero o uno: Corrisponde a 0 o 1 occorrenza dell'elemento precedente quindi in questo caso l'elemento precedente è c.
+Esempio: abc? corrisponde a "ab" o "abc".
