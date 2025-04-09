@@ -1,0 +1,50 @@
+.default
+{
+    background-color: #b7ebaf;
+    font-family: Monaco, sans-serif;
+}
+
+.f4
+{
+    background-color: white;
+    width: 25cm;
+}
+
+.topBack
+{
+    background-color: #d3d3d3;
+}
+
+.topTable
+{
+    height: 1.5cm;
+}
+
+.insTitle
+{
+    font-weight: bold;
+}
+
+.insText
+{
+    font-weight: thin;
+}
+
+.tableTitle
+{
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.tableContent
+{
+    background-color: #f1f1f1;
+    font-weight: thin;
+}
+
+.tableDisponibility
+{
+    color: green;
+    background-color: #f1f1f1;
+    font-weight: thin;
+}
