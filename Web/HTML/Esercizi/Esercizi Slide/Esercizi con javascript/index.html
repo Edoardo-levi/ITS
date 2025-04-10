@@ -6,6 +6,15 @@
     <title>Esercizio1</title>
 </head>
 <body>
+    <script>
+        function strigna_vuota(){
+            var cognome= document.getElementById("cognome")
+            if (cognome == ""){
+                alert ("Il campo Cognome non può essere vuoto");
+                
+            }
+        }
+    </script>
     <form>
     <table >
     
@@ -21,7 +30,7 @@
                 Cognome
             </td>
             <td>
-                <input type="text" name="cognome" placeholder="Inserisci il cognome " >
+                <input  type="text" name="cognome" placeholder="Inserisci il cognome " >
             </td>
         </tr>
         <tr>
@@ -94,7 +103,7 @@
         </tr>
         <tr>
             <td>
-                <input type="button" value="invio" name="invio">
+                <button onclick="strigna_vuota();"> Invio</button>
             </td>
         </tr>
     </form>
