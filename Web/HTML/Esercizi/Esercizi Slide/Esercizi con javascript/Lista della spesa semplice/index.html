@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+<head>
+    
+    <title>La mia spesa semplice</title>
+
+    <script>
+        function aggiungi_prodotto(){
+            var prodotto= document.getElementById("prodotto").value.trim();
+            if (prodotto == "") {
+                alert("Inserisci un prodotto");
+
+                return false;
+            }
+
+            // recupero elemento ui 
+
+            var lista = document.getElementById("result");
+
+           
+            // creo un nuovo elemento di tipo li
+            var nomvoElemnto= document.createElement("li");
+            // sto riempendo li
+            nomvoElemnto.textContent=prodotto;
+            //aggiongo l'elemento alla lista 
+            lista.appendChild(nomvoElemnto);
+        }
+        function reset(){
+            var lista= document.getElementById("result");
+            lista.remove();
+        }
+    </script>
+</head>
+<body align="center">
+    <h1 align="center"> LISTA DELLA SPESA</h1>
+    Prodotto <input type="text" id="prodotto" placeholder="Inserisci Prodotto">  
+    <br> <br>
+
+    <button onclick="aggiungi_prodotto()" style="width: 150px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-top: 10px; border-radius:10px;">Aggiungi al carrello</button>
+    <br><br>
+    <h2 align="center">Carrello della spesa</h2>
+    <ui id="result">
+    </ui>
+    <br>
+    <br></br>
+    <button  onclick="reset()" style=" width: 150px; padding: 10px; background-color: red; color: white; border: none; cursor: pointer; margin-top: 10px; border-radius:10px;" >Ripristina lista</button>
+</body>
+</html>
