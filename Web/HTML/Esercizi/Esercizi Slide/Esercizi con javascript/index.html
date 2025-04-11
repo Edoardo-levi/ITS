@@ -1,53 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esercizio1</title>
-</head>
-<body>
+    <style>
+        input[type="text"], select, textarea {
+            width: 300px;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }        
+    </style>
     <script>
-        function strigna_vuota(){
-            var cognome= document.getElementById("cognome")
-            if (cognome == ""){
-                alert ("Il campo Cognome non può essere vuoto");
-                
+        function campi_errati(event) {
+            var cognome = document.getElementById("cognome").value.trim();
+            if (cognome === "") {
+                alert("Il campo Cognome non può essere vuoto");
+                event.preventDefault();
+                return false;
             }
+
+            var nome = document.getElementById("nome").value.trim();
+            if (nome == ""){
+                alert("Il campo nome non può essere vuoto");
+                event.preventDefault();
+                return false;
+            }
+
+            let matricola = document.getElementById("matricola").value.trim();
+            if (isNaN(matricola.trim())){
+                alert("La matricola deve essere un numero");
+                event.preventDefault();
+                return false;
+            }
+
+            let regione = document.getElementById("regione").value;
+            if (regione == "select"){
+                alert("Seleziona una regione");
+                event.preventDefault();
+                return false;
+            }
+
+            var email = document.getElementById("email").value.trim();
+            var telefono = document.getElementById("telefono").value.trim();
+
+            if (email === "" || telefono === "") {
+                alert("L'email o il telefono non possono essere vuoti");
+                event.preventDefault();
+                return false;
+            }
+
+            return true;
         }
     </script>
-    <form>
-    <table >
+</head>
+<body>
+
+<form onsubmit="return campi_errati(event)">
+    <table>
     
         <tr>
-            <td> Nome 
-            </td>
+            <td>Nome</td>
             <td>
-                <input type="text" name="nome" placeholder="Inserisci il nome " >
+                <input type="text" id="nome" name="nome" placeholder="Inserisci il nome">
             </td>
         </tr>
         <tr>
+            <td>Cognome</td>
             <td>
-                Cognome
-            </td>
-            <td>
-                <input  type="text" name="cognome" placeholder="Inserisci il cognome " >
+                <input type="text" id="cognome" name="cognome" placeholder="Inserisci il cognome">
             </td>
         </tr>
         <tr>
-            <td> 
-            Numero Matricola
-            </td>
+            <td>Numero Matricola</td>
             <td>
-                <input type="text" name="matricola" placeholder="Inserisci il numero di matricola " >
+                <input type="text" id="matricola" name="matricola" placeholder="Inserisci il numero di matricola">
             </td>
         </tr>
         <tr>
+            <td>Regione di residenza</td>
             <td>
-                Regione di residenza
-            </td>
-            <td>
-                
-                <select name="regione">
+                <select id="regione" name="regione">
                     <option value="select">--Seleziona Regione</option>
                     <option value="Abruzzo">Abruzzo</option>
                     <option value="Basilicata">Basilicata</option>
@@ -73,42 +107,30 @@
             </td>
         </tr>
         <tr>
+            <td>E-mail</td>
             <td>
-                E-mail
-            </td>
-            <td>
-                <input type="email" name="email" placeholder="Inserisci la tua email">
+                <input type="text" id="email" name="email" placeholder="Inserisci la tua email">
             </td>
         </tr>
         <tr>
+            <td>Numero di Telefono</td>
             <td>
-                Numero di Telefono
-            </td>
-            <td>
-                <input type="text" name="telefono" placeholder="Telefono">
+                <input type="text" id="telefono" name="telefono" placeholder="Telefono">
             </td>
         </tr>
         <tr>
+            <td>Richieste Particolari</td>
             <td>
-                Richieste Particolare
-            </td>
-            <td>
-                <textarea name="richieste" rows="12" cols="60" placeholder="Inserisci testo...">
-</textarea>
+                <textarea name="richieste" rows="12" cols="60" placeholder="Inserisci testo..."></textarea>
             </td>
         </tr>
         <tr>
-            <td><input type="reset" value="Reset Form"> <br>
-            </td>
+            <td><input type="reset"   value="Reset Form"  style="width: 150px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-top: 10px;"></td>
         </tr>
         <tr>
-            <td>
-                <button onclick="strigna_vuota();"> Invio</button>
-            </td>
+            <td><input type="submit" value="Invio" style="width: 150px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; margin-top: 10px;"></td>
         </tr>
-    </form>
-</table>
-
+    </table>
 
 </body>
 </html>
