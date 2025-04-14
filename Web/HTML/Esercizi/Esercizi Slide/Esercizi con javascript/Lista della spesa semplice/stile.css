@@ -1,0 +1,33 @@
+
+
+
+
+
+.input-stile {
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 10px;
+    box-shadow: 0 0 20px gold;
+}
+
+.bottone-aggiungi {
+    width: 150px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.bottone-reset {
+    width: 150px;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+}
