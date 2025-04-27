@@ -1,0 +1,28 @@
+1.0 Officine:
+	1.1 nome: Stringa
+	1.2 indirizzo: Indirizzo
+	1.3 n_dipendenti: intero>=0
+	1.4 anni_servizio_dipendenti: intero>=0
+	1.5 direttore
+
+2.0.0 Impiegati (Dipendenti e direttori):
+	2.1 nome: stringa
+	2.2 codice fiscale: codice fiscale
+	2.3 indirizzo: indirizzo
+	2.4 nuomero di telefono: stringa
+		
+		2.0.1 Direttori
+			2.0.2 Data di nascita
+
+3.0 Riparazione dei veicoli:
+	3.1 codice: stringa
+	3.2 veicolo: {modello, tipo, targa, anno_immatricolazione, proprietaro}
+	3.3 data_accettazione: data
+	3.4 ora_accettazione: ora
+		
+		3.0.1 Riparazione terminate:
+			3.0.2 data_uscita:data
+			3.0.3 ora_uscita: ora
+
+4.0 Proprietari_Veicoli:
+	vedi(2.0.0)
