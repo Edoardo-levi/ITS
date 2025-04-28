@@ -33,10 +33,10 @@ def rimbalzo() -> None:
     rimbalzi: int = 0
 
     
-    print(f"Tempo: {tempo} Altezza: {altezza}")
+    
     
     while rimbalzi <5:
-        tempo+=1
+        print(f"Tempo: {tempo} Altezza: {altezza}")
         altezza +=velocita
         velocita -=96
 
@@ -44,9 +44,9 @@ def rimbalzo() -> None:
             altezza*=-0.5 
             velocita*=-0.5
             rimbalzi+=1
+            tempo+=1
             
             print(f"Tempo: {tempo} Rimbalzo!")
-        else:
-            print(f"Tempo: {tempo} Altezza: {(altezza)}")
+        tempo+=1
 
 rimbalzo()
