@@ -1,0 +1,110 @@
+1. COS'È IL PENSIERO COMPUTAZIONALE?
+Il pensiero computazionale è un approccio alla risoluzione dei problemi che utilizza un insieme di 
+pratiche e principi dell'informatica per formulare una soluzione eseguibile da un computer. 
+Non è destinato solo ai programmatori. In realtà, è applicabile in una vasta gamma di settori.
+
+OBIETTIVI
+
+* Definire il pensiero computazionale (PC)
+* Mostrare come può essere usato in diversi ambiti
+* Spiegare le attuali limitazioni del pensiero computazionale
+
+COS'È IL PENSIERO COMPUTAZIONALE?
+
+Definire il pensiero computazionale (PC) è complesso. Studiosi e ricercatori hanno discusso a lungo su come darne una definizione chiara. 
+Alcuni ritengono che sia importante avere una definizione rigorosa, mentre altri pensano che non sia necessario.
+
+Secondo alcuni, il PC è simile al concetto di "gioco": difficile da definire in modo preciso,
+ma riconoscibile tramite somiglianze e relazioni comuni tra i casi.
+
+Il PC è legato all’informatica, che include idee sia astratte che concrete ed è applicabile in molti ambiti.
+
+Il termine ha guadagnato visibilità nel 2006 grazie a Jeannette Wing, ma le sue idee centrali esistevano già, 
+come nel caso del “pensiero procedurale”
+di Seymour Papert negli anni ’80.
+
+Negli anni successivi sono state proposte diverse definizioni. Cynthia Selby ha identificato 
+i concetti principali del PC distinguendoli da quelli secondari.
+
+Concetti fondamentali del pensiero computazionale:
+
+* pensiero logico
+* pensiero algoritmico
+* decomposizione
+* generalizzazione e riconoscimento di pattern
+* modellizzazione
+* astrazione
+* valutazione
+
+Concetti periferici:
+
+* rappresentazione dei dati
+* pensiero critico
+* informatica
+* automazione
+* simulazione e visualizzazione
+
+COME SI USA IL PENSIERO COMPUTAZIONALE?
+
+Il PC può essere usato da chiunque stia risolvendo un problema dove un computer possa aiutare.
+
+Esempi:
+
+Pensiero algoritmico:
+
+* Informatica: lo studio degli algoritmi e la loro applicazione a diversi problemi
+* Matematica:e eseguire una divisione lunga, una fattorizzazione o fare riporti in addizione o sottrazione
+* Scienza: pensare  al processo di esecuzione di una procedura sperimentale.
+
+Astrazione: Il processo di semplificare un problema eliminando i dettagli non essenziali, 
+per concentrarsi solo sugli aspetti rilevanti che servono a risolverlo.
+Ovvero creare una rappresentazione ridotta ma utile della realtà, per facilitare la comprensione o la risoluzione di un problema.
+
+* Linguistica: uso di metafore, narrazioni a scelta
+* Scienze sociali: sintesi di dati per trarre conclusioni
+* Scienza e matematica: modelli, algebra
+
+Altri esempi:
+
+* Ottimizzare la consegna dei diplomi con una catena di montaggio (pipelining)
+* Previsioni climatiche con modelli al computer
+* Ordinare spartiti musicali usando un algoritmo di ordinamento
+* Supporto alla giustizia con sistemi che generano ipotesi dai dati
+
+COSA NON È IL PENSIERO COMPUTAZIONALE?
+
+* Non è informatica: quella studia i principi del calcolo
+* Non è programmazione: quella insegna a scrivere codice
+* È un approccio alla risoluzione dei problemi eseguibili da un computer
+
+LIMITAZIONI ATTUALI
+
+1. Immaturità della disciplina: è ancora in sviluppo
+2. Poche prove della sua efficacia: mancano studi a lungo termine
+3. Rischio di imperialismo culturale: i sostenitori del PC devono evitare di attribuirsi concetti usati da sempre in altri ambiti
+
+Tuttavia, i suoi componenti principali sono già ben consolidati e utilizzati.
+
+RIASSUNTO
+
+Il pensiero computazionale è un approccio alla risoluzione dei problemi usando concetti dell’informatica. 
+Serve a creare soluzioni eseguibili da un computer ed è utile in molti campi.
+
+ESERCIZI
+
+Esercizio 1
+Elenca i concetti fondamentali del pensiero computazionale.
+Risposta: logica, algoritmi, decomposizione, generalizzazione, modellizzazione, astrazione, valutazione
+
+Esercizio 2
+Dai un esempio di come persone in ciascuna delle seguenti professioni possono pensare in modo computazionale:
+A. matematico:
+     e eseguire una divisione lunga, una fattorizzazione o fare riporti in addizione o sottrazione
+B. scienziato:
+     Pensare come al processo di esecuzione di una procedura sperimentale
+C. ingegnere
+D. linguista
+
+Esercizio 3
+Pensa a delle attività quotidiane in cui usi il pensiero computazionale.
+Esempi: cucinare seguendo una ricetta, pianificare un viaggio, confrontare prezzi online, organizzare un armadio
