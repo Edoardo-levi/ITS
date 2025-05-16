@@ -1,0 +1,51 @@
+Specifica dello Use-Case Gestione Progetto:
+	
+
+Specifica dello Use-Case Inizia Progetto:
+	- Creazione Progetto (d:Docente, start: data_inizio, name: Stringa, ac: Acronimo)
+
+		Pre-Condizioni:
+			Non esiste un p: Progetto con lo stesso nome
+
+		Post-Condizioni:
+			Viene creato un p con valori name, ac,  con link di assoc. p d e viene definito un inizio progetto
+
+	- Creazione WorkPackage (p:Progetto, n:Name, start: Data_Inizio, end: Data_fine):
+		Pre-Condizioni:
+			Non esistono più wp con lo stesso nome legati ad un p
+
+		Post-Condizioni:
+			Viene Creato un W:wp con attributi n, con link di associazione wp p. 
+			Viene specificato lo start con attributi la data e viene specificato l'end con attriburi la data.
+
+	
+	- Fine progetto (p: Progetto, end: Fine_Progetto)
+		Pre-Condizioni:
+			Per ogni wp associato al p, l'utente controlla che siano terminati. Il progetto ha un end.
+
+		Post-Condizioni:
+			Viene definito un end per il termine dello sviluppo del progetto.
+
+	- Svolge attività:
+		Definizione attività docente (day: giorno_impegno, du: Durata_impegno, mot: Motivazione_Attività)
+
+		Pre-Condizioni: 
+			Vengono definite delle attività con attributi day, du. 
+		Post-Condizioni:
+		Vengono definite per le attività diverse tipologie:
+			- Assenza che ha come attributi: 
+				- Chiusura Universitaria
+				- Malattia
+				- Gravidanza 
+			- Impegno Progettuale che ha come attributi:
+				- Ricerca e sviluppo
+				- Dimostrazione
+				- Management
+			- Impegno Istituzionale che ha come attributi:
+				- Didattica
+				- Ricerca
+				- Missione
+				- Consiglio di dipartimento
+				- Consigio di areea didattica
+
+	- Termine Attività (end: Fine_attività):
