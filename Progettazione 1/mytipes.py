@@ -15,28 +15,95 @@ class CodiceFiscale:
             raise ValueError("Codice fiscale non corretto")
         self.codice=codice
     
-    def __str__(self):
-        return self.codice
+    def __hash__(self) -> int:
+        return hash(self.codice)
+
+
+class Valuta(str):
+    def __new__(self, valuta: str|Self) -> Self:
+        controllo=bool(re.fullmatch(r"^[A-Z]{3}", valuta))
+        if controllo==False:
+            raise ValueError("Valuta fiscale non corretto")
+        self.valuta=valuta
+
+
+class Denaro:
+    # tipo composto dai seguenti campi:
+    # - importo: Reale (float)
+    # - valuta: Valuta
+
+    _importo: float
+    _valuta: Valuta
+
+    def __init__(self, importo: float, valuta: Valuta) -> None:
+        self.importo=importo
+        self.valuta=valuta
+
+    def importo(self) -> float:
+        return self._importo
+
+    def valuta(self)->Valuta:
+        return self._valuta
+    
+    def __hash__(self):
+        return hash((self.importo(), self.valuta()))
+    
+    def __eq__(self, other: Self) -> bool:
+        if hash(self) != hash(other):
+            return False
+        return self.valuta()==other.valuta() and self.importo()==other.importo()
+    
+    def __add__(self, other: Self) -> Self:
+        if self.valuta()!=other.valuta():
+            raise ValueError("Le valute sono idverse")
+        somma: float=self.importo() + other.importo()
+        return Denaro(somma, self.valuta()) # resituisce una nuova istanza di Denaro
+    
+    def __repr__(self) -> str:
+        match self.valuta():
+            case 'EUR':
+                val="€"
+            case 'USD':
+                val="$"
+            case 'GBP':
+                val="£"
+            case _:
+                val=self.valuta()
+        return f"{self.importo()} {val}"
 
 
 class Città:
     def __init__(self, nomeC):
         self.nomeC=nomeC
     def __hash__(self) -> int:
-        return hash(self.nomeC)
+        return hash((self.nomeC))
     
+    def __eq__(self, other: Self) -> Self:
+        if hash(self)!=hash(other):
+            return False
+        return self.nomeC == other.nomeC
+
+
 class Regione: 
     def __init__(self, nomeR):
         self.nomeR=nomeR
     def __hash__(self) -> int:
-        return hash(self.nomeR)
+        return hash((self.nomeR))
+    def __eq__(self, other: Self) -> Self:
+        if hash(self)!=hash(other):
+            return False
+        return self.nomeR == other.nomeR
 
 
 class Nazione: 
     def __init__(self, nomeN):
         self.nomeN=nomeN
     def __hash__(self) -> int:
-        return hash(self.nomeN)
+        return hash((self.nomeN))
+    def __eq__(self, other: Self) -> Self:
+        if hash(self)!=hash(other):
+            return False
+        return self.nomeN == other.nomeN
     
 
 class Indirizzo:
@@ -65,7 +132,7 @@ class Voto(int):
 
 
 class Studente:
-    def __init__(self, matricolaS: str, nome: str, genere:Genere, indirizzo: Indirizzo, codicefiscale:CodiceFiscale):
+    def __init__(self, matricolaS: str, nome: str, genere:Genere, indirizzo: Indirizzo, codicefiscale:str):
         self.matricolaS=matricolaS
         self.nome=nome
         self.genere=genere
@@ -76,7 +143,7 @@ class Studente:
         return hash(self.matricolaS)
     
 
-class Posizione:
+class Posizione(StrEnum):
     ricercatore=auto()
     profAssociato=auto()
     profOrdinario=auto()
@@ -94,10 +161,18 @@ class Professore:
         return hash(self.matricolaP)
 
 
+class PositiveInt(int): # la classe eredita dal tipo 'int'
+    # tipo di dato intero > 0
+    def __new__(cls, valore: int|float|str|bool|Self) -> Self:
+        n:int = super().__new__(cls, valore)  # trasforma l'oggetto n in un oggetto int, super si riferisce alla superclasse di PositiveInt (ovvero int)
+        if n>0:
+            return n
+        raise ValueError(f"Numero inseirto non positivo")
+
 indirizzo1=Indirizzo("Via Mattia Battistini", "52")
 indirizzo2=Indirizzo("Via del Forte Boccea", "115")
-st=Studente("12234", "pippo", "uomo", indirizzo1, "VLNDRD03S28H501I")
-st1=Studente("2234", "pina", "donna", indirizzo2, "VLNDRD03S28H501I")
+st=Studente("12234", "pippo", "uomo", indirizzo1, CodiceFiscale("VLNDRD03S28H501I"))
+st1=Studente("2234", "pina", "donna", indirizzo2, CodiceFiscale("VLNDRD03S28H501I"))
 
 if hash(st)==hash(st1):
     raise ValueError("Due studenti non possono avere stesso numero di matricola")
