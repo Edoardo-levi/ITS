@@ -186,3 +186,13 @@ class NumeroTelefono(str):
         if n != re.compile(r"^(?:\+39\s?)?(?:(?:3\d{2})|(0\d{1,3}))[\s.-]?\d{6,7}$"):
             raise ValueError("rispettare i parametri per il numero di telefono")
         return str.__new__(n)
+    
+class RealeMaggioreDiZero:
+    def _init_(self, reale):
+        if reale > 0:
+            self.reale = reale
+        else:
+            raise ValueError(f"Il numero {self.reale} è minore di zero")
+
+    def _str_(self):
+        return f"Il numero scelto è {self}"
