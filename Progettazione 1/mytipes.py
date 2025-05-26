@@ -176,3 +176,13 @@ st1=Studente("2234", "pina", "donna", indirizzo2, CodiceFiscale("VLNDRD03S28H501
 
 if hash(st)==hash(st1):
     raise ValueError("Due studenti non possono avere stesso numero di matricola")
+
+
+
+class NumeroTelefono(str):
+    n:str
+
+    def __new__(cls, n:str):
+        if n != re.compile(r"^(?:\+39\s?)?(?:(?:3\d{2})|(0\d{1,3}))[\s.-]?\d{6,7}$"):
+            raise ValueError("rispettare i parametri per il numero di telefono")
+        return str.__new__(n)
