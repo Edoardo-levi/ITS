@@ -1,0 +1,38 @@
+<!--Scrivere un programma che dichiara e valorizza
+una variabile con l'anno corrente e un’altra
+variabile con il proprio anno di nascita e
+determini:
+• l’età della persona
+• quanti anni sono necessari per raggiungere i
+100
+Restituisca in output entrambi i risultati.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 2</title>
+</head>
+<body>
+    <div id="anno_attuale"></div>
+    <div id="anno_nascita"></div>
+    <div id="eta_persona"></div>
+    <div id="cento_anni"></div>
+
+    <script>
+
+        var anno_corrente= prompt("Inserisci l'anno corrente: ");
+        var anno_nascita= prompt("Inserisci l'anno di nascita: ");
+
+        ac= parseInt(anno_corrente);
+        an=parseInt(anno_nascita);
+
+
+        document.getElementById("eta_persona").innerHTML= "L'età della persona è: "+ (ac - an)
+        document.getElementById("cento_anni").innerHTML= "Per raggiungere i 100 anni hai ancora: " + (100-(ac-an)) + " anni"
+
+
+    </script>
+</body>
+</html>

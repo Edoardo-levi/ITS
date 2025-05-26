@@ -1,0 +1,38 @@
+<!--Scrivere un programma che dichiara e valorizza
+5 numeri a proprio piacimento e restituisca in
+output la somma e la media-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio1</title>
+</head>
+<body>
+    <div id="risultato"></div>
+    <di id="media"></di>
+    
+</body>
+
+    <script>
+       
+        var numero1 = prompt("Inserisci il primo numero");
+        var numero2 = prompt("Inserisci il secondo numero");
+        var numero3 = prompt("Inserisci il terzo numero");
+        var numero4 = prompt("Inserisci il quarto numero");
+        var numero5 = prompt("Inserisci il quinto numero");
+
+        var n1= parseInt(numero1);
+        var n2= parseInt(numero2);
+        var n3= parseInt(numero3);
+        var n4= parseInt(numero4);
+        var n5= parseInt(numero5);
+
+        document.getElementById("risultato").innerHTML= "il risultato della somma tra " + n1 + ", " + n2 + ", " + n3 + ", " + n4 + " e " + n5 + " è: " + (n1+n2+n3+n4+n5) 
+        document.getElementById("media").innerHTML= "il risultato della media tra " + n1 + ", " + n2 + ", " + n3 + ", " + n4 + " e " + n5 + " è: " + ((n1+n2+n3+n4+n5)/5) 
+
+
+    </script>
+
+</html>

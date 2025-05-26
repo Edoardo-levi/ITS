@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Variabili</title>
+</head>
+<body>
+    <div id="risultato"></div>
+    <div id="esito"></div>
+
+    <script>
+
+        var nome= prompt("Inserisci il tuo Nome:"); // Prompt inserisce stringhe e serve per far inserire all'utente il nome.
+        document.getElementById("risultato").innerHTML = "Ciao "+ nome;
+
+        var num1=prompt("Inserisci il primo numero: ");
+        var num2=prompt("Inserisci il secondo numero: ");
+
+        //trasformo la stringa in numero:
+
+        var n1=parseInt(num1);
+        var n2=parseInt(num2);
+
+        document.getElementById("esito").innerHTML= "Il risultato della somma tra "+ n1 + " e "+ n2 +" è: "+ (n1+n2);
+
+    </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!--Scrivi un programma che dato un numero di
+secondi, calcoli la quantità di ore, minuti e
+secondi corrispondenti e poi stampi il risultato.
+L'output avrà solo numeri interi.
+Esempio:
+Input: 12560
+Output: 3 ore, 29 minuti e 20 secondi-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 3</title>
+</head>
+<body>
+    <div id="Ora"></div>
+
+    <script>
+
+        var secondi= parseInt(prompt("Inserisci i secondi"));
+        var ore = parseInt(secondi/60/60);
+
+        var resto= secondi%3600
+
+        var minuti= parseInt(resto/60)
+
+        var secondi= resto%60
+
+        document.getElementById("Ora").innerHTML= ore + " Ore " + minuti + " Minuti " + secondi +" Secondi"
+
+    </script>
+</body>
+</html>
