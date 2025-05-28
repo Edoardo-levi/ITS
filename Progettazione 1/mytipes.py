@@ -105,23 +105,35 @@ class Nazione:
             return False
         return self.nomeN == other.nomeN
     
+class CAP (str):
+    def __new__(cls, v: str | Self) ->Self:
+        if re.fullmatch(r"^\d{5}$",v):
+            return super().__new__(cls,v)
+        raise ValueError(f"'{v}' non è un CAP italiano valido!")
 
+
+        
 class Indirizzo:
     _via:str
     _civico:str
-    def __init__(self, via:str, civ:str):
+    _cap:CAP
+    def __init__(self, via:str, civ:str, cap:CAP) ->None:
         if not via or via.isdigit()==True:
             raise TypeError("La via non può essere vuota e non può contenere solo numeri")
         elif len(civ)>6:
             raise ValueError("Civico inesistente")
         self._via=via
         self._civico=civ
+        self._cap:CAP=cap
     
     def via(self) -> str:
         return self._via
     
     def civico(self) -> str:
         return self._civico
+    
+    def cap(self) ->str:
+        return self._cap
 
 
 class Voto(int):
@@ -196,3 +208,12 @@ class RealeMaggioreDiZero:
 
     def _str_(self):
         return f"Il numero scelto è {self}"
+    
+
+class RealGez(float):
+    def __new__(cls,v:int | float | str | bool |Self) -> Self:
+        n:float =super().__new__(cls, v)
+
+        if n>=0:
+            return n
+        raise ValueError(f"Il numero inserito {v} è negativo")
