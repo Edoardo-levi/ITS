@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Esercizio 1.4</title>
+</head>
+<body>
+
+
+<div id="output"></div>
+
+<script>
+  let valore = "50";
+
+  let output = ""; // raccogliamo tutto l'output da stampare
+
+  output += "Variabile: " + valore + "<br>";
+  output += "Il valore assunto dalla variabile e': " + typeof valore + "<br>";
+  output += "il valore assunto dalla variabile " + valore + " e' un numero? " + isNaN(valore) + "<br>";
+
+  let variabile_convertite = parseInt(valore);
+
+  output += "il tipo della variabile " + typeof valore + " " + valore +
+            " e' stato cambiato in " + typeof variabile_convertite +
+            " ora " + variabile_convertite + " e' un numero<br>";
+
+  // Stampiamo il tutto a schermo
+  document.getElementById("output").innerHTML = output;
+</script>
+
+</body>
+</html>
