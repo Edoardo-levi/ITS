@@ -1,0 +1,33 @@
+<!--Modificare l'esercizio 4 in modo che stampi il
+doppio dei numeri ottenuti (0,4,...,40) sia con il
+ciclo for che con il ciclo while;-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 4.5</title>
+</head>
+<body>
+    <div id="stampaNumeri_for"></div>
+    <div id="stampaNumeri_while"></div>
+
+    <script>
+        document.getElementById("stampaNumeri_for").innerHTML= "I numeri da 0 a 40 stampati con il ciclo For sono: <br>"
+       for (var i =0; i<=40; i+=2){
+        document.getElementById("stampaNumeri_for").innerHTML+=  i + "<br>"
+       }
+
+       document.getElementById("stampaNumeri_while").innerHTML= "I numeri da 0 a 40 stampati con il ciclo While sono: <br>"
+
+       j=0
+
+       while (j<=40){
+        document.getElementById("stampaNumeri_while").innerHTML+= j + "<br>"
+        j+=2
+       }
+
+    </script>
+</body>
+</html>

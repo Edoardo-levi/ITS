@@ -1,0 +1,33 @@
+<!--Scrivere un programma che conta da 0 a 20 con
+passo 2 e stampa i numeri ottenuti (0,2,...,20)
+sia con il ciclo for che con il ciclo while ;-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 4.4</title>
+</head>
+<body>
+    <div id="stampaNumeri_for"></div>
+    <div id="stampaNumeri_while"></div>
+
+    <script>
+        document.getElementById("stampaNumeri_for").innerHTML= "I numeri da 0 a 20 stampati con il ciclo For sono: <br>"
+       for (var i =0; i<=20; i+=2){
+        document.getElementById("stampaNumeri_for").innerHTML+=  i + "<br>"
+       }
+
+       document.getElementById("stampaNumeri_while").innerHTML= "I numeri da 0 a 20 stampati con il ciclo While sono: <br>"
+
+       j=0
+
+       while (j<=20){
+        document.getElementById("stampaNumeri_while").innerHTML+= j + "<br>"
+        j+=2
+       }
+
+    </script>
+</body>
+</html>

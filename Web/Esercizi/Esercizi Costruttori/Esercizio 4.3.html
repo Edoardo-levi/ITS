@@ -1,0 +1,34 @@
+<!--Modificare l'esercizio 2 in modo che stampa i
+numeri da 5 a 15 sia con il ciclo for che con il
+ciclo while;-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 4.3</title>
+</head>
+<body>
+    <div id="stampaNumeri_for"></div>
+    <div id="stampaNumeri_while"></div>
+
+    <script>
+        document.getElementById("stampaNumeri_for").innerHTML= "I numeri da 5 a 15 stampati con il ciclo For sono: <br>"
+       for (var i =5; i<=15; i++){
+        document.getElementById("stampaNumeri_for").innerHTML+=  i + "<br>"
+       }
+
+       document.getElementById("stampaNumeri_while").innerHTML= "I numeri da 5 a 15 stampati con il ciclo While sono: <br>"
+
+       j=5
+
+       while (j<=15){
+        document.getElementById("stampaNumeri_while").innerHTML+= j + "<br>"
+        j++
+       }
+
+    </script>
+</body>
+</html>

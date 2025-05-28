@@ -1,0 +1,46 @@
+<!--Dichiarare e valorizzare un numero intero scegliendone
+uno da 1 a 10 e mostrare a video la relativa tabellina, ad
+esempio se scelgo il numero 5 visualizzerò a video
+(eseguire l’esercizio sia con il ciclo for che con il ciclo
+while):
+JavaScript
+5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+5 x 4 = 20
+Ecc…-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 4.1</title>
+</head>
+<body>
+    <div id="Tabellina_for"></div>
+    <div id="Tabellina_While"></div>
+
+    <script>
+
+        var numero= parseInt(prompt("Inserisci un numero per visualizzare la sua rispettiva Tabellina: "))
+        var tabellina_for =""
+        for (var i=0; i<=10; i++){
+            tabellina_for+= numero + " x " + i + " = " + (numero * i) + "<br>"
+        }
+        document.getElementById("Tabellina_for").innerHTML= "La tabellina con il ciclo For per il numero " + numero + " e':<br>" + tabellina_for
+
+        var tabellina_while = ""
+        var j=1
+
+        while(j<=10){
+            tabellina_while += numero + " x " + j + " = " + (numero * j) + "<br>"
+            j++
+        }
+        document.getElementById("Tabellina_While").innerHTML = "La tabellina con i ciclo While per il numero " + numero + " e':<br>" + tabellina_while
+
+    </script>
+    
+</body>
+</html>
