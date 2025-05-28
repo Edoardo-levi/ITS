@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="identico"></div>
+    <div id="non-identico"></div>
+
+    <script>
+        function uguaglianza(x,y){
+            if (x==y){
+                document.getElementById("identico").innerHTML= "L'elemento " + x + " e l'elemento  " + y + " sono identici"
+                
+            }
+            else{
+                document.getElementById("non-identico").innerHTML= "L'elemento " + x + " e l'elemento y " + y + " non sono identici"
+            }
+        }
+
+        var a= prompt("Inserisci il primo valore: ")
+        var b= prompt("Inserisci il secondo valore ")
+        uguaglianza(a,b)
+    </script>
+
+</body>
+</html>
