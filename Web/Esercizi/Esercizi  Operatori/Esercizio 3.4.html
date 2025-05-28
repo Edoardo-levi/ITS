@@ -1,0 +1,29 @@
+<!--Questo codice chiede all’utente di inserire due
+numeri, quindi ne mostra la somma. Funziona in
+maniera errata. L’output nell’esempio qui sotto è
+12. Perché? Prova a correggerlo, il risultato deve
+essere 3.
+var a = prompt("Inserisci il primo numero"); // 1
+var b = prompt("Inserisci il secondo numero"); // 2
+console.log(a + b); // 12-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Esercizio 3.4</title>
+</head>
+<body>
+    <div id="risultato"></div>
+    <script> 
+    var a = prompt("Inserisci il primo numero"); 
+    var b = prompt("Inserisci il secondo numero"); 
+
+    var x= parseInt(a)
+    var y = parseInt(b)
+    document.getElementById("risultato").innerHTML="la somma tra " + x + " e " + y + " e': " + (x+y); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!--Quale sarà il valore finale delle variabili a, b, c e
+d dopo l’esecuzione del codice sotto?
+let a = 1, b = 1;
+let c = ++a; // ?
+let d = b++; // ?-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 3.5</title>
+</head>
+<body>
+    <div id="incremetno"></div>
+    <div id="incremento_destra"></div>
+    <script>
+        
+    let a = 1, b = 1;
+    let c = ++a; // ?
+    let d = b++; //
+    document.getElementById("incremetno").innerHTML= "con la scrittura let c= ++a la variabile a ("  + a + ") verra' incrementata di 1 e alla variabile c verra' assegnato il valore " + c
+    document.getElementById("incremento_destra").innerHTML= "con la scrittura let d=b++ il valore della variabile b  verra' assegnato alla variabile d e solo successivamente d verra' incrementato. <br>Variabile b=" + b + "<br>Variabile d=" + d
+
+    </script>
+</body>
+</html>
