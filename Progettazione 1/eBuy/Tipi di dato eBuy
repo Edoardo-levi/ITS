@@ -2,4 +2,18 @@ Tipi di dato eBuy:
 
 	[V.Utente.pubblDopoRegistrazione]: Un utente non può avere post pubblicati prima della sua registrazione :
 
-		-non esistono po:PostOggetto e u:Utente tale che po.pubblicazione < u.registrazione
+		-non esistono po:PostOggetto e u:Utente tale che po.pubblicazione < u.pubblDopoRegistrazione
+
+	[V.PrivatoBid.nonSelfBid] Gli utenti privati non possono fare bid sulle aste pubblicate da loro:
+
+		- non esistono b:Bid, a:Asta, po:PostOggetto, u:Privato tale che b ∈ a.bid e a ∈ po.asta e po ∈ u.post e b.utente = u
+
+	[V.CompraloSubito.acquistoDopoPubblicazione]: Il momento di acquisto con "Compralo Subito" deve essere successivo alla pubblicazione del post:
+
+		- non esistono cs:CompraloSubito, po:PostOggetto tale che cs < po.pubblicazione
+
+	[V.FeedbackSoloSeAcquistoEffettivo]: I feedback dei post possono essere dati solo dopo che il post è stato acquistato in modalità "compralo subito" oppure se l'asta è terminata e ha un vincitore:
+		- non esistono f:Feedback, po:PostOggetto tale che f.post = po e po non è stato acquistato e po.asta non ha vincitore
+
+	[V.Categoria.noCicli]: L'albero delle categorie non può formare cicli:
+		- non esistono c:Categoria tale che c è antenato di se stesso
