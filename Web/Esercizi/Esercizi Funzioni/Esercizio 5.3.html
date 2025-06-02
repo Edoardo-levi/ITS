@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Indovina il numero</title>
+</head>
+<body>
+
+  <center>
+    <h1>Gioco: indovina il numero!</h1>
+    <input type="text" id="tentativo" placeholder="Inserisci un numero">
+    <button onclick="controlla()">Controlla</button>
+    <br><br>
+    Tentativi: <input type="text" id="conteggio" value="0" readonly>
+    <br><br>
+    <button onclick="nuovoGioco()">Nuovo Gioco</button>
+    <br><br>
+    <div id="messaggio"></div>
+  </center>
+
+  <script>
+    
+    let numeroSegreto = Math.floor(Math.random() * 101);
+    let tentativi = 0;
+
+    function controlla() {
+      let input = document.getElementById("tentativo").value;
+      let numeroUtente = parseInt(input);
+
+      if (isNaN(numeroUtente)) {
+        document.getElementById("messaggio").innerHTML = "Inserisci un numero valido!";
+        return;
+      }
+
+      tentativi++;
+      document.getElementById("conteggio").value = tentativi;
+
+      if (numeroUtente < numeroSegreto) {
+        document.getElementById("messaggio").innerHTML = "Troppo piccolo!";
+      } else if (numeroUtente > numeroSegreto) {
+        document.getElementById("messaggio").innerHTML = "Troppo grande!";
+      } else {
+        document.getElementById("messaggio").innerHTML = "Complimenti! Hai indovinato in " + tentativi + " tentativi.";
+      }
+    }
+
+    function nuovoGioco() {
+      numeroSegreto = Math.floor(Math.random() * 101);
+      tentativi = 0;
+      document.getElementById("tentativo").value = "";
+      document.getElementById("conteggio").value = "0";
+      document.getElementById("messaggio").innerHTML = "";
+    }
+  </script>
+
+</body>
+</html>

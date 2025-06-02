@@ -1,0 +1,88 @@
+<!--Calcolatrice : Scrivere una pagina html con 2
+input di tipo number e far scegliere tramite una
+select il tipo ti operazione ( + - / *) ed un
+bottone calcola che, in base all’opzione scelta
+chiama una funzione javascript che calcola e
+visualizza a video il risultato.-->
+
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Esercizio 5.6</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, select, button {
+      margin: 5px;
+      padding: 5px;
+      font-size: 1rem;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Calcolatrice</h2>
+  
+  <input type="number" id="num1" placeholder="Numero 1" />
+  <select id="operazione">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  <input type="number" id="num2" placeholder="Numero 2" />
+  
+  <button onclick="calcola()">Calcola</button>
+  
+  <div id="result"></div>
+
+  <script>
+    function calcola() {
+      const n1 = parseFloat(document.getElementById('num1').value);
+      const n2 = parseFloat(document.getElementById('num2').value);
+      const op = document.getElementById('operazione').value;
+      const resultDiv = document.getElementById('result');
+
+      // Controllo che i numeri siano validi
+      if (isNaN(n1) || isNaN(n2)) {
+        resultDiv.textContent = 'Inserisci entrambi i numeri.';
+        return;
+      }
+
+      let risultato;
+
+      switch (op) {
+        case '+':
+          risultato = n1 + n2;
+          break;
+        case '-':
+          risultato = n1 - n2;
+          break;
+        case '*':
+          risultato = n1 * n2;
+          break;
+        case '/':
+          if (n2 === 0) {
+            resultDiv.textContent = 'Errore: divisione per zero!';
+            return;
+          }
+          risultato = n1 / n2;
+          break;
+        default:
+          resultDiv.textContent = 'Operazione non valida';
+          return;
+      }
+
+      resultDiv.textContent = `Risultato: ${risultato}`;
+    }
+  </script>
+</body>
+</html>

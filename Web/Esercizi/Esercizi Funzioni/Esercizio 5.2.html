@@ -1,0 +1,52 @@
+<!--Scrivi un programma con due funzioni, la prima prende in
+ingresso un intero e verifica se sia compreso nel range da 1 a
+7. Se è compreso, la funzione restituirà TRUE, se non è
+compreso restituirà FALSE.
+La seconda funzione:
+- nel caso la prima restituisca TRUE visualizza il giorno della
+settimana corrispondente, considerando la seguente
+corrispondenza:
+1 = Lunedì
+...
+7 = Domenica
+- nel caso il giorno non sia compreso nel range, la funzione
+dovrà restituire un messaggio d'errore simile a questo:
+'Peccato, non posso indovinare il giorno.'-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Esercizio 5.2</title>
+</head>
+<body>
+    <div id="compreso"></div>
+    <div id="giorno"></div>
+
+    <script>
+        function compreso(num){
+            if (num>=1 && num <=7){
+                document.getElementById("compreso").innerHTML= "il  numero " + num + " e' compreso nell'intervallo 1-7 " 
+                return true
+            }
+            else{
+                document.getElementById("compreso").innerHTML= "il  numero " + num + " non e' compreso nell'intervallo 1-7 " 
+                return false
+        }
+    }
+        function settimana(num){
+            if (compreso(num)){
+            var giorni = ["", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
+            document.getElementById("giorno").innerHTML= "il numero " + num + " corrisponde a " + giorni[num]
+          } 
+          else {
+                document.getElementById("giorno").innerHTML =  "Peccato, non posso indovinare il giorno";
+            }
+        }
+        var x = parseInt(prompt("Inserisci un numero: "));
+        settimana(x);
+    </script>
+</body>
+</html>

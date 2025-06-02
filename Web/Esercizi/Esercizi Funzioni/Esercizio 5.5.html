@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio 5.5</title>
+</head>
+<body>
+    <div id = "risultato"></div>
+    <script>
+        function aster(){
+            let output = "";
+
+            for (let i = 10; i < 31; i++){
+              let riga = '*'.repeat(i);
+              output += riga + "<br>";
+            }
+            return output;
+        }
+        document.getElementById("risultato").innerHTML = aster()
+    </script>
+</body>
+</html>
