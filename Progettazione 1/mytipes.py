@@ -217,3 +217,10 @@ class RealGez(float):
         if n>=0:
             return n
         raise ValueError(f"Il numero inserito {v} è negativo")
+
+class PositivaInt1900(int):
+    def __new__(cls, valore: int|float|str|bool|Self) -> Self:
+        n:int = super().__new__(cls, valore)  # trasforma l'oggetto n in un oggetto int, super si riferisce alla superclasse di PositiveInt (ovvero int)
+        if n>1900:
+            return n
+        raise ValueError(f"Numero inseirto non e' maggiore di 1900")
