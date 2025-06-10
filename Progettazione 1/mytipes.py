@@ -144,12 +144,13 @@ class Voto(int):
 
 
 class Studente:
-    def __init__(self, matricolaS: str, nome: str, genere:Genere, indirizzo: Indirizzo, codicefiscale:str):
+    def __init__(self, matricolaS: str, nome: str, genere:Genere, indirizzo: Indirizzo, codicefiscale:str, anno_iscrizione:int):
         self.matricolaS=matricolaS
         self.nome=nome
         self.genere=genere
         self.indirizzo=indirizzo
         self.codicefiscale=codicefiscale
+        self.anno_iscrizione= anno_iscrizione
 
     def __hash__(self) -> int:
         return hash(self.matricolaS)
