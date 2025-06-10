@@ -1,6 +1,8 @@
 from enum import *
 from typing import Any, Self
 import re
+from datetime import *
+
 
 
 class Genere(StrEnum):
@@ -163,7 +165,7 @@ class Posizione(StrEnum):
 
 
 class Professore:
-    def __init__(self, cf: CodiceFiscale, nome:str, cognome:str, matricolaP:str, ruolo: Posizione):
+    def __init__(self, cf: CodiceFiscale, nome:str, cognome:str, matricolaP:str, ruolo: Posizione, data_nascita:date):
         self.cf= cf
         self.nome=nome
         self.cognome=cognome
