@@ -39,6 +39,14 @@ def caesar_cypher_encrypt(s,key):
         lista.append(ascii_lowercase[new_index])
     return  "".join(lista)
 
+def caesar_cypher_decrypt(s, key):
+    lista:list=[]
+    for i in s:
+        index =ascii_lowercase.index(i)
+        new_index= index-key
+        lista.append(ascii_lowercase[new_index])
+    return  "".join(lista)
+
 
 
 
