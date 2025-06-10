@@ -35,7 +35,7 @@ def caesar_cypher_encrypt(s,key):
     lista:list=[]
     for i in s:
         index =ascii_lowercase.index(i)
-        new_index= (index+key) % len(ascii_lowercase)
+        new_index= (index+key) % len(ascii_lowercase) # in questo modo se l'ultima parola è z, la codifica continua ricominciando da a 
         lista.append(ascii_lowercase[new_index])
     return  "".join(lista)
 
