@@ -1,6 +1,7 @@
 from mytipes import *
 from Impiegato import *
 from Dipartimento import *
+from Progetto import *
 from datetime import date
 
 
