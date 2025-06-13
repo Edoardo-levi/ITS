@@ -13,7 +13,21 @@ punteggiatura.
 ● Restituisci un dict dove le chiavi sono parole normalizzate e i valori sono conteggi
 interi."""
 
+from string import ascii_lowercase, punctuation
 
-def parole_uniche(test:str)-> dict[str:int]:
+def parole_uniche(text:str)-> dict[str:int]:
     dizionario:dict={}
+    text.split(" ")         # con questa funzione posso ottente le parole dell text tutte separate eritorna una lista di stringhe 
+
+    for token in text:      # il token sarebbe il singolo carattere della lista 
+        token_loewwr:str=token.lower()
+        clean_token:str=token_loewwr.strip(punctuation)
+        if not clean_token:
+            continue
+        if clean_token in dizionario:
+            dizionario[clean_token]+=1
+        else:
+            dizionario[clean_token]=1
     
+    return dizionario
+        
