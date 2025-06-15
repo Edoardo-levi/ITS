@@ -35,11 +35,26 @@ class Progetto:
         if impiegato in self._impiegati:
             raise ValueError("L'impiegato è già presente") 
         else:
-            self._impiegati[impiegato]=data_assunzione    
+            self._impiegati[impiegato]=data_assunzione   
+
+
     def is_coinvolto(self, impiegato:Impiegato)->bool:
         if impiegato in self._impiegati:
             return True
         else:
             return False
     
+    def ultimo_impiegato_coinvolto(self, impiegato:Impiegato, coinvolto:Coinvolto)-> Impiegato:
+        if impiegato in coinvolto:
+            return impiegato
+        else:
+            raise (ValueError("Errore"))
+    
+
+    def remove_impiegato(self, impiegato:Impiegato)->Impiegato:
+        if impiegato in self._impiegati:
+            self._impiegati.pop(impiegato)
+            return "l'impiegato e' stato rimosso"
+        else:
+            raise ValueError(f"Errore, l'impiegato non e' presente")
  

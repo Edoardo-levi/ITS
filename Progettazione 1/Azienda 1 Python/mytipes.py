@@ -22,11 +22,12 @@ class CodiceFiscale:
 
 
 class Valuta(str):
-    def __new__(self, valuta: str|Self) -> Self:
-        controllo=bool(re.fullmatch(r"^[A-Z]{3}", valuta))
-        if controllo==False:
-            raise ValueError("Valuta fiscale non corretto")
-        self.valuta=valuta
+    def __new__(cls, valuta: str | Self) -> Self:
+        if not re.fullmatch(r"^[A-Z]{3}$", valuta):
+            raise ValueError("Valuta non corretta")
+        return super().__new__(cls, valuta)  # Se la stringa è valida, crea e restituisce un oggetto Valuta, che è di fatto una stringa validata
+
+        
 
 
 class Denaro:
@@ -38,8 +39,8 @@ class Denaro:
     _valuta: Valuta
 
     def __init__(self, importo: float, valuta: Valuta) -> None:
-        self.importo=importo
-        self.valuta=valuta
+        self._importo=importo
+        self._valuta=valuta
 
     def importo(self) -> float:
         return self._importo
@@ -53,15 +54,16 @@ class Denaro:
     def __eq__(self, other: Self) -> bool:
         if hash(self) != hash(other):
             return False
-        return self.valuta()==other.valuta() and self.importo()==other.importo()
+        return self.valuta() == other.valuta() and self.importo() == other.importo()
     
+
     def __add__(self, other: Self) -> Self:
-        if self.valuta()!=other.valuta():
-            raise ValueError("Le valute sono idverse")
-        somma: float=self.importo() + other.importo()
+        if self.valuta() != other.valuta():
+            raise ValueError("Le valute sono diverse")
+        somma: float = self.importo() + other.importo()
         return Denaro(somma, self.valuta()) # resituisce una nuova istanza di Denaro
     
-    def __repr__(self) -> str:
+    def __repr__(self,) -> str:
         match self.valuta():
             case 'EUR':
                 val="€"
@@ -227,3 +229,6 @@ class PositivaInt1900(int):
         if n>1900:
             return n
         raise ValueError(f"Numero inseirto non e' maggiore di 1900")
+
+
+print(Denaro(10.5, 'EUR')) 
