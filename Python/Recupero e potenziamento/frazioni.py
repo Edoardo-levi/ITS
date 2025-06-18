@@ -55,4 +55,35 @@ class Frazione:
        return math.gcd(x,y)             # funzione vista su web3schools
     
 
-    
+    def semplifica(lista: list["Frazione"]):
+        lista_semplificata: list[Frazione] = []
+
+        for i in lista:
+            numeratore: int = i.get_numeratore()
+            denominatore: int = i.get_denominatore()
+
+            d: int = 2
+            d1: int = 2  # Spostati all'interno del ciclo for
+
+            while numeratore > 1:
+                if numeratore % d == 0:
+                    numeratore //= d
+                else:
+                    d += 1
+
+            while denominatore > 1:
+                if denominatore % d1 == 0:
+                    denominatore //= d1
+                else:
+                    d1 += 1
+
+            lista_semplificata.append(Frazione(numeratore, denominatore))  # Ordine corretto
+
+        return lista_semplificata
+
+
+def fractionCompare(lista:list[Frazione], lista_semplificata:list[Frazione]):
+    for i in lista:
+        for j in lista_semplificata:
+            if i.value() == j.value():
+                print(f"Valore frazione originale: {i.value} --- Valore frazione ridotta: {j.value}")
