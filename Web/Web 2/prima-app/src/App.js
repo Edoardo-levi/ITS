@@ -2,18 +2,27 @@
 import './App.css';
 import Clock from './Clock';
 import Componente1 from './Componente1';
+import StampaNumeri from './Esercizi/Stampanumeri';
+import Tabellina from './Esercizi/Tabellina';
 /*function getDate(date){
    return date.toLocaleDateString() + " " + new Date().toLocaleTimeString()
       }*/
 
 
 function App() {
-
+  const persona={
+    id:"1",
+    nome:"Edoardo",
+    cognome:"Levi"
+  }
   let nome="Edoardo";
   return (
     <div className="App">
+      <StampaNumeri></StampaNumeri>
+      <Tabellina numero="5"></Tabellina>
       <h1>Primo Elemento{nome}</h1>
-      <Componente1>Edoardo</Componente1>
+      <Componente1 {...persona}></Componente1>
+      
       <Componente1/>
       <br></br>
       <h2>
