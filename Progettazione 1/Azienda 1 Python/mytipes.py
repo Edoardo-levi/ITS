@@ -222,6 +222,14 @@ class RealGez(float):
         if n>=0:
             return n
         raise ValueError(f"Il numero inserito {v} è negativo")
+    
+class RealGz(float):
+    def __new__(cls,v:int | float | str | bool |Self) -> Self:
+        n:float =super().__new__(cls, v)
+
+        if n>0:
+            return n
+        raise ValueError(f"Il numero inserito {v} non è maggiore di 0")
 
 class PositivaInt1900(int):
     def __new__(cls, valore: int|float|str|bool|Self) -> Self:
@@ -231,4 +239,3 @@ class PositivaInt1900(int):
         raise ValueError(f"Numero inseirto non e' maggiore di 1900")
 
 
-print(Denaro(10.5, 'EUR')) 
