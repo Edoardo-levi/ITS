@@ -87,18 +87,21 @@ class Mostro(Creatura):
             self.__assalto.append(numeri_casuali)
     
 
-    def __setVittoria(self, vittoria:str) -> None:
+    def __setVittoria(self, vittoria: str) -> None:
         if vittoria != "GRAAAHHH".upper():
             self.__urlo_vittoria = "GRAAAHHH".upper()
         else:
+            self.__urlo_vittoria = vittoria
             print("L'urlo di vittoria è impostato correttamente.")
+
         
     def __setSconfitta(self, gemito_sconfitta:str) -> None:
-
         if gemito_sconfitta != "Uuurghhh".title():
             self.__gemito_sconfitta = "Uuurghhh".title()
         else:
+            self.__gemito_sconfitta = gemito_sconfitta  
             print("Il gemito di sconfitta è impostato correttamente.")
+
 
     def get_urlo_vittoria(self) -> str:
         return self.__urlo_vittoria
@@ -162,3 +165,53 @@ def combattimento(a: Alieno, m: Mostro)-> Creatura | None:
         
         print(m.get_gemito_sconfitta())
         return a
+
+def proclamaVincitore(c: Creatura) -> None:
+    contenuto = str(c)
+    larghezza = len(contenuto) + 10
+    altezza = 5
+
+    for i in range(altezza):
+        for j in range(larghezza):
+            if i == 0 or i == altezza - 1:
+                print("*", end="")
+            elif j == 0 or j == larghezza - 1:
+                print("*", end="")
+            elif i == 2 and j == 5:
+                print(contenuto, end="     *")
+                break  
+            else:
+                print(" ", end="")
+        print()
+
+
+def main():
+    
+    alieno = Alieno("alieno")
+    mostro = Mostro("Gorthor", "GRAAAHHH", "Uuurghhh")
+
+    
+    print(f"\n{alieno}")
+    print(f"Munizioni: {alieno.get_munizioni()}")
+
+   
+    print(f"\n{mostro}")
+    print(f"Assalto: {mostro.get_assalto()}")
+
+    
+    print("\nCombattimento")
+    vincitore = combattimento(alieno, mostro)
+
+    
+    if isinstance(vincitore, Alieno):
+        print("\nGli Alieni hanno vinto!\n")
+    elif isinstance(vincitore, Mostro):
+        print("\nI Mostri hanno vinto!\n")
+
+    if vincitore:
+        proclamaVincitore(vincitore)
+
+
+
+if __name__ == "__main__":
+    main()
