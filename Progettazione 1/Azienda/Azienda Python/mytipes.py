@@ -195,41 +195,29 @@ if hash(st)==hash(st1):
     raise ValueError("Due studenti non possono avere stesso numero di matricola")
 
 
-
 class NumeroTelefono(str):
-    n:str
-
-    def __new__(cls, n:str):
-        if n != re.compile(r"^(?:\+39\s?)?(?:(?:3\d{2})|(0\d{1,3}))[\s.-]?\d{6,7}$"):
+    def __new__(cls, n: str):
+        pattern = r"^(?:\+39|0039)?\s*(?:3\d{2}|\d{2,4})[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
+        if not re.fullmatch(pattern, n):
             raise ValueError("rispettare i parametri per il numero di telefono")
-        return str.__new__(n)
-    
-class RealeMaggioreDiZero:
-    def _init_(self, reale):
-        if reale > 0:
-            self.reale = reale
-        else:
-            raise ValueError(f"Il numero {self.reale} è minore di zero")
+        return super().__new__(cls, n)
 
-    def _str_(self):
-        return f"Il numero scelto è {self}"
+
     
 
-class RealGez(float):
+class RealeMinoreUgualeDiZero(float):
     def __new__(cls,v:int | float | str | bool |Self) -> Self:
         n:float =super().__new__(cls, v)
 
         if n>=0:
             return n
-        raise ValueError(f"Il numero inserito {v} è negativo")
+        raise ValueError(f"Il numero inserito {v} è positivo o uguale a 0")
     
-class RealGz(float):
-    def __new__(cls,v:int | float | str | bool |Self) -> Self:
-        n:float =super().__new__(cls, v)
-
-        if n>0:
-            return n
-        raise ValueError(f"Il numero inserito {v} non è maggiore di 0")
+class RealeMaggioreDiZero(float):
+    def __new__(cls, value):
+        if value <= 0:
+            raise ValueError("Il valore deve essere maggiore di zero.")
+        return float.__new__(cls, value)
 
 class PositivaInt1900(int):
     def __new__(cls, valore: int|float|str|bool|Self) -> Self:

@@ -10,9 +10,9 @@ class Coinvolto:
     # é una classe 'factory': non ha oggetti suoi:
     # serve solo a creare oggetti di un'altra classe (in questo caso di _link)
     @classmethod 
-    def add(cls, impiegato:Impiegato, progetto:Progetto)->None:
+    def add(cls, impiegato:Impiegato, progetto:Progetto, data_inizio:date)->None:
          #crea il link l (impiegato proggetto)
-         l= cls._link(impiegato,progetto)
+         l= cls._link(impiegato,progetto,data_inizio)
          impiegato.add_link_coinvolto(l) # deve essere un metodo in Impiegato che registra il link nell'impiegato 
          progetto.add_link_coinvolto(l)  # deve essere un metodo in Proggetto che registra il link nel Progetto
     class _link:

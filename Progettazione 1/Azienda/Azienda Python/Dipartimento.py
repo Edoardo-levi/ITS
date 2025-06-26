@@ -15,6 +15,7 @@ class Dipartimento:
         # self.set_telefoni({tel})
 
         self.set_indirizzo(ind)
+        self._link_afferenza = set()
 
     def nome(self) -> str:
         return self._nome
@@ -44,6 +45,9 @@ class Dipartimento:
             self._telefoni.remove(NumeroTelefono)
         else:
             raise RuntimeError("Il dipartimento deve avere almeno un NumeroTelefonoro di NumeroTelefono")
+    
+    def add_link_afferenza(self, link):
+        self._link_afferenza.add(link)
 
     def __str__(self):
         if self._indirizzo is None:

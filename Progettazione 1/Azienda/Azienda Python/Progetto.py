@@ -14,6 +14,7 @@ class Progetto:
        self.set_nome(nome)
        self.set_budget(budget)
        self._impiegati=dict()
+       self._coinvolti = []
     
 
     def nome(self)->str:
@@ -60,4 +61,10 @@ class Progetto:
 
     def impiegati(self) -> frozenset['Coinvolto']:
         return frozenset(self._impiegati)
+    
+    def add_link_coinvolto(self, link):
+        self._coinvolti.append(link)
+
+    def get_link_coinvolti(self):
+        return self._coinvolti
  
