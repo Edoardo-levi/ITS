@@ -22,11 +22,12 @@ class CodiceFiscale:
 
 
 class Valuta(str):
-    def __new__(self, valuta: str|Self) -> Self:
-        controllo=bool(re.fullmatch(r"^[A-Z]{3}", valuta))
-        if controllo==False:
-            raise ValueError("Valuta fiscale non corretto")
-        self.valuta=valuta
+    def __new__(cls, valuta: str | Self) -> Self:
+        if not re.fullmatch(r"^[A-Z]{3}$", valuta):
+            raise ValueError("Valuta non corretta")
+        return super().__new__(cls, valuta)  # Se la stringa è valida, crea e restituisce un oggetto Valuta, che è di fatto una stringa validata
+
+        
 
 
 class Denaro:
@@ -38,8 +39,8 @@ class Denaro:
     _valuta: Valuta
 
     def __init__(self, importo: float, valuta: Valuta) -> None:
-        self.importo=importo
-        self.valuta=valuta
+        self._importo=importo
+        self._valuta=valuta
 
     def importo(self) -> float:
         return self._importo
@@ -53,15 +54,16 @@ class Denaro:
     def __eq__(self, other: Self) -> bool:
         if hash(self) != hash(other):
             return False
-        return self.valuta()==other.valuta() and self.importo()==other.importo()
+        return self.valuta() == other.valuta() and self.importo() == other.importo()
     
+
     def __add__(self, other: Self) -> Self:
-        if self.valuta()!=other.valuta():
-            raise ValueError("Le valute sono idverse")
-        somma: float=self.importo() + other.importo()
+        if self.valuta() != other.valuta():
+            raise ValueError("Le valute sono diverse")
+        somma: float = self.importo() + other.importo()
         return Denaro(somma, self.valuta()) # resituisce una nuova istanza di Denaro
     
-    def __repr__(self) -> str:
+    def __repr__(self,) -> str:
         match self.valuta():
             case 'EUR':
                 val="€"
@@ -184,42 +186,38 @@ class PositiveInt(int): # la classe eredita dal tipo 'int'
             return n
         raise ValueError(f"Numero inseirto non positivo")
 
-indirizzo1=Indirizzo("Via Mattia Battistini", "52")
-indirizzo2=Indirizzo("Via del Forte Boccea", "115")
-st=Studente("12234", "pippo", "uomo", indirizzo1, CodiceFiscale("VLNDRD03S28H501I"))
-st1=Studente("2234", "pina", "donna", indirizzo2, CodiceFiscale("VLNDRD03S28H501I"))
+indirizzo1=Indirizzo("Via Mattia Battistini", "52", CAP("00144"))
+indirizzo2=Indirizzo("Via del Forte Boccea", "115", CAP("00154"))
+st=Studente("12234", "pippo", "uomo", indirizzo1, CodiceFiscale("VLNDRD03S28H501I"), anno_iscrizione=2025)
+st1=Studente("2234", "pina", "donna", indirizzo2, CodiceFiscale("VLNDRD03S28H501I"), anno_iscrizione=2009)
 
 if hash(st)==hash(st1):
     raise ValueError("Due studenti non possono avere stesso numero di matricola")
 
 
-
 class NumeroTelefono(str):
-    n:str
-
-    def __new__(cls, n:str):
-        if n != re.compile(r"^(?:\+39\s?)?(?:(?:3\d{2})|(0\d{1,3}))[\s.-]?\d{6,7}$"):
+    def __new__(cls, n: str):
+        pattern = r"^(?:\+39|0039)?\s*(?:3\d{2}|\d{2,4})[\s.-]?\d{3,4}[\s.-]?\d{3,4}$"
+        if not re.fullmatch(pattern, n):
             raise ValueError("rispettare i parametri per il numero di telefono")
-        return str.__new__(n)
-    
-class RealeMaggioreDiZero:
-    def _init_(self, reale):
-        if reale > 0:
-            self.reale = reale
-        else:
-            raise ValueError(f"Il numero {self.reale} è minore di zero")
+        return super().__new__(cls, n)
 
-    def _str_(self):
-        return f"Il numero scelto è {self}"
+
     
 
-class RealGez(float):
+class RealeMinoreUgualeDiZero(float):
     def __new__(cls,v:int | float | str | bool |Self) -> Self:
         n:float =super().__new__(cls, v)
 
         if n>=0:
             return n
-        raise ValueError(f"Il numero inserito {v} è negativo")
+        raise ValueError(f"Il numero inserito {v} è positivo o uguale a 0")
+    
+class RealeMaggioreDiZero(float):
+    def __new__(cls, value):
+        if value <= 0:
+            raise ValueError("Il valore deve essere maggiore di zero.")
+        return float.__new__(cls, value)
 
 class PositivaInt1900(int):
     def __new__(cls, valore: int|float|str|bool|Self) -> Self:
@@ -227,3 +225,14 @@ class PositivaInt1900(int):
         if n>1900:
             return n
         raise ValueError(f"Numero inseirto non e' maggiore di 1900")
+
+class PosizioneMilitare(Enum):
+    SOLDATO = "Soldato"
+    SERGENTE = "Sergente"
+    TENENTE = "Tenente"
+    CAPITANO = "Capitano"
+    MAGGIORE = "Maggiore"
+    COLONNELLO = "Colonnello"
+    GENERALE = "Generale"
+
+
