@@ -236,9 +236,9 @@ class PosizioneMilitare(Enum):
     GENERALE = "Generale"
 
 class Ruolo(Enum):
-    AMMINISTRATIVO = auto()
-    TECNICO = auto()
-    MANAGER = auto()
-    DIRIGENTE = auto()
+    SEGRETARIO = auto()
+    DIRETTORE = auto()
+    PROGETTISTA = auto()
+    
 
 
