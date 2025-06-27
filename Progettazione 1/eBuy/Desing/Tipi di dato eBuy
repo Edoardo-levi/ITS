@@ -1,0 +1,49 @@
+Tipi di dato eBuy:
+
+	[V.Utente.pubblDopoRegistrazione]: Un utente non può avere post pubblicati prima della sua registrazione :
+
+		-non esistono po:PostOggetto e u:Utente tale che po.pubblicazione < u.registrazione
+
+	[V.PrivatoBid.nonSelfBid] Gli utenti privati non possono fare bid sulle aste pubblicate da loro:
+		- per ogni ut:Privato sia po:PostOggetto tale che (ut,po): priv_ut e sia b:bid tale che (ut,b): bid_ut, non esiste (b,po):asta_bid
+
+	[V.CompraloSubito.acquistoDopoPubblicazione]: Il momento di acquisto con "Compralo Subito" deve essere successivo alla pubblicazione del post:
+
+		- sia cs: CompraloSubito sia p:privato tale che (cs,p): cs_ut, deve essere cs.pubblicazione < ut.registrazione 
+
+	[V.FeedbackSoloSeAcquistoEffettivo]: I feedback dei post possono essere dati solo dopo che il post è stato acquistato in modalità "compralo subito" oppure se l'asta è terminata e ha un vincitore:
+
+		- per ogni o:PostOggeto, cs:CompraloSubito, b:bid, u:Utente se esiste il link di associazione (p, b):asta_bid e il link di associazione (cs,u): cs_ut allora possono esistere istanze di PostConFeedback
+
+	[V.Categoria.noCicli]: L'albero delle categorie non può formare cicli:
+		- Per ogni c[1],....,c[n]: Categoria dove:
+			-(c[1],c[2]):sottocategoria
+			-(c[2],c[3]):sottocategoria
+			-....
+			-(c[n-1],c[n]):sottocategoria
+		Non può esistere (c[n],[c1]):sottocategoria
+
+
+	conclusa(): Booleano:
+		-precondizioni: 
+			nessuna.
+		-postcondizioni:
+			- Non ha side effect
+			- Se adesso > "this".scadenza, result = true
+			-Altrimenti result = flase 
+
+
+	ultimo_bid(i:DataOra): Bid[0..1]:
+		-precondizioni:
+			nessuna
+		-postcondizioni:
+			- Non ha side effect
+			- Sia B l'insieme dei b:Bid coinvolti in asta_bid con this, tale che b.istante <= i
+			- result è il b in Bid con b.istante maggiore
+
+	vincitore(): Utente[0..1]
+		-precondizioni:
+			- this.conclusa() è ture
+		-postcondizioni:
+			- b = this.ultimo_bid(adesso)
+			- result è il p:Privato tale che sia coinvolto in un link di associazione bid_ut con b

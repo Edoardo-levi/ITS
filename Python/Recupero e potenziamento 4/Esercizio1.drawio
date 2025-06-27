@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="26.0.16">
+  <diagram name="Pagina-1" id="7gNGYHzqi7BD_S6s9R7e">
+    <mxGraphModel dx="2261" dy="684" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-1" target="VTgs05OgdeoYW5yN1aQ8-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="347.5" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-2" value="tariffa_minima = 2&lt;div&gt;ore_parcheggio = 0&lt;/div&gt;&lt;div&gt;tariffa = 0&lt;/div&gt;&lt;div&gt;incremento_tariffa=0,50&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="334.5" y="180" width="146" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-7" value="TRUE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-4" target="VTgs05OgdeoYW5yN1aQ8-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-11" value="FALSE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-4" target="VTgs05OgdeoYW5yN1aQ8-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-4" value="if ore_parcheggio &amp;lt;= 3" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="314.5" y="535" width="186" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-6" target="VTgs05OgdeoYW5yN1aQ8-45">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-6" value="tariffa = 2" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="615" y="550" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-13" target="VTgs05OgdeoYW5yN1aQ8-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-16" value="TRUE" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VTgs05OgdeoYW5yN1aQ8-15">
+          <mxGeometry x="-0.0857" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-17" value="FALSE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-13" target="VTgs05OgdeoYW5yN1aQ8-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="705" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-13" value="if ore_parcheggio == 24" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="530" width="170" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="VTgs05OgdeoYW5yN1aQ8-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-200" y="590" as="sourcePoint" />
+            <mxPoint x="50" y="1012.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-200" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-14" value="tariffa = 10" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-190" y="547.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-2" target="VTgs05OgdeoYW5yN1aQ8-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="407.5" y="380" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-24" target="VTgs05OgdeoYW5yN1aQ8-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-24" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;inserisci le ore di parcheggio&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="347.5" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-27" target="VTgs05OgdeoYW5yN1aQ8-42">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="1016" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-34" value="FALSE" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VTgs05OgdeoYW5yN1aQ8-33">
+          <mxGeometry x="-0.1429" y="4" relative="1" as="geometry">
+            <mxPoint y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-27" target="VTgs05OgdeoYW5yN1aQ8-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-37" value="TRUE" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VTgs05OgdeoYW5yN1aQ8-36">
+          <mxGeometry x="-0.1846" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-27" value="if ore_parcheggio &amp;gt;3 and ore_parcheggio &amp;lt;=23" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="720" width="220" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-32" target="VTgs05OgdeoYW5yN1aQ8-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-32" value="ore_parcheggio,&lt;div&gt;tariffa&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-35" target="VTgs05OgdeoYW5yN1aQ8-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-35" value="tariffa = tariffa_minima + ((ore_parcheggio-3) * 0,50)" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="755" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-42" target="VTgs05OgdeoYW5yN1aQ8-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-42" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1010" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VTgs05OgdeoYW5yN1aQ8-45" target="VTgs05OgdeoYW5yN1aQ8-32">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="1110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-45" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="400" y="990" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="VTgs05OgdeoYW5yN1aQ8-50" value="end" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1200" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,53 @@
+Specifica use case eBuy:
+
+
+	Strumenti Vendita (Pubblica_compraloSubito):
+		Pubblica_compraloSubito(prezzo: Reale>= 0, descrizione: Stringa, anni_garanzia: Intero>= 0, metodo_pagamento: MetodoDiPagametno, is_nuovo: Booleano, categoria:Categoria, condizione: Condizione [0..1]): CompraloSubito
+
+			Pre Condizioni:
+				- is_nuovo = false se e solo se condizione è valorizzato
+				- se il_nuovo = true allora anni_garanzia >= 2
+				- se l'attore che invoca l'operazione è un privato, allora is_Nuovo  = false 
+
+			Post Condizioni:
+				- Creiamo l'oggetto cs di classe CompraloSubito (cs:CompraloSubito) con:
+					- cs.prezzo= prezzo
+					- cs.anni_garanzia = anni_garanzia
+					- cs.descrizione = descrizione
+					- cs.pubblicazione = adesso
+				- Se is_nuovo = true:
+					- cs è di classe Nuovo (cs:Nuovo)
+				- Altrimenti (is_nuovo = false):
+					- cs è di calsse Usato (cs:Usato)
+					- cs.condizione = condizione
+				- Creiamo il link che coinvolge cs e categoria "categoria_post" (in breve: (cs,categoria): categoria_post)
+				- Creiamo il link che coinvolge cs e metodo_pagametno "pst_metodoPagamento" (in breve: (cs,metodo_pagamento):post_petodo_pagamento)
+				-  Sia u:utente, se u è di tipo u_VenditreProf:
+					- creiamo il link (cs, u): post_ut
+				- Altrimenti (u:Privato):
+					- creiamo il link (u_cd):priv_us
+				result = cs
+
+
+	Strumenti Registrazione:
+		- registra_utente_privato(username: Stringa): Privato
+
+			Pre Condizioni:
+				- non un u:Utente tale che u.username sia uguale a username.
+			
+			Post Condizioni:
+				- Crea e restituisce l'oggetto u:Utente e assenga:
+					- u.username = username
+					- u.registrazione= adesso
+
+
+	Strumenti Acquisto:
+		acquista_compralo_subito(cs:CompraloSubito, mp:MetodoDiPagaemtno):
+
+			Pre Condizioni:
+			- Esiste il link(cs,md):post_met
+				- cs non partecipa già a un link di associazione cs_ut
+
+			Post Condizioni:
+				- Crea il link di associazione cs_ut tra cs e l'attore relativo  all'oggetto u:Privato che invoca l'operazione.
+				- Assegnamo (cs,u).istante = adesso.
