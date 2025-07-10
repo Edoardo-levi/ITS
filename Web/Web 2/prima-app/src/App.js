@@ -1,5 +1,6 @@
 
 import './App.css';
+import CleanUp from './CleanUp';
 import Clock from './Clock';
 import Componente1 from './Componente1';
 import StampaNumeri from './Esercizi/Stampanumeri';
@@ -18,6 +19,9 @@ function App() {
   let nome="Edoardo";
   return (
     <div className="App">
+      <Clock timezone="0" country="Italia"></Clock>
+      <CleanUp></CleanUp>
+
       <StampaNumeri></StampaNumeri>
       <Tabellina numero="5"></Tabellina>
       <h1>Primo Elemento{nome}</h1>
