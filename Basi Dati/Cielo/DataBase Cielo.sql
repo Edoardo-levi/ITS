@@ -29,11 +29,12 @@ create table LuogoAeroporto (
     citta StringaM not null,
     nazione StringaM not null,
     primary key (aeroporto),
-    foreign key (aeroporto) references Aeroporto(codice) deferrable
+    foreign key (aeroporto) references Aeroporto(codice)  on delete cascade deferrable
 );
 
 alter table Aeroporto
-add foreign key (codice) references LuogoAeroporto(aeroporto) deferrable;
+add constraint aeroposto_lugoaeroporto
+    foreign key (codice) references LuogoAeroporto(aeroporto) deferrable;
 
 create table ArrPart (
   codice PosInteger not null,
