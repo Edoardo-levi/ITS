@@ -127,3 +127,12 @@ create table Assenza (
 		references Persona(id)
 
 );
+
+
+
+
+
+
+
+-- Interrogazione DataBase
+
