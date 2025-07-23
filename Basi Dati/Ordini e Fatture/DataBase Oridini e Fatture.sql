@@ -14,6 +14,8 @@ create domain Email AS varchar
 	check ( value ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 );
 
+create domain Cap as varchar (5)
+	check(value ~ '[0-9]{5}');
 
 create type StatoOrdine as
 	enum ('In Preparazione', 'Inviato', 'Da Saldare', 'Saldato');
@@ -24,6 +26,8 @@ create domain RealTZU as real
 create type Indirizzo(
 	via varchar(100),
 	civico integer,
-	cap integer
+	cap Cap
 );
 	
+create domain IntGEZ as integer
+	check(value>=0)
