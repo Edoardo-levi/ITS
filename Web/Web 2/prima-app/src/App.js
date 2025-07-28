@@ -6,6 +6,7 @@ import Clock from './Clock';
 import Componente1 from './Componente1';
 import StampaNumeri from './Esercizi/Stampanumeri';
 import Tabellina from './Esercizi/Tabellina';
+import FetchComponent from './FetchComponent';
 import LoginForm from './LoginForm';
 /*function getDate(date){
    return date.toLocaleDateString() + " " + new Date().toLocaleTimeString()
@@ -23,6 +24,7 @@ function App() {
   return (
 
     <div className="App">
+      <FetchComponent></FetchComponent>
       <LoginForm></LoginForm>
         <CambiaNome></CambiaNome>
 
