@@ -23,6 +23,9 @@ create type StatoOrdine as
 create domain RealTZU as real
 	check(value >=0 and value <=1);
 
+create domain RealGEZ as real
+	check (value >=0);
+
 create type Indirizzo(
 	via varchar(100),
 	civico integer,
@@ -30,4 +33,84 @@ create type Indirizzo(
 );
 	
 create domain IntGEZ as integer
-	check(value>=0)
+	check(value>=0);
+
+create domain StringaM as varchar(100);
+
+
+
+-- Creazione Tabelle
+
+
+create table Citta (
+
+	nome StringaM not null,
+
+	primary key (nome)
+);
+
+create table Regione (
+
+	nome StringaM not null,
+
+	primary key (nome)
+);
+
+create table Nazione (
+
+	nome StringaM not null,
+
+	primary key (nome)
+);
+
+
+create table Direttore (
+
+	nome StringaM not null,
+	cognome StringaM not null,
+	cf CodiceFiscale not null,
+	anni_servizio integer not null,
+	data_nascita data_nascita,
+
+	primary key (cf)
+
+);
+
+create table Fornitore (
+
+	ragione_sociale StringaM not null,
+	partita_iva PartitaIVA not null,
+	indirizzo Indirizzo not null,
+	telefono Telefono not null,
+	email Email not null
+
+	primary key(partita_iva)
+
+);
+
+create table Dipartimetno (
+
+	nome StringaM not null,
+	indirizzo Indirizzo not null,
+
+	primary key (nome)
+);
+
+
+create table StatoOrdine (
+
+	nome StringaM not null,
+	primary key (nome)
+);
+
+create table Ordine (
+
+	data_stipula date not null,
+	imponibile Regione not null,
+	aliquota RealTZU not null,
+	descrizione StringaM not null,
+	codice integer not null,
+
+	primary key (codice)
+
+);
