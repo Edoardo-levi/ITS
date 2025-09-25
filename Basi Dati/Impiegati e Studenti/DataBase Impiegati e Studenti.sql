@@ -27,48 +27,41 @@ create domain IntGEZ as integer
 
 -- Creazione tabelle
 
-
 create table Posizionemilitare (
-
 	nome Stringa not null,
-
 	primary key (nome)
-
 );
 
 create table Persona (
-
 	nome Stringa not null,
 	cognome Stringa not null,
 	cf CodiceFiscale not null,
 	nascita date not null,
 	genere Genere not null,
 	maternita Maternita not null,
-
-	primary key (cf)
-
+	pos_mil_nome Stringa, -- FK verso PosizioneMilitare
+	primary key (cf),
+	foreign key (pos_mil_nome) references Posizionemilitare(nome)
 );
 
 create table Studente (
-
 	matricola IntGEZ not null,
-
-	primary key (matricola)
-
+	cf CodiceFiscale not null unique, -- FK verso Persona
+	primary key (matricola),
+	foreign key (cf) references Persona(cf)
 );
 
 create table Impiegato (
-
 	stipendio RealGEZ not null,
 	ruolo Ruolo not null,
 	is_responsabile Responsabile not null,
-
-	primary key (ruolo)
+	cf CodiceFiscale not null unique, -- FK verso Persona
+	primary key (cf),
+	foreign key (cf) references Persona(cf)
 );
 
 create table Progetto (
-
 	nome Stringa not null,
-
-	primary key (nome)
-);
+	cf_impiegato CodiceFiscale, -- FK verso Impiegato (responsabile progetto)
+	primary key (nome),
+	foreign key (cf_impiegato) references Impiegato(cf)

@@ -1,137 +1,109 @@
--- Creazione di Domini
+create domain CodiceFiscale as char(16) check (value ~ '^[A-Z0-9]{16}$');
 
-create domain CodiceFiscale as varchar(16)
-	check (value ~ '^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$'
+create domain PartitaIva as char(11) check (value ~ '^[0-9]{11}$');
+
+create domain IntGEZ as integer check (value >= 0);
+
+create domain RealGEZ as numeric check (value >= 0);
+
+create domain RealBzo as numeric check (
+    value >= 0
+    and value <= 1
 );
 
-create type PartitaIVA as varchar(11)
-	check (value ~ '^[0-9]{11}$');
+create domain Cap as char(5) check (value ~ '^[0-9]{5}(-[0-9]{4})?$');
 
+create domain stringa as varchar;
 
-create domain Telefono as varchar (16);
-
-create domain Email AS varchar
-	check ( value ~ '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+create type Indirizzo as (
+    via stringa,
+    civico IntGEZ,
+    cap Cap
 );
 
-create domain Cap as varchar (5)
-	check(value ~ '[0-9]{5}');
 
-create type StatoOrdine as
-	enum ('In Preparazione', 'Inviato', 'Da Saldare', 'Saldato');
-
-create domain RealTZU as real 
-	-- TZU (Tra Zero e Uno)
-	check(value >=0 and value <=1);
-
-create domain RealGEZ as real
-	check (value >=0);
-
-create type Indirizzo(
-	via varchar(100),
-	civico integer,
-	cap Cap
+create type statoOrdine as enum(
+    'Da saldare',
+    'Saldato',
+    'In preparazione',
+    'Inviato'
 );
-	
-create domain IntGEZ as integer
-	check(value>=0);
 
-create domain StringaM as varchar(100);
+create domain Telefono as varchar (10);
+
+create domain Email as varchar check
+    (value ~ '^[A-Za-z0-9._%\-+!#$&/=?^|~]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 
 
 
--- Creazione Tabelle
-
-create table Citta (
-
-	nome StringaM not null,
-
-	primary key (nome),
-
-	foreign key (regione) 
-		references Regione (nome)
-
+create table nazione (
+    nome stringa primary key
 );
-create table Regione (
 
-	nome StringaM not null,
-
-	primary key (nome),
-
-	foreign key (nazione)
-		references Nazione (nome)
-
+create table regione (
+    nome stringa not null,
+    nazione stringa not null,
+    primary key (nome, nazione),
+    foreign key (nazione) references nazione(nome)
 );
-create table Nazione (
 
-	nome StringaM not null,
-
-	primary key (nome)
-
+create table citta (
+    id serial primary key, -- serial indica una colonna di valori che genera automaticamente valori unici,
+                        --incrementa un valore per ogni riga nella tabella
+    nome stringa not null,
+    regione stringa not null,
+    nazione stringa not null,
+    unique (nome, regione, nazione),
+    foreign key (regione, nazione) references regione(nome, nazione)
 );
-create table Direttore (
 
-	nome StringaM not null,
-	cognome StringaM not null,
-	cf CodiceFiscale not null,
-	anni_servizio IntGEZ not null,
-	data_nascita date not null,
-
-	primary key (cf),
-
-	foreign key citta
-		references Citta (nome)
-
+create table direttore (
+    nome stringa not null,
+    congome stringa not null, 
+    cf CodiceFiscale primary key,
+    servizio IntGEZ not null, 
+    nascita date not null,
+    citta IntGEZ not null,
+    foreign key (citta) references citta(id)
 );
-create table Dipartimento (
 
-	nome StringaM not null,
-	indirizzo Indirizzo not null,
-
-	primary key (nome),
-
-	foreign key direttore
-		references Direttore (cf),
-
-	foreign key citta
-		references Citta (nome)
+create table dipartimento (
+    nome stringa primary key,
+    indirizzo indirizzo not null,
+    citta IntGEZ not null,
+    foreign key (citta) references citta(id),
+    direttore CodiceFiscale not null,
+    foreign key (direttore) references direttore(cf)
 );
-create table Fornitore (
 
-	ragione_sociale StringaM not null,
-	partita_iva PartitaIVA not null,
-	indirizzo Indirizzo not null,
-	telefono Telefono not null,
-	email Email not null,
-
-	primary key (partita_iva),
-
-	foreign key citta
-		references Citta (nome),
-	foreign key ordine
-		references Ordine (codice)
-
+create table fornitore (
+    nome stringa not null,
+    iva PartitaIva primary key,
+    indirizzo Indirizzo not null,
+    telefono Telefono not null,
+    email Email not null,
+    citta IntGEZ not null,
+    foreign key(citta) references citta(id)
 );
-create table Ordine (
 
-	data_stipula Date not null,
-	imponibile RealGEZ not null,
-	aliquota RealTZU not null,
-	descrizione StringaM not null,
-	codice IntGEZ not null,
-
-	primary key (codice),
-
-	foreign key dipartimento
-		references Dipartimento (nome),
-	foreign key statoordine
-		references StatoOrdine (nome)
-
+create table stati (
+    stato stringa primary key
 );
-create table StatoOrdine (
 
-	nome StringaM not null,
-
-	primary key (nome)
-
+create table ordine (
+    codice IntGEZ primary key,
+    data_stipula date not null,
+    imponibile RealGEZ not null,
+    aliquota RealBzo not null,
+    descrizione stringa not null,
+    dipartimento stringa not null,
+    foreign key (dipartimento) references dipartimento(nome),
+    stato stringa not null,
+    foreign key (stato) references stati (stato),
+    fornitore PartitaIva not null,
+    foreign key (fornitore) references fornitore(iva)
 );
+
+
+select extract ('year' from age(current_date, nascita)) from direttore where direttore.cf="ecc";
+-- con questa riga di codice, ottengo gli anni dei direttori con cf = "ecc"
