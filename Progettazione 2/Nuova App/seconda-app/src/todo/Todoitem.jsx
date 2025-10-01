@@ -1,8 +1,7 @@
+import React, { useState } from "react";
 
-import React from "react";
-
-
-const Todoitem = ({task,onDeleteTask,onToggleTask}) => {
+const Todoitem = ({ task, onDeleteTask, onToggleTask }) => {
+  const [isEditing, setIsEditing] = useState(false)
   return (
     <li className="list-group-item d-flex justify-content-between">
       <div>
@@ -10,15 +9,18 @@ const Todoitem = ({task,onDeleteTask,onToggleTask}) => {
           className="form-check-input me-2"
           type="checkbox"
           checked={task.completed}
-          onChange={()=>{onToggleTask(task.id,task.completed)}}
+          onChange={() => { onToggleTask(task.id, task.completed) }}
         ></input>
-        <span
+        {isEditing ? (<input type="text" className="form-control"></input>) : (<span
           style={{
             textDecoration: task.completed ? "line-through" : "none",
           }}
+          onDoubleClick={() => setIsEditing(true)}
         >
+          {" "}
           {task.text}
-        </span>
+        </span>)}
+
       </div>
       <button
         className="btn btn-danger"

@@ -19,11 +19,11 @@ n= "00a5cae65abe0b036c27b740326e37"+\
 
 decimale = int(n,16) # trasformazione del numero esadecimale a decimale 
 M="Ciao come va?.."
-Mi=int(M.encode("utf-8").hex(), 16)
+Mi=int(M.encode("utf-8").hex(), 16) # trasforma l'imput in esadecimale .hex() prende quei bytes e li rappresenta come stringa esadecimale.
 print(Mi)
 e=3
 
-c=pow(Mi,e,decimale) # cifratura del messaggio
+c=pow(Mi,e,decimale) # cifro il messaggio con esponente pubblico (3) e il modulo 
 
 print(c)
 
