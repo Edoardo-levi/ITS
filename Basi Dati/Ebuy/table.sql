@@ -9,7 +9,7 @@ create table Utente (
 create table PostOggetto (
     codice IntGEZ primary key,
     descrizione Stringa not null,
-    pubblicazione datetime not null,
+    pubblicazione date not null,
     ha_feedback boolean not null,
     voto Voto,
     commento Stringa,
@@ -38,7 +38,7 @@ create table PostOggettoAsta(
     foreign key (codice) references PostOggetto(codice),
     prezzo_base RealGZ not null,
     prezzo_bid RealGZ not null,
-    scadenza datetime not null
+    scadenza date not null
 );
 
 create table PostOggettoCompraloSubito(
@@ -50,7 +50,7 @@ create table PostOggettoCompraloSubito(
 
 create table Bid (
     
-    istante date not null,
+    istante timestamp not null,
     primary key (istante),
     foreign key (utente) references Utente(username),
     foreign key (codice) references PostOggettoAsta(codice)

@@ -1,0 +1,21 @@
+-- 1
+	select posizione, count(posizione) as Numero_Strutturato
+		from Persona
+			group by posizione;
+
+
+-- 2
+	select count(stipendio)
+		from persona
+			where stipendio>=40000;
+				
+
+-- 3
+	select count(Progetto)
+		from Progetto
+			where progetto.fine < CURRENT_DATE and budget > 50000;
+
+-- 4
+	select max(oredurata) Massimo, min(oredurata) Minimo, avg (oredurata) as media
+		from AttivitaProgetto, Progetto
+			where progetto.nome = 'Pegasus' and Progetto.id = AttivitaProgetto.progetto;

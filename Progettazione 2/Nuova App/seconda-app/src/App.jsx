@@ -6,6 +6,7 @@ import UserCrud from './UserCrud'
 import Saluto from './Saluto'
 import TodoApp from './todo/TodoApp'
 import MainComponent from './UseContext/MainComponent'
+import ProvaRoutes from './routes/ProvaRoutes'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,7 +14,8 @@ function App() {
   return (
     <>
     {/* <MainComponent></MainComponent>  per mettere i commenti spingere cntrl ù */}
-     <TodoApp></TodoApp>
+     {/* <TodoApp></TodoApp> */}
+     <ProvaRoutes></ProvaRoutes>
     </>
   )
 }
