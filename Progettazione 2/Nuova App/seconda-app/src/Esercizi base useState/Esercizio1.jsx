@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
-function MostraNascondiTesto() {
+function Esercizio1() {
   const [mostra, setMostra] = useState(false);
 
   return (
     <div>
+      <h4>Click per mostrare e nascondere il testo</h4>
       <button onClick={() => setMostra(!mostra)}>
         {mostra ? "Nascondi" : "Mostra"}
-      </button>
+      </button> 
 
-      {mostra && <p>mostra e nascondi il testo</p>}
+      {mostra && <p>Il testo viene mostrato e nascosto correttamnte</p>}
     </div>
   );
 }
 
-export default MostraNascondiTesto;
+export default Esercizio1;
