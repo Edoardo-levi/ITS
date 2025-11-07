@@ -1,0 +1,12 @@
+Specifica dei tipi di dato:
+	tipo: Telefono:
+		stringa numerica secondo standard:^\+[1-9]\d{7,14}$
+
+	tipo Email:
+		stringa alfanumerica: ^\[A-Za-z0-9]+ '@'[A-Za-z0-9]+'.'[A-Za-z]+
+
+	tipo Indirizzo:
+		stringa che segue il seguente standard:
+			- via: stringa
+			- civico: stringa alfanumerica
+			-CAP: stringa numerica secondo standard nazionale
