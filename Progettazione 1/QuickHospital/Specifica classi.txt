@@ -1,0 +1,115 @@
+Specifiche di classe:
+	- Classe Letto:
+		# adesso è una costate riconosciuta che rappresenta l'istante che stiamo chiamando ed ha come tipo DataOra
+		-operazione disponibilità(adesso): bool
+			pre-condizioni:
+				nessuna
+			post-condizioni:
+				il risultato è così definito:
+					per ogni elemento r: Ricovero
+
+						- se esiste r.data_dimissione e r.data_ricovero < adesso e r.data_dimissione < adesso allora la d.disponibilità = True # letto non più occupato
+
+						- se r.data_ricovero > adesso, risultato = True # letto disponibile in quel preciso istante  
+
+						- se r.data_ricovero < adesso ma non esiste r.data_dimissione, risultao= False # Il letto è ancora occupato 
+
+
+Specifica dei vincoli:
+
+	[V.Ricovero.PazienteRicoverato]:
+		- non esiste un ricovero di un paziente che ha la data di nascita > della data di ricovero
+
+			per ogni r:Ricovero, p:Paziente tale che (r,p): paz_ric non esiste un r.data_ricovero > p.data_nascita
+
+
+	[V.Letto.LettoPaziente:
+		- non esiste un letto che abbia più ricoveri nello stesso istante
+
+			per ogni l: Letto, presi r1:Ricovero, r2:Ricovero tale che (r1,l):letto_ricovero1 e (r2,l): letto_ricovero2
+
+			 - non possono esiste se r1.data_ricovero = r2.data_ricovero 
+			 - non possono esistere se r1.data_dimissione > r2.data_ricovero
+			 - non possono esistere se r1.data_dimissione non esiste e se r2.data_ricovero > r1.data_ricovero 
+
+
+	[V.Ricovero.RicoveroTerminato]:
+		- non esiste un ricovero con data di dimissione < di data ricovero
+
+			per ogni r:Ricovero, non esiste un r.data_dimissione < r.data_accettazione
+
+
+
+	[V.Ricovero.MedicoNonPaziente]:
+		- non esiste un Medico che sia paziente di se stesso
+
+			Sia p:Paziente tale che esiste il link (r,p): paz_ric
+			Sia m:Medico tale che esiste il link (r,m): med_ric 
+			Non deve esistere p=m
+
+
+	[V.Paziente.no_due_ricoveri_contemporaneamente]
+		non possono esistere diversi pazienti ricoverati nello stesso periodo
+			Per ogni p: Paziente
+			Non devono esistere r1: RicoveroTerminato e r2: RicoveroTerminato, r1 ≠ r2
+			Tali che 
+			(r1, p) è un link dell’associazione ric_paz
+			(r2, p) è un link dell’associazione ric_paz
+			sovrapposti(r1.inizio, r1.dimissione, r2.inizio, r2.dimissione) = True
+
+
+	[V.PrestazioneEsterna.Medico.ha_specializzazione_richiesta]
+
+		Per ogni pr: PrestazioneEsterna
+		Sia m: Medico tale che esiste il link (pr, m): prest_med
+		Sia s: Specializzazione tale che esiste il link (pr, s): prest_spec
+
+		Deve esistere il link (m, s) dell’associazione med_spec
+
+
+
+Specifica USE-CASE
+
+	- Operazione Accettazione(p: Paziente): Ricovero
+
+		pre-condizione:
+			sia L l'insieme di tutti gli elementi di l:Letto  esiste almeno un l.disponibilità(adesso) = True
+
+		post-condizioni:
+			-	l'operazione modifica il livello estensionale dei dati
+			-	il risultato è così definito:
+				viene creato un oggetto r:Ricovero tale che r.data_ricovero=adesso, viene creato il link (p,r):paz_ric e il limk (r,l): letto_ricovero
+
+
+
+	- Operazione StoricoPazienti (p:Pazienti): Ricovero[1..*]
+
+
+		pre-condizioni:
+
+			Nessuna
+
+		post-condizioni:
+			il risultato è così definito:
+				sia R l'insieme di r:Ricovero tale che esiste il link (p,r): paz_ric 
+				il risultato è R
+
+
+	- Operazione MediciIdonei (p:Prestazione): Medico[1..*]
+		pre-condizioni:
+			Nessuna
+
+		post-Condizioni:
+			il risultato è così definito:
+				sia Mprim l'insieme di m:Medici e esiste s:Specializzazione tale esistano i seguenti link:
+					- (p,s): richiede
+					- (s,m): primaria
+				
+				sia Msec l'insieme di m:Medici e esiste s:Specializzazione tale esistano i seguenti link:
+					- (p,s): richiede
+					- (s,m): secondaria
+
+
+				Se Mprim non è vuoto il risultato è Mprim
+				altrimenti 
+				il riusultato è Msec
