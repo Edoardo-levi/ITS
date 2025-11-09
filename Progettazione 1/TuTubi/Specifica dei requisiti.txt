@@ -1,0 +1,34 @@
+1. Utente:
+	1.1 nome
+	1.2 data_iscrizione
+
+
+2. Video:
+	2.1 titolo
+	2.2 durata
+	2.3 descrizione 
+	[link con Utente "valutazioni" [0..5]
+	
+
+3. Categoria:
+	3.1 nome
+
+4. Tag:
+	4.1 nome
+
+5.Visulizzazione:
+	5.1 DataOra: istante
+
+6. Commenti:
+	6.1 stringa 
+	6.2 DataOra: istante
+
+7. Playlist:
+	7.1 nome
+	7.2 data_creazione:Data
+		Sotto classi:
+			Playlist Pubbliche
+			Playlist Private
+
+8. Censurato:
+	8.1 Tipologia 
