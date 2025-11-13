@@ -1,0 +1,27 @@
+-Operazione Registrazione(nome:Stringa,congome:Stringa,codicefiscale:CodiceFiscale):
+	pre-condizioni:
+		sia U l'insieme di u:Utente, non deve esistere nessun u tale che u.codicefiscale = codicefiscale
+	post-condizioni:
+		l'operazione modifica il livello estensionale dei dati 
+		il risultato è così definito:
+			si crea un oggeto un oggetto della classe Utebte tale che:
+				u.nome = nome
+				u.cognome = cognome 
+				u.codicefiscale = codicefiscale 
+
+
+
+-Operazione listaSpettacoli(tp:Tipologia, g:Genere, d:data): Spettacoli [0..*]:
+	pre-condizioni:
+		nessuna
+
+	post-condizioni:
+		l'operazione non midifica il livello estensionale dei dati
+		il risultato è così definito:
+			sia S l'insieme degli oggetti di s:spettacoli tale che:
+				- esista un link (s,g): genre_spettacolo 
+				- esista un link (s,tp): tipologia spettacolo
+				- sia s.data = d
+		
+
+	 il risultato è S

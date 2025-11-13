@@ -1,0 +1,11 @@
+tipo Indirizzo:
+		stringa che segue il seguente standard:
+			- via: stringa
+			- civico: stringa alfanumerica
+			- CAP: stringa numerica secondo standard nazionale
+
+tipo Tipologia:
+	tipo enumerativo [concerto, rappresentazione teatrale, film]
+
+tipo CodiceFiscale:
+	stringa alfanumerica di 16 caratteri secondo standard

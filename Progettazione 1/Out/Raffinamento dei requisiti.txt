@@ -1,0 +1,39 @@
+1. Sede:
+	1.1 nome:Stringa
+	1.2 Indirizzo: Indirizzo
+
+2. Sala:
+	2.1 nome:Stringa
+	2.2 posti_totali
+		+ posti_disponibili():Intero>=0
+		+ Disponibilità (istante:DataOra):bool
+
+3. Posto:
+	3.1 fila: Stringa
+	3.2 colonna:Stringa
+		sotto-classe posto Occupato
+
+4. Spettacolo:
+	4.1 titolo:Stringa
+	4.2 orario:Ora
+	4.3 data:Data
+	[link "sede_spettacolo" classe sede]
+	[link "sala_spettacolo" classe sala]
+
+5. Tipologia:
+	5.1 Tipologia:Tipologia
+
+6. Genere:
+	6.1 genere:Stringa
+
+7. Artista:
+	nome:Stringa
+
+8. Bigietto:
+	prezzo: Reale >=0
+	istante_vendita: DataOra
+
+9. Utente:
+	9.1 nome:Stringa
+	9.2 cognome:Stringa
+	9.3 cf:CodiceFiscale {id}

@@ -1,0 +1,29 @@
+Classe Sala:
+	- Operazione posti_disponibili():Intero>=0
+			pre-condizioni:
+				nessuna 
+			post-condizioni:
+				il risultato è così definito:
+						sia PD l'insieme di pd:PostiDisponibili e p:Posto tale che esiste il link (this,p): posto_sala 
+		il risultato è |PD|
+
+	- Operazione disponibilità (istante:DataOra):bool
+		pre-condizione: 
+			istante < sp.data 
+		post-condizioni:
+			il risultato è così definito:
+				Sia P l'insieme di p:Posto tale che esiste il link (this, p) posto_sala 
+				se ci sono elementi in P che non sono istanza di PostoOccupato allora il risultato è True
+				altrimenti il risultato è False
+
+
+
+
+[V.Biglietto.CompraBigliettoMinoreDataSpettacolo]:
+	sia b:biglietto e s:Spettacolo tale che esiste il link [b,s]:biglietto_spettacolo tale che: 
+		non può esistere b.data > s.data
+
+[V.Posto_occupato.UtenteDiversoPostoOccupato]:
+	sia po:PostoOccupato, u:Utente, tale che esiste il link [po,u]: utente_posto
+
+	non puo esistere il link se po è istanza di PostoOccupato
