@@ -1,0 +1,26 @@
+1. Cliente:
+	1.1 nome: Stringa
+	1.2 email: Stringa
+
+2. Ristorante:
+	2.1 nome: Stringa
+	2.2 Pt.IVA {id}
+	indirizzo: Indirizzo [Città, Regione, Nazione]
+
+3. TipoCucina:
+	3.1 nome: Stringa {id}
+
+4. Prenotazione:
+	4.1 giorno:DataOra
+	[link cliente "numero_commensali"]
+	+ is_confermata:bool -> se è Flase:
+		sotto classe Prenotazione Rifiutata
+
+5. Promozioni:
+	5.1 percentuale_sconto:Intero
+	5.2 data_inizio:DataOra
+	5.3 data_fine:DataOra
+	[link Prenotazione "tipo_promozione"]
+	[link Ristorante "promo_ristorante"]
+	+ Capienza_raggiunta(numero:intero): bool 
+S

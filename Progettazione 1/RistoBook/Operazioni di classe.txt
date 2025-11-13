@@ -1,0 +1,28 @@
+Classe Prenotazione:
+	-Operazione is_confermata():bool:
+		pre-condizione:
+			nessuna
+		post-condizione:
+			il risultatoè così definito:
+				se è confermata il risultato è uguale a True
+
+				altrimenti è False
+
+			così per le altre operazioni
+
+
+Classe Promozione:
+	operazione capienza_raggiunta(numero:intero):bool:
+		pre-condizione:
+			nessuna
+		post-condizione:
+			il risultato è così definito:
+
+				sia p l'insieme degli elemneti di p:Prenotazione tali che (this,p):
+					promozione_prenotazione
+
+				NP è uguale alla cardinalità di P
+
+				se NP < n il risultato è uguale a False
+				
+				altrimenti è True 

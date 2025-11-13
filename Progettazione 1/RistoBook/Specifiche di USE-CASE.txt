@@ -1,0 +1,61 @@
+Operazione Ricerca_Ristorante(c:Città, TP:TipoCucina, sconto:intero, data:data): Ristoranti [0..*]
+	pre-condizioni:
+		nessuna
+	post-condizioni:
+		- l'operazione non midifica il livello estensionale dei dati 
+		- il risultato è così defenito:
+			sia R l'insieme degli oggetti r:Ristorante tale che:
+				a.esista il link(c,r):città_ristorante 
+				b.esista il link (TP,r):TipoCucina_Ristorante 
+				c:esista il (pr,r): promozione_ristorante dove:
+					i.pr.percentuale_sconto>=sconto
+					ii.pr.data_inizio=data o pr.data_inizio < data_fine 
+
+			il risultato è uguale a 
+
+Operazione calcolo_Statistiche(data_inizio:DataOra,data_fine:DataOra, pm:Promozione):intero 
+	pre-condizioni:
+		Nessuna
+	
+	post-condizioni:
+	
+		l'operazione non modifica il livello estensionale dei dati
+		il risultato è così definito:
+		
+		Sia PM l'insieme delle istanze pm  tale che 
+		esiste il link (pr,pm):promozione_prenotazione
+		Sia PM l'insieme delle istanze pm:Promozione tali che:
+			data_inizio <= pm.data_inizio < pm.data_fine <= data_fine
+		Sia PR l'insieme degli elementi pr:Prenotazione tale che 
+			esiste il link (pr,pm):promozione_prenotazione con almeno un elemento di PM
+		
+		n= |PR| / |PM|
+		
+il risultato è uguale a n
+
+
+
+Operazione Rifiutata(pr:Prenotazione): Prenotazione_Rifiutata:
+	pre-condizioni:
+		adesso < pr.giorno
+		
+	
+	post-condizioni:
+		
+		l'operazione modifica il livello estensionale dei dati
+		il risultato è così definito :
+			imposto pr.is_confermata = False 
+			pr diventa istanza di Prenotazione_Rifiutata 
+
+
+
+Operazione Annullata(pr:Prenotazione): Prenotazione_Annullata:
+	pre-condizioni:
+		adesso< pr.giorno
+	
+	post-condizioni:
+		l'operazione modifica il livello estensionale dei dati
+		il risultato è così definito:
+			imposto pt.is_annulata = False 
+			pr diventa instanza di Prenotazione_Annullata
+
