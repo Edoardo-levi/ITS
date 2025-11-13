@@ -1,0 +1,12 @@
+Operazione Ausiliaria:
+	Media(c:Crocera): Reale >=0
+		pre-condizioni:
+			nessuna
+		post-condizioni:
+			sia C l'insieme degli cl:Cliente
+				esista pr:Prenotazione tale che:
+					- esista il link (p,cl): prenotazione_cliente
+			sia SE la somma per ogni cl.eta di C
+			il risultato è SE /|C|
+
+

@@ -1,0 +1,44 @@
+Vincoli di classe:
+	[V.Escursione.NoDataInizio>DataFine]
+		la data di inzio non può essere > della data di fine:
+			per ogni elemento di e:Escursione:
+				- non può esistere e.data_inizio > e.data_fine
+[V.Itinerario.NoDataInizio>DataFine]
+	la data di inizio non può essere > della data di fine:
+		per ogni elemento di i:Itinerario:
+			- non può esistere un i.data_inizio > e.data_fine
+
+Vincoli Esterni:
+	[V.Tradizionale.PiùDestinazioniRomantiche]:
+		Un itinerario oer essere definito tradizionale deve avere lo stesso numero o più di destinazioni romantiche rispetto al divertente
+		esiste un i:itinerario
+		per it:Tradizionale sia C l'insieme degli elementi di c:Città tale che 
+			- esista il link (ct,i): itinerario_crocera
+			- esista il link (i,c): itinerario_città
+			almeno la metà degli elementi di c deve essere istanza di Romantica
+
+	[V.Alternative.PiùDestinazioniRomantiche]:
+		Un itinerario per essere definito alternativo deve avere lo stesso numero o più di destinazioni alternativo rispetto al Romantiche
+		esiste un i:itinerario
+		per it:Tradizionale sia C l'insieme degli elementi di c:Città tale che 
+			- esista il link (ct,i): itinerario_crocera
+			- esista il link (i,c): itinerario_città
+			almeno la metà degli elementi di c deve essere istanza di Alternativo
+
+
+	[V.Escursione.Itinerario.DataEscursioneCompresaNell'Itinerario]
+		un e:Escursione legato a un i:Itinerario con data_inizio < di quella dell'Itinerario
+		e data_fine > di quella dell'Itinerario 
+		sia E l'insieme degli elementi di e:Escursione tale che esista il link (e,i):escursione_itinerario
+			per ogni elemento di E è vero che:
+				i.data_inizio <=e.data_inizio<e.data_fine<=i.data_fine
+
+
+Operazioni numero_passegeri(): Intero
+	pre-condizioni:
+		Nessuna
+	post-condizioni
+		il risultato è così definito:
+			sia PR l'insieme degli elementi di pr:prenotazione tale che esiste il link (this,pr): prenotazioni_crocera:
+				-sia S la somma dei pr.numero_posti_prenotati
+		il risultato è S  
