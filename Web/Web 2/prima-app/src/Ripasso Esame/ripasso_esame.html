@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post e Commenti con Fetch e Flexbox</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        padding: 20px;
+      }
+      /* Contenitore Flexbox per tutti i post */
+      .posts-container {
+        display: flex;
+        flex-wrap: wrap; /* Permette ai card di andare a capo */
+        gap: 20px; /* Spazio tra i card */
+        justify-content: center; /* Centra i card */
+      }
+      .card {
+        background-color: #ffffff;
+        border: 1px solid #c9c9c9;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Larghezza di default */
+        max-width: 350px; /* Larghezza massima per i card */
+        box-sizing: border-box;
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .card h2 {
+        font-size: 1.4em;
+        color: #333;
+        margin-top: 0;
+      }
+      .card p {
+        font-size: 0.9em;
+        color: #555;
+      }
+      .card small {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .card ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        border-top: 1px solid #eee;
+      }
+      .card li {
+        font-size: 0.8em;
+        color: #666;
+        padding: 3px 0;
+      }
+      .loader {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 1.2em;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="posts-container" id="postsContainer">
+      <div class="loader">Caricamento di tutti i post...</div>
+    </div>
+
+    <script>
+      // Endpoint
+      const urlPosts = "https://jsonplaceholder.typicode.com/posts"; // Tutti i post
+      const urlUsers = "https://jsonplaceholder.typicode.com/users/"; // Utente specifico
+      const urlCommenti = "https://jsonplaceholder.typicode.com/comments"; // Commenti con query param
+
+      const postsContainer = document.getElementById("postsContainer");
+
+      /**
+       * Funzione asincrona per recuperare tutti i dati di un singolo post (post, utente, commenti)
+       * @param {Object} post - L'oggetto post iniziale.
+       * @returns {Promise<Object>} Un oggetto contenente post, utente e commenti.
+       */
+      async function fetchPostDetails(post) {
+        // Definisce le Promises per l'utente e i commenti
+        const userPromise = fetch(urlUsers + post.userId).then(resp => resp.json());
+        const commentsPromise = fetch(urlCommenti + "?postId=" + post.id).then(resp => resp.json());
+
+        // Attende che entrambe le Promises siano risolte in parallelo
+        const [user, comments] = await Promise.all([userPromise, commentsPromise]);
+
+        return {
+          ...post,
+          user: user.name, // Nome dell'autore
+          comments: comments.slice(0, 3) // Prende solo i primi 3 commenti per brevità
+        };
+      }
+
+      /**
+       * Funzione principale per caricare e renderizzare tutti i post.
+       */
+      async function loadAllPosts() {
+        try {
+          // 1. Recupera tutti i post
+          const respPosts = await fetch(urlPosts);
+          const allPosts = await respPosts.json();
+          
+          // Rimuove il loader
+          postsContainer.innerHTML = ''; 
+
+          // 2. Per ogni post, recupera i dettagli (utente e commenti) in parallelo
+          // Utilizza Promise.all con map per eseguire le chiamate per tutti i post contemporaneamente
+          const detailsPromises = allPosts.map(post => fetchPostDetails(post));
+          const enrichedPosts = await Promise.all(detailsPromises);
+
+          // 3. Renderizza i post nel DOM
+          enrichedPosts.forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            // Costruisce l'HTML per i commenti
+            const commentsHtml = post.comments.map(comment => `
+                <li><strong>${comment.name}</strong></li>
+            `).join('');
+
+            card.innerHTML = `
+              <h2>${post.title}</h2>
+              <p>${post.body.substring(0, 100)}...</p>
+              <small>Autore: ${post.user}</small>
+              <p><strong>Commenti principali (${post.comments.length}):</strong></p>
+              <ul>${commentsHtml}</ul>
+            `;
+            
+            postsContainer.appendChild(card);
+          });
+
+        } catch (error) {
+          console.error("Errore durante il caricamento dei dati:", error);
+          postsContainer.innerHTML = '<div class="loader" style="color: red;">Si è verificato un errore durante il caricamento dei dati.</div>';
+        }
+      }
+
+      // Avvia il processo
+      loadAllPosts();
+    </script>
+  </body>
+</html>
