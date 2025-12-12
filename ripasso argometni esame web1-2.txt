@@ -7,3 +7,15 @@ cosa ' uno USE state e fammi un esempio
 
 attributo alt in un immagine 
 
+gap 
+
+USE-EFFECT: gestisce gli effetti collaterali della pagina
+USE-REF: è un HOOK
+
+Le rotte (route): associano un path dell'url ad uno specifico componente
+
+TRY-CATCH
+
+Operatore Ternario: short,circuit, etc..
+
+prevent_default: serve a evitare che un evento parta di default
