@@ -9,3 +9,5 @@ Uscire dall'ambiente
 
 	deactivate
 
+Vedere le porte occupate:
+sudo netstat -anp --tcp | grep LISTEN
