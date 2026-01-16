@@ -12,33 +12,23 @@ create domani IntMUZ as integer
 	check (value >= 0);
 
 
--- Creazione tabelle
-
-create table Volo (
-	codice varchar(100) not null,
-	durata_min IntMDZ not null,
-	codice_volo Codice primary key,
-	foreign key (aeroporto)
-		references aeroporto (codice_areoporto)
+-- creazione tabelle 
+create table nazione (
+	nome varchar (100) not null,
+	id integer not null primary key
 );
 
-
-create table Compagnia (
+create table citta (
 	nome varchar(100) not null,
+	abitanti IntMUZ not null,
+	id integer not null primary key,
+	nazione integer,
+		foreign key (nazione)
+			references nazione (id)
+);
+
+create table compagnia (
+	nome varchar (100) not null,
 	anno IntMN not null,
-	codice_compagnia Codice primary key,
-	foreign key (citta)
-		references citta (nome)
-);
-
-create table Nazione (
-	nome varchar (100)
-);
-
-create table Aeroporto (
-	codice varchar(100) not null,
-	nome varchar(100) not null,
-	codice_areoporto Codice primary key
-	foreign key (citta)
-		references citta (nome)
+	codice_compagnia Codice primary key
 );
