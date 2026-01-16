@@ -49,7 +49,7 @@ create table regione (
 
 create table citta (
     id serial primary key, -- serial indica una colonna di valori che genera automaticamente valori unici,
-                        --incrementa un valore per ogni riga nella tabella
+                           -- incrementa un valore per ogni riga nella tabella
     nome stringa not null,
     regione stringa not null,
     nazione stringa not null,
