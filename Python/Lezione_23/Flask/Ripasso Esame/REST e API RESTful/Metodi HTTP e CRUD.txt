@@ -1,0 +1,9 @@
+Metodi HTTP e CRUD: Per ciascuna operazione indica il metodo HTTP e il codice di stato corretto:
+
+Creare un nuovo corso POST, 201
+Aggiornare i dati di un istruttore PATCH,200
+Eliminare un iscritto DELETE,204
+Ottenere l’elenco dei corsi GET,200
+Tentare di accedere a un corso inesistente GET 404
+
+

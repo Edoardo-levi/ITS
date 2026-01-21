@@ -1,0 +1,52 @@
+un’agenzia di viaggi deve gestire destinazioni, clienti e prenotazioni. 
+Definisci 5 endpoint REST (metodo + URI + esempio di risposta JSON)
+
+-- CREA PRENOTAZIONE
+metodo: POST
+url: https://sito_vacanza.it/prenotazioni
+stato: 201
+
+{"cliente": "Edoardo Levi",
+ "destinazione": "Zante",
+ "data_partenza": "11-09-2026",
+ "data_ritorno": "18-09-2026",
+ "numero_persone": "7"
+}
+
+-- GESTISCI PRENOTAZIONI
+metodo:GET
+url:https://sito_vacanza.it/destinazioni/1
+stato 200
+
+{
+    "id": 1,
+    "citta": "Zante",
+    "paese": "Zackyntos",
+    "descrizione": "Viaggio per ragazzi che si voglio diveritre"
+    "hotel_iclusi" : ["hotel1","hotel2","hotel3"],
+    "disponibilita": true
+}
+
+-- GESTISCI CLIENTI (creazione di un nuovo cliente)
+metodo: POST
+url: https://sito_vacanza.it/clienti
+stato: 201
+{
+    "id": 123,
+    "nome": "Edoardo",
+    "cognome": "Levi",
+    "email": "edo@esempio.com"
+    "data_nascita": "11-03-2005"
+}
+
+-- GESTIONE CLIENTI (visualizza utente)
+metodo: GET
+url: https://sito_vacanza.it/clienti/123
+stato: 200
+
+{
+    "nome": "Edoardo",
+    "cognome": "Levi",
+    "email": "edo@esempio.com"
+    "data_nascita": "11-03-2005"
+}

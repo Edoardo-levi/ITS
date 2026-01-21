@@ -1,0 +1,12 @@
+Considera un centro sportivo che gestisce corsi, istruttori e iscritti. 
+Elenca le principali risorse e scrivi gli URI corretti. Indica anche esempi di URI errati.
+
+
+GET /instruttori/  -> Mostra tutti gli istruttori
+GET /istruttori/123 -> Mostra l'istruttore con id 123
+GET /iscritti/     -> Mostra tutti gli iscritti
+GET /iscritti/1234 -> Mostra l'iscritto con id 1234
+
+URI errati
+GET /istruttori123/istruttori
+GET/instruttore/123/istruttore\

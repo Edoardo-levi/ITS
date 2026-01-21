@@ -1,0 +1,53 @@
+Ecco un oggetto JSON relativo a una prenotazione di campo da tennis: 
+  
+Content-Type: application/json
+{
+   'id': 12,
+   'cliente': 'Luca Neri', 
+   'campo': 3, 
+   'data': '2025-03-20', 
+   'ora': '18:00', 
+   'durata_ore': 2
+}
+BASE URL: https://api.esempio.it
+Individua la risorsa e utilizza i metodi HTTP per crea una nuova prenotazione con i dati forniti, 
+modificare l'intera prenotazione, e creare una nuova prenotazione con dati differenti. Indica anche il codice di stato corretto. 
+
+-- CREA PRENOTAZIONE
+Metodo: POST
+url: https://api.esempio.it/prenotazioni
+stato: 201
+
+{
+   "cliente":'Luca Neri',
+   "campo": 3,
+   "data":"2025-03-20",
+   "ora": "18:00",
+   "durata_ore":2
+
+}
+
+-- MODIFICA PRENOTAZIONE
+metodo: PUT
+url: https://api.esempio.it/prenotazione/12
+stato: 200
+
+{
+   "cliente":'Luca Neri',
+   "campo": 3,
+   "data":"2025-03-20",
+   "ora": "18:00",
+   "durata_ore": 2
+}
+
+-- CREA PRENOTAZIONE con valori differenti
+Meotdo: POST
+url: https://api.esempio.it/prenotazioni
+stato: 201
+
+{"cliente": "Edoardo Levi",
+ "campo": 1,
+ "data": "2025-03-11",
+ "ora": "20:00",
+ "durata_ore": 3
+}
