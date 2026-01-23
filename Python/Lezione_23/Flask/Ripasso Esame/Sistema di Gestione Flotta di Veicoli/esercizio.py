@@ -96,89 +96,62 @@ fleet_manager.add(Van("CC216FG", "Peugeot Partner", "Mario Rossi", 2018, "rented
 
 
 # ---------------------------------------------------------
-# PARTE 2: APP FLASK (Qui devi scrivere tu)
+# PARTE 2: APP FLASK (CORRETTA)
 # ---------------------------------------------------------
 
-# TODO: Importa Flask, request, jsonify e url_for
-# ...
 
-# TODO: Crea l'istanza dell'applicazione Flask
-# app = ...
+app = Flask(__name__)
 
 # --- ROUTE GET ---
 
 @app.route('/', methods=['GET'])
 def welcome():
-    links={
-        "vehicles_list":url_for("vehicles"),
-        "vehicle_sample":url_for("get_plate",plate_id='HA014AS'),
-        "estimate_sample":url_for("device",plate_id='HA014AS', factor=2.0)
+    links = {
+        "vehicles_list": url_for("vehicles"),
+        "vehicle_sample": url_for("get_plate", plate_id = "HA014AS" ),
+        "estimate_sample": url_for("devices", plate_id= "HA014AS", factor = 2.0)
     }
     return jsonify ({
-        "messaggio":"Welcome to Rent Service API",
-        "links":links
+        "message": "Welcome to Rent Center API",
+        "links": links
     })
 
-
-
-# TODO: Route '/vehicles' (Lista veicoli)
-# Deve restituire la lista JSON di tutti i veicoli (usa fleet_manager.list_all())
-# @app.route( ... )
-# def get_vehicles():
-@app.route('/vehicles',methods=['GET'])
+@app.route('/vehicles', methods=['GET'])
 def vehicles():
-
     return jsonify(fleet_manager.list_all())
 
-# TODO: Route '/vehicles/<plate_id>' (Dettaglio singolo veicolo)
-# Cerca il veicolo con fleet_manager.get().
-# Se esiste: restituisci il JSON con info().
-# Se NON esiste: restituisci errore {"error": ...} e status code 404.
-# @app.route( ... )
-# def get_vehicle(plate_id):
 @app.route('/vehicles/<string:plate_id>', methods=['GET'])
-def get_plate(plate_id:str):
-    vehicle=fleet_manager.get(plate_id)
+def get_plate(plate_id: str):
+    vehicle = fleet_manager.get(plate_id)
     if not vehicle:
-        return jsonify({"message": "Errore il veicolo non esiste"}),404
-    else:
-        return jsonify(vehicle.info()), 200
+        return jsonify({"message": "Errore: il veicolo non esiste"}), 404
+    return jsonify(vehicle.info()), 200
 
-# TODO: Route '/vehicles/<plate_id>/prep-time/<factor>' (Tempo preparazione)
-# Leggi factor come float.
-# Chiama estimated_prep_time(factor) sull'oggetto veicolo.
-# Restituisci il JSON con il calcolo. Gestisci il 404 se il veicolo non c'è.
-# @app.route( ... )
-# def get_prep_time(plate_id, factor):
-@app.route('/vehicles/<string:plate_id>/prep-time/float:factor',methods=['GET'])
-def device (plate_id:str,factor:float):
-    vehicle=fleet_manager.get(plate_id)
+# CORREZIONE QUI: <float:factor> invece di float:factor
+@app.route('/vehicles/<string:plate_id>/prep-time/<float:factor>', methods=['GET'])
+def device(plate_id: str, factor: float):
+    vehicle = fleet_manager.get(plate_id)
     if not vehicle:
-        return jsonify({"message":"Errore il veicolo non esiste"}),404
-    else:
-        info:dict=vehicle.info()
-        info["tempo_attesa"]=vehicle.estimated_prep_time(factor)
-        return jsonify (info),200
+        return jsonify({"message": "Errore: il veicolo non esiste"}), 404
+    
+    info = vehicle.info()
+    info["tempo_attesa"] = vehicle.estimated_prep_time(factor)
+    return jsonify(info), 200
 
 # --- ROUTE POST ---
 
-# TODO: Route '/vehicles' (Aggiungi veicolo)
-# 1. Leggi il JSON dal body (request.get_json()).
-# 2. Controlla se 'type' è 'car' o 'van' e istanzia la classe corretta.
-# 3. Chiama fleet_manager.add().
-# 4. Se add() restituisce True -> return JSON conferma, status 201.
-# 5. Se add() restituisce False (già esiste) -> return errore, status 400.
-# @app.route( ... )
-# def create_vehicle():
-@app.route('/vehicles', methods =['POST'])
+@app.route('/vehicles', methods=['POST'])
 def create_vehicles():
     data = request.get_json()
-    new_vehicle: dict = None
+    # CORREZIONE: Uso .get('plate_id') per matchare il test
+    pid = data.get('plate_id') 
+    
+    new_vehicle = None
     if data.get('type') == 'car':
         new_vehicle = Car(
-            plate_id=data['id'],
+            plate_id=pid,
             model=data['model'],
-            driver_name=data['driver_name'],
+            driver_name=data.get('driver_name'),
             registration_year=data['registration_year'],
             status=data['status'],
             doors=data['doors'],
@@ -186,107 +159,68 @@ def create_vehicles():
         )
     elif data.get('type') == 'van':
         new_vehicle = Van(
-            plate_id=data['id'],
+            plate_id=pid,
             model=data['model'],
-            driver_name=data['driver_name'],
+            driver_name=data.get('driver_name'),
             registration_year=data['registration_year'],
             status=data['status'],
             max_load_kg=data['max_load_kg'],
             require_special_license=data['require_special_license']
         )
     else:
-        return jsonify({
-            "message": "Veicolo non supportato"
-        }),404
-    if fleet_manager.add(new_vehicle)== True:
-        return jsonify(new_vehicle.info()),201
+        return jsonify({"message": "Veicolo non supportato"}), 400
+
+    if fleet_manager.add(new_vehicle):
+        return jsonify(new_vehicle.info()), 201
     else:
-        return jsonify({"errore":"Veicolo già esistente"}),400
+        return jsonify({"errore": "Veicolo già esistente"}), 400
 
 # --- ROUTE PUT ---
 
-# TODO: Route '/vehicles/<plate_id>' (Sostituisci veicolo)
-# 1. Leggi JSON.
-# 2. Crea il nuovo oggetto Car o Van.
-# 3. Chiama fleet_manager.update().
-# 4. Restituisci conferma (es. il nuovo veicolo info).
-# @app.route( ... )
-# def update_vehicle(plate_id):
-@app.route('/vehicles/<plate_id>',methods=['PUT'])
-def update_vehicles(plate_id:str):
-    data =request.get_json()
+@app.route('/vehicles/<plate_id>', methods=['PUT'])
+def update_vehicles(plate_id: str):
+    data = request.get_json()
     if fleet_manager.get(plate_id) is None:
-        return jsonify ({"message": "Errore veicolo non trovato"}),404
-    new_vehicle:dict=None
+        return jsonify({"message": "Errore veicolo non trovato"}), 404
+    
+    new_vehicle = None
+    # L'ID nell'oggetto deve corrispondere all'URL
+    pid = plate_id 
 
     if data.get("type") == "car":
-            new_vehicle= Car(
-            plate_id=data['id'],
-            model=data['model'],
-            driver_name=data['driver_name'],
-            registration_year=data['registration_year'],
-            status=data['status'],
-            doors=data['doors'],
-            is_cabrio=data['is_cabrio']
-        )
+        new_vehicle = Car(pid, data['model'], data.get('driver_name'), data['registration_year'], data['status'], data['doors'], data['is_cabrio'])
     elif data.get("type") == "van":
-            new_vehicle = Van(
-            plate_id=data['id'],
-            model=data['model'],
-            driver_name=data['driver_name'],
-            registration_year=data['registration_year'],
-            status=data['status'],
-            max_load_kg=data['max_load_kg'],
-            require_special_license=data['require_special_license']
-        )
+        new_vehicle = Van(pid, data['model'], data.get('driver_name'), data['registration_year'], data['status'], data['max_load_kg'], data['require_special_license'])
     else:
-        return jsonify ({"message":"Erorre"}),400
+        return jsonify({"message": "Errore tipo veicolo"}), 400
 
-    fleet_manager.update(plate_id,new_vehicle)
-    return jsonify(new_vehicle.info()),200     
-
+    fleet_manager.update(plate_id, new_vehicle)
+    return jsonify(new_vehicle.info()), 200     
 
 # --- ROUTE PATCH ---
 
-# TODO: Route '/vehicles/<plate_id>/status' (Aggiorna solo status)
-# 1. Leggi JSON (es. {"status": "cleaning"}).
-# 2. Controlla se il veicolo esiste.
-# 3. Chiama fleet_manager.patch_status().
-# 4. Restituisci info veicolo aggiornato o conferma.
-# @app.route( ... )
-# def patch_vehicle_status(plate_id):
-@app.route('/vehicles/<string:plate_id>/status')
+@app.route('/vehicles/<string:plate_id>/status', methods=['PATCH'])
 def patch_vehicle_status(plate_id):
-    data=request.get_json()
+    data = request.get_json()
     if fleet_manager.get(plate_id) is None:
         return jsonify({"Message": "Veicolo non trovato"}), 404
+    
     if "status" not in data:
-        return jsonify ({"message":"Status non trovato"}),404
-    else:
-        fleet_manager.patch_status(patch_vehicle_status,new_status=data["status"])
-        return jsonify(fleet_manager.get(plate_id).info())
-
+        return jsonify({"message": "Status non trovato nel body"}), 400
+    
+    # CORREZIONE: passiamo plate_id, non la funzione stessa
+    fleet_manager.patch_status(plate_id, new_status=data["status"])
+    return jsonify(fleet_manager.get(plate_id).info())
 
 # --- ROUTE DELETE ---
 
-# TODO: Route '/vehicles/<plate_id>' (Cancella veicolo)
-# Chiama fleet_manager.delete().
-# Se True -> conferma cancellazione.
-# Se False -> errore 404.
-# @app.route( ... )
-# def delete_vehicle(plate_id):
-@app.route('/vehicles/<plate_id>', methods= ["DELETE"])
-
+@app.route('/vehicles/<plate_id>', methods=["DELETE"])
 def delete_vehicle(plate_id):
     if fleet_manager.get(plate_id) is None:
-        return jsonify ({"message": "il veicolo non esiste"}),404
-    else:
-        fleet_manager.delete(plate_id)
-        return jsonify({"message": "il veicolo è stato rimosso", "id": plate_id}), 200
+        return jsonify({"message": "il veicolo non esiste"}), 404
+    
+    fleet_manager.delete(plate_id)
+    return jsonify({"message": "il veicolo è stato rimosso", "id": plate_id}), 200
 
-
-# Avvio del server
 if __name__ == "__main__":
-    # TODO: Avvia l'app in modalità debug
-    # ...
-    pass
+    app.run(debug=True)
