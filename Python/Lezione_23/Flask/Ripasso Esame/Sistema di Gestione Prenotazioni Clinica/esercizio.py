@@ -179,19 +179,101 @@ hub.add(exam_1)
 
 app= Flask(__name__)
 
+@app.route('/',methods=['GET'])
+def welcome():
+    links={
+        "prenotazioni":url_for("bookings_list"),
+        "prenotazione":url_for("booking", booking_id=""),
+        "attesa_prenotazione":url_for("attesa_prenotazione",booking_id="", factor=1.0)
+    }
+    return jsonify({"message":"Benvenuto nella gesione delle prenotazioni","link":links})
+
+
+
+@app.route('/bookings',methods=['GET'])
+def bookings_list():
+    return jsonify(hub.list_all()),201
+
+@app.route('/bookings/<string:booking_id>',methods=['GET'])
+def booking(booking_id:str):
+    prenotazione=hub.get(booking_id)
+    if not prenotazione:
+        return jsonify ({"error":"prenotazione non presente"}),404
+    else:
+        return jsonify(prenotazione.info()),200
+
+
+@app.route('/bookings/<string:booking_id>/wait/<float:factor>', methods=['GET'])
+def attesa_prenotazione(booking_id:str, factor:float):
+    prenotazione=hub.get(booking_id)
+    if not prenotazione:
+        return jsonify({"error":"prenotazione non trovata"}),404
+    else:
+        tempo_attesa=prenotazione.estimated_wait(factor)
+        dict_temp = {'tempo_attesa': tempo_attesa}
+        return jsonify(dict_temp),200
+
 @app.route('/bookings', methods=['POST'])
-def create_booking():
+def create_booking(): # Niente parametro nell'URL
     info = request.get_json()
     
-    if not info or "booking_id" not in info or "type" not in info:
-        return jsonify({"error": "Dati incompleti"}), 400
+    # Validazione minima (opzionale ma consigliata)
+    if not info or "booking_id" not in info:
+        return jsonify ({"error": "Missing booking_id in request body"}), 400
 
-    booking_id = info["booking_id"]
+    booking_id = info["booking_id"] # Si ricava dal JSON
+    if info.get("type")== "exam":
+        new_booking = DiagnosticExam(
+            booking_id=booking_id,
+            patient_name=info["patient_name"],
+            doctor=info["doctor"],
+            department=info["department"],
+            date=info["date"],
+            time=info["time"],
+            status=info["status"],
+            exam_type=info["exam_type"],
+            requires_fasting=info["requires_fasting"]
+        )
+    elif info.get("type")=="vist":
+        new_booking == MedicalVisit(
+            booking_id=booking_id,
+            patient_name=info["patient_name"],
+            doctor=info["doctor"],
+            department=info["department"],
+            date=info["date"],
+            time=info["time"],
+            status=info["status"],
+            visit_reason=info["visit_reason"],
+            first_time=info["first_time"]
+        )
+    else:
+        return jsonify ({"error":"prenotazione non consentita"}),404
     
-    try:
-        if info.get("type") == "exam":
-            new_booking = DiagnosticExam(
-                booking_id=booking_id,
+    if hub.add(new_booking):
+        return jsonify({"message":"prenotazione effettuata"}),201
+    else:
+        return jsonify({"message":"prenotazione già presnete"}),400
+
+@app.route('/bookings/<string:booking_id>',methods=['PUT'])
+def update_booking(booking_id:str):
+    info=request.get_json()
+    new_booking= None
+    if booking_id in hub.bookings:
+        if info.get("type")== "visit":
+            new_booking == MedicalVisit(
+            booking_id=booking_id,
+            patient_name=info["patient_name"],
+            doctor=info["doctor"],
+            department=info["department"],
+            date=info["date"],
+            time=info["time"],
+            status=info["status"],
+            visit_reason=info["visit_reason"],
+            first_time=info["first_time"]
+        )
+        elif info.get("type") =="exam":
+            new_booking= MedicalVisit(
+            booking_id=booking_id,
                 patient_name=info["patient_name"],
                 doctor=info["doctor"],
                 department=info["department"],
@@ -201,84 +283,26 @@ def create_booking():
                 exam_type=info["exam_type"],
                 requires_fasting=info["requires_fasting"]
             )
-        elif info.get("type") == "visit": # Corretto "vist" -> "visit"
-            new_booking = MedicalVisit( # Corretto == -> =
-                booking_id=booking_id,
-                patient_name=info["patient_name"],
-                doctor=info["doctor"],
-                department=info["department"],
-                date=info["date"],
-                time=info["time"],
-                status=info["status"],
-                visit_reason=info["visit_reason"],
-                first_time=info["first_time"]
-            )
-        else:
-            return jsonify({"error": "Tipo prenotazione non valido"}), 400
-        
-        if hub.add(new_booking):
-            return jsonify(new_booking.info()), 201
-        else:
-            return jsonify({"error": "Prenotazione già presente"}), 400
-    except KeyError as e:
-        return jsonify({"error": f"Campo mancante nel JSON: {str(e)}"}), 400
+    else:
+        return jsonify({"error":"prenotazione non esistente"}),404
+    hub.update(booking_id,new_booking)
+    return jsonify({"message":"prenotazione aggiornata"}),200
 
-@app.route('/bookings/<string:booking_id>', methods=['PUT'])
-def update_booking(booking_id: str):
-    info = request.get_json()
-    if booking_id not in hub.bookings:
-        return jsonify({"error": "Prenotazione non esistente"}), 404
-    
-    # Costruiamo il nuovo oggetto (sovrascrittura totale)
-    try:
-        if info.get("type") == "visit":
-            new_booking = MedicalVisit( # Corretto == -> =
-                booking_id=booking_id,
-                patient_name=info["patient_name"],
-                doctor=info["doctor"],
-                department=info["department"],
-                date=info["date"],
-                time=info["time"],
-                status=info["status"],
-                visit_reason=info["visit_reason"],
-                first_time=info["first_time"]
-            )
-        elif info.get("type") == "exam":
-            new_booking = DiagnosticExam( # Corretto: era MedicalVisit per errore
-                booking_id=booking_id,
-                patient_name=info["patient_name"],
-                doctor=info["doctor"],
-                department=info["department"],
-                date=info["date"],
-                time=info["time"],
-                status=info["status"],
-                exam_type=info["exam_type"],
-                requires_fasting=info["requires_fasting"]
-            )
-        else:
-            return jsonify({"error": "Tipo non valido"}), 400
-            
-        hub.update(booking_id, new_booking)
-        return jsonify(new_booking.info()), 200
-    except KeyError as e:
-        return jsonify({"error": f"Dati incompleti: {str(e)}"}), 400
-
-@app.route('/bookings/<string:booking_id>/status', methods=["PATCH"])
-def update_partial_booking(booking_id: str):
-    info = request.get_json()
-    prenotazione = hub.get(booking_id)
-    
-    if prenotazione is None:
-        return jsonify({"error": "Prenotazione non trovata"}), 404
+@app.route('/bookings/<string:booking_id>/status',methods=["PATCH"])
+def update_partial_booking(booking_id:str):
+    info=request.get_json()
+    if hub.get(booking_id) is None:
+        return jsonify ({"error":"prenotazione non trovata"}),404
     if "status" not in info:
-        return jsonify({"error": "Campo 'status' mancante"}), 400
+        return jsonify({"error":"status non trovato"}),404
     
     hub.patch_status(booking_id, new_status=info["status"])
-    return jsonify(prenotazione.info()), 200 # Rimosse le graffe extra
+    return jsonify ({hub.get(booking_id).info()}),200
 
 @app.route('/bookings/<string:booking_id>', methods=['DELETE'])
-def delete_booking(booking_id: str):
-    if hub.delete(booking_id):
-        return jsonify({"message": "Prenotazione cancellata", "booking_id": booking_id}), 200
+def delete_booking(booking_id:str):
+    if hub.get(booking_id) is None:
+        return jsonify({"error":"prenotazione non trovata"})
     else:
-        return jsonify({"error": "Prenotazione non trovata"}), 404
+        hub.delete(booking_id)
+        return jsonify({"message":"prenotazione cancellata", "booking_id":booking_id}),200
