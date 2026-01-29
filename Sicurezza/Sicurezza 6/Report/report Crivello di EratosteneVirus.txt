@@ -1,0 +1,9 @@
+è stato madnato in esecuzione un file chiamato "CrivelloDiEratosteneVirus.py"
+il programma chiedeva di inserire quanti numeri primi inserire, ma è stato scoperto che era un modo per deviare l'attenzione dall'effettivo scopo del programma.
+
+Aprendo il terminale e mandando il comando ps aux PRIMA dell'esecuzione del programma non è stato riscontrato nulla di strano
+Successivamente l'esecuzione del programma, è stato eseguito un'altra volta il comadno ps aux ed è stato riscontrata l'esecuzione di un processo chiamato "ubuntu_wheel_done"con PID 7587.
+
+analizzando l'effettivo scopo del virus con il comando sudo strace -p 7587, è stato rilevata una crazione di una cartella "virus_simulation" contenente la copia del programma "CrivelloDiEratosteneVirus.py", un file chiamato "replication.log", contenente la copia di tutte le cartelle presenti nel disco , e un file chiamato "file.log" contentente la dimensione di tutte le cartelle presenti nel disco.
+
+il programma e il processo è stato terminato con l'esecuzione del comando kill 7587 andando così a terminare l'esecuzione del processo 
