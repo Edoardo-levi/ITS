@@ -1,43 +1,53 @@
 Sezione Introduction:
-    sezione Introduction:
-        Esrcizio 2 Great Snakes:
-            comando: python3 great_snakes_35381fca29d68d8f3f25c9fa0a9026fb.py
-            output: Here is your flag: crypto{z3n_0f_pyth0n}
-        Esercizio 3 Network Attacks:
-            mandando in esecuzione il programma "pwntools_example.py" otteniamo il seguente output:
-                [+] Opening connection to socket.cryptohack.org on port 11112: Done
-                    b"Welcome to netcat's flag shop!\n"
-                    b'What would you like to buy?\n'
-                    b"I only speak JSON, I hope that's ok.\n"
-                    b'\n'
-                    {'error': 'Sorry! All we have to sell are flags.'}
-                    [*] Closed connection to socket.cryptohack.org port 11112
-            ho modificato il file con il seguente codice:
-                from pwn import *
-                import json
-                # Connessione al server
-                io = remote('socket.cryptohack.org', 11112)
-                # Riceviamo il testo iniziale per "pulire" la comunicazione
-                # recvuntil è più sicuro: legge tutto finché non trova la stringa indicata
-                io.recvuntil(b"I hope that's ok.\n\n")
-                # Prepariamo il messaggio JSON
-                # Il server vuole {"buy": "flag"}
-                payload = {"buy": "flag"}
-                # Inviamo il payload convertito in stringa JSON
-                io.sendline(json.dumps(payload).encode())
-                # Riceviamo e stampiamo la risposta finale
-                # Questa riga conterrà la flag!
-                flag_data = io.recvline()
-                print("--- RISULTATO ---")
-                print(flag_data.decode())
-                print("-----------------")
-                # Chiudiamo la connessione
-                io.close()  
-            e ho ottenuto il seguente output:
-                [+] Opening connection to socket.cryptohack.org on port 11112: Done
-                --- RISULTATO ---
-                {"flag": "crypto{sh0pp1ng_f0r_fl4g5}"}
-                -----------------
+    Esrcizio 2 Great Snakes:
+        comando: python3 great_snakes_35381fca29d68d8f3f25c9fa0a9026fb.py
+        output: Here is your flag: crypto{z3n_0f_pyth0n}
+    Esercizio 3 Network Attacks:
+        mandando in esecuzione il programma "pwntools_example.py" otteniamo il seguente output:
+            [+] Opening connection to socket.cryptohack.org on port 11112: Done
+                b"Welcome to netcat's flag shop!\n"
+                b'What would you like to buy?\n'
+                b"I only speak JSON, I hope that's ok.\n"
+                b'\n'
+                {'error': 'Sorry! All we have to sell are flags.'}
                 [*] Closed connection to socket.cryptohack.org port 11112
-            risolvendo così la sfida
+        ho modificato il file con il seguente codice:
+            from pwn import *
+            import json
+            # Connessione al server
+            io = remote('socket.cryptohack.org', 11112)
+            # Riceviamo il testo iniziale per "pulire" la comunicazione
+            # recvuntil è più sicuro: legge tutto finché non trova la stringa indicata
+            io.recvuntil(b"I hope that's ok.\n\n")
+            # Prepariamo il messaggio JSON
+            # Il server vuole {"buy": "flag"}
+            payload = {"buy": "flag"}
+            # Inviamo il payload convertito in stringa JSON
+            io.sendline(json.dumps(payload).encode())
+            # Riceviamo e stampiamo la risposta finale
+            # Questa riga conterrà la flag!
+            flag_data = io.recvline()
+            print("--- RISULTATO ---")
+            print(flag_data.decode())
+            print("-----------------")
+            # Chiudiamo la connessione
+            io.close()  
+        e ho ottenuto il seguente output:
+            [+] Opening connection to socket.cryptohack.org on port 11112: Done
+            --- RISULTATO ---
+            {"flag": "crypto{sh0pp1ng_f0r_fl4g5}"}
+            -----------------
+            [*] Closed connection to socket.cryptohack.org port 11112
+        risolvendo così la sfida
         
+Sezione General:
+    Esercizio 1 ASCII:
+        l'esercizio è stato risolto eseguendo il seguente codice python:
+            # The list of ASCII ordinal integers
+            ascii_array = [99, 114, 121, 112, 116, 111, 123, 65, 83, 67, 73, 73, 95, 112, 114, 49, 110, 116, 52, 98, 108, 51, 125]
+
+            # Convert each integer to a character and join them into a single string
+            flag = "".join(chr(c) for c in ascii_array)
+
+            print(f"The decoded flag is: {flag}")
+    
