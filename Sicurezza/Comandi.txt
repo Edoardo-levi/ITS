@@ -3,7 +3,7 @@ Creazione di un nuovo amibiente python
 	python3 -mvenv "nome_ambiente"
 
 Accedere all'ambiente appena creato 
-	. server/bin/"nome_ambiente"
+	. "nome_ambiente"/bin/activate
 
 Uscire dall'ambiente 
 
