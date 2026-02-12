@@ -1,0 +1,27 @@
+Argomenti per l'esame:
+o	Architetture HW e SW per la fornitura di servizi di rete, progettazione e implementazione di misure di sicurezza hardware e software
+o	HTTP 1.1, 2.0 e 3.0 nelle comunicazioni web. I protocolli SMTP, POP3 e IMAP per invio e ricezione di messaggi di posta elettronica.
+o	Offuscamento dei dati, algoritmi crittografici simmetrici e asimmetrici. Il problema della randomizzazione e i generatori di dati casuali e pseudocasuali.
+o	Autenticazione e integrità dei dati tramite certificati digitali, struttura X509v3, autorità di certificazione, emissione, revoca e scadenza naturale dei certificati digitali.
+o	SmartCard, NFC e RFID: tre tecnologie per l’autenticazione forte
+o	configurazione di firewall e proxy
+o	DMZ
+o	segmentazione della rete
+o	zone di quarantena
+o	utilizzo di VPN
+o	definizione di aree di contenimento
+o	sistemi di rilevamento delle intrusioni (IDS)
+o	sistemi di prevenzione delle intrusioni (IPS)
+o	Gestione dell'identità
+o	le 4 A: Autenticazione, Autorizzazione, Accounting e Audit
+o	I linguaggi per la sicurezza informatica.
+o	I moderni sistemi di servizio: la complessità intrinseca di un sistema di transazioni multiservizi
+o	uso di linguaggi di dichiarativi per mitigare attacchi e eliminare vulnerabilità.
+o	Firewall a livello applicativo (WAF) per proteggere specificamente le applicazioni web da minacce come attacchi SQL injection, cross-site scripting (XSS), buffer overflow, accessi impropri/illeciti alle risorse, attacchi a livello dei workflow dei servizi e altri attacchi basati sul web.
+o	Cenni sull’uso di architetture a microservizi e/o a microkernel, per suddividere le applicazioni complesse in componenti più piccoli e indipendenti, ognuno con le proprie misure di sicurezza e di gestione dei privilegi di accesso, resilienza agli attacchi di un sistema informatico.
+o	Uso delle blockchain per incrementare la sicurezza del sistema di servizi:
+•	immutabilità della catena di certificazione
+•	tracciabilità dell’evoluzione del sistema di servizi
+•	resilienza agli attacchi
+•	uso di programmi certificati e approvati dagli utenti (smart contract)
+•	cenni di identity management sulle blockchain

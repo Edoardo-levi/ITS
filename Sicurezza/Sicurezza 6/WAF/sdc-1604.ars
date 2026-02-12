@@ -1,0 +1,17 @@
+
+DEFINE ipset serverip = { *.*.*.*:* };
+DEFINE ipset miosito = { *.*.*.*:32456 };
+DEFINE AR "IlMioSito"
+	CONDITION
+		net.ipdst is in miosito
+	ACTION
+		tcp.redirect "172.18.238.47:32001"
+	;
+
+
+DEFINE AR "BucoNero"
+	CONDITION
+		net.ipdst is in serverip
+	ACTION
+		ANSWER "<p>Richiesta accettata correttamente</p>"
+	;
