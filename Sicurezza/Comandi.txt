@@ -11,3 +11,7 @@ Uscire dall'ambiente
 
 Vedere le porte occupate:
 sudo netstat -anp --tcp | grep LISTEN
+
+
+generare un certificato
+ openssl req -new -x509 -days 3650 -key cakey.pem -out ca.crt -subj "/C=IT/ST=Lazio/L=Rome/O=ITS-SEC/CN=ITS CA"
