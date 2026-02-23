@@ -1,0 +1,8 @@
+**/AI/lib/
+**/AI/bin/
+**/AI/include/
+**/AI/share/
+*.pem
+*.key
+**/lib/
+**/*.pem
