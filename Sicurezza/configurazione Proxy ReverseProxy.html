@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Esercitazioni Proxy - Sicurezza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '+';
+            float: right;
+            font-size: 1.5em;
+            line-height: 1;
+            font-weight: 300;
+        }
+        details[open] > summary::after {
+            content: '−';
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .tab-button.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .tab-button:not(.active) {
+            background-color: white;
+            color: #334155;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-700">Dashboard Interattivo</h1>
+            <p class="text-lg text-slate-600">Esercitazioni su Proxy, Reverse Proxy e Sicurezza</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 mb-8" role="tablist">
+            <button role="tab" data-tab-target="riepilogo-content" class="tab-button active px-4 py-2 rounded-md font-medium shadow-sm">
+                Riepilogo e Confronto
+            </button>
+            <button role="tab" data-tab-target="forward-proxy-content" class="tab-button px-4 py-2 rounded-md font-medium shadow-sm">
+                Esercitazione: Forward Proxy
+            </button>
+            <button role="tab" data-tab-target="reverse-proxy-content" class="tab-button px-4 py-2 rounded-md font-medium shadow-sm">
+                Esercitazione: Reverse Proxy
+            </button>
+            <button role="tab" data-tab-target="security-content" class="tab-button px-4 py-2 rounded-md font-medium shadow-sm">
+                Sicurezza e Contromisure
+            </button>
+        </nav>
+
+        <main id="content-area">
+            
+            <section id="riepilogo-content" role="tabpanel">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-slate-700 text-lg mb-6">
+                        Benvenuto in questa dashboard interattiva. Qui puoi esplorare le differenze fondamentali tra un Forward Proxy (FP) e un Reverse Proxy (RP) prima di immergerti nelle esercitazioni tecniche. La scheda <strong>Sicurezza e Contromisure</strong> offre un'analisi approfondita delle minacce.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Confronto Chiave</h2>
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full min-w-max border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-slate-800">Caratteristica</th>
+                                    <th class="p-3 text-left font-semibold text-indigo-800">Forward Proxy</th>
+                                    <th class="p-3 text-left font-semibold text-teal-800">Reverse Proxy</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="p-3 font-medium">Scopo Principale</td>
+                                    <td class="p-3 text-slate-700">Agisce per conto dei <strong>Client</strong> che richiedono risorse.</td>
+                                    <td class="p-3 text-slate-700">Agisce per conto dei <strong>Server</strong> che forniscono risorse.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Chi protegge?</td>
+                                    <td class="p-3 text-slate-700">Protegge l'identità dei <strong>Client</strong> (es. anonimato, filtro).</td>
+                                    <td class="p-3 text-slate-700">Protegge l'identità e la struttura dei <strong>Server</strong> interni.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Posizione nella Rete</td>
+                                    <td class="p-3 text-slate-700">Vicino alla rete dei Client (es. LAN aziendale).</td>
+                                    <td class="p-3 text-slate-700">Vicino alla rete dei Server (es. DMZ, data center).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Caso d'uso comune</td>
+                                    <td class="p-3 text-slate-700">Filtro contenuti web (ACL), caching, autenticazione utenti.</td>
+                                    <td class="p-3 text-slate-700">Load balancing, offloading SSL, sicurezza (WAF), compressione.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4 text-center">Visualizzazione: Fasi per Esercitazione</h2>
+                    <p class="text-slate-600 text-center mb-4">Un confronto di alto livello del numero di fasi principali in ciascuna esercitazione.</p>
+                    <div class="chart-container">
+                        <canvas id="stepsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="forward-proxy-content" role="tabpanel" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-slate-700 text-lg mb-6">
+                        Questa esercitazione ti guida nell'implementazione di un <strong>Forward Proxy</strong> utilizzando Squid. L'obiettivo è filtrare il traffico in uscita dalla tua rete locale, controllare l'accesso a siti specifici e richiedere l'autenticazione degli utenti, includendo le prime misure di sicurezza.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Architettura: Forward Proxy</h2>
+                    <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-100 p-6 rounded-lg mb-6 text-center">
+                        <div class="font-medium p-4 bg-blue-100 text-blue-800 rounded-lg shadow-sm">
+                            👤<br>Client<br>(Rete Interna)
+                        </div>
+                        <div class="text-3xl font-light text-slate-500 transform md:rotate-0">→</div>
+                        <div class="font-bold p-4 bg-indigo-200 text-indigo-900 rounded-lg shadow-md border-2 border-indigo-400">
+                            🛡️<br>Forward Proxy (Squid)<br>(Filtro/Caching)
+                        </div>
+                        <div class="text-3xl font-light text-slate-500 transform md:rotate-0">→</div>
+                        <div class="font-medium p-4 bg-green-100 text-green-800 rounded-lg shadow-sm">
+                            🌍<br>Internet<br>(Risorsa Esterna)
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Fasi di Configurazione</h2>
+                    <div class="space-y-4">
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE A: Installazione e Configurazione Base
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">1. Installazione e Backup</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code>sudo apt update
+sudo apt install squid -y
+sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.orig</code></pre>
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">2. Configurazione Porta e Rete Locale</h3>
+                                <pre class="bg-slate-900 text-blue-300 p-4 rounded-md overflow-x-auto text-sm"><code># Esempio in /etc/squid/squid.conf
+http_port 3128
+
+# Rete interna autorizzata ad accedere al proxy (ACL)
+acl localnet src 192.168.1.0/24</code></pre>
+                            </div>
+                        </details>
+                        
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE B: Filtro del Traffico (ACL)
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">3. Definizione Regole di Blocco in <code>squid.conf</code></h3>
+                                <pre class="bg-slate-900 text-blue-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code># Definisci una lista di domini da bloccare
+acl siti_vietati dstdomain "/etc/squid/siti_vietati.txt"
+
+# Applica la regola: nega l'accesso a questi siti
+http_access deny siti_vietati
+
+# Autenticazione (vedi Fase C), poi permetti il resto alla rete locale
+http_access allow localnet</code></pre>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE C: Autenticazione Utente (Sicurezza Accesso)
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">4. Implementazione Autenticazione Basic</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code># Installa tool per la password
+sudo apt install apache2-utils -y
+# Crea il file delle password
+sudo htpasswd -c /etc/squid/passwd utente_proxy</code></pre>
+                                <p class="mb-2 text-slate-700">Aggiungi queste righe in <code>squid.conf</code> <em>prima</em> delle regole <code>http_access</code>:</p>
+                                <pre class="bg-slate-900 text-blue-300 p-4 rounded-md overflow-x-auto text-sm"><code>auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic realm "Accesso Controllato"
+acl utenti_autenticati proxy_auth REQUIRED
+http_access allow utenti_autenticati</code></pre>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg text-red-700">
+                                FASE D: Hardening e Minacce (CRITICO)
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-red-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">5. Protezione e Audit</h3>
+                                <p class="mb-2 text-slate-700">Aggiungi in <code>squid.conf</code>:</p>
+                                <pre class="bg-slate-900 text-red-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code># Nasconde l'identità del proxy per Mitigare attacchi di fingerprinting
+header_access Via deny all
+header_access Forwarded-For deny all
+
+# Limita le dimensioni della cache per prevenire DoS per esaurimento spazio
+cache_dir ufs /var/spool/squid 100 16 256 # 100 MB max
+
+# Limita le richieste simultanee per IP (Rate Limiting rudimentale)
+acl over_limit maxconn 10
+http_access deny over_limit</code></pre>
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">Minacce Specifiche</h3>
+                                <ul class="list-disc list-inside text-slate-700 space-y-1">
+                                    <li><strong>Cache Poisoning:</strong> Un attaccante inietta contenuti dannosi nella cache del proxy (es. tramite richieste HTTP non standard) per servire contenuti compromessi ad altri utenti.</li>
+                                    <li><strong>Abuso di Proxy:</strong> Se non ben configurato, il proxy può essere usato come trampolino per attacchi esterni o per nascondere attività malevole (anonimato non voluto).</li>
+                                </ul>
+                            </div>
+                        </details>
+                        
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE E: Riavvio e Verifica
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">6. Riavvio e Configurazione Client</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code>sudo systemctl restart squid
+sudo systemctl status squid</code></pre>
+                                <p class="mb-2 text-slate-700">Sul Client, imposta il proxy manuale del browser su <code>IP_Proxy</code> porta <code>3128</code>.</p>
+                            </div>
+                        </details>
+
+                        <div class="pt-6 mt-6 border-t border-gray-200">
+                            <h2 class="text-2xl font-bold text-indigo-700 mb-4">❓ Domande di Riflessione</h2>
+                            <ul class="list-disc list-inside space-y-2 text-slate-700">
+                                <li>Perché è fondamentale nascondere l'header <code>Via</code> nel contesto di un Forward Proxy?</li>
+                                <li>Se l'ACL <code>http_access deny over_limit</code> fosse permessa solo per la <code>localnet</code>, come cambierebbe il potenziale impatto di un attacco DoS?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="reverse-proxy-content" role="tabpanel" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-slate-700 text-lg mb-6">
+                        Questa esercitazione si concentra sulla configurazione di un <strong>Reverse Proxy</strong> usando Nginx, fungendo da front-end per i tuoi server web interni. Ciò aumenta la sicurezza nascondendo i server reali e fornisce funzionalità come il bilanciamento del carico.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-teal-700 mb-4">Architettura: Reverse Proxy</h2>
+                    <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-100 p-6 rounded-lg mb-6 text-center">
+                        <div class="font-medium p-4 bg-blue-100 text-blue-800 rounded-lg shadow-sm">
+                            👤<br>Client<br>(Internet)
+                        </div>
+                        <div class="text-3xl font-light text-slate-500 transform md:rotate-0">→</div>
+                        <div class="font-bold p-4 bg-teal-200 text-teal-900 rounded-lg shadow-md border-2 border-teal-400">
+                            🛡️<br>Reverse Proxy (Nginx)<br>(Punto di Ingresso Pubblico)
+                        </div>
+                        <div class="text-3xl font-light text-slate-500 transform md:rotate-0">→</div>
+                        <div class="font-medium p-4 bg-gray-200 text-gray-800 rounded-lg shadow-sm">
+                            🖥️<br>Backend Server<br>(Rete Privata)
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-teal-700 mb-4">Fasi di Configurazione</h2>
+                    <div class="space-y-4">
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE A: Preparazione del Backend e Installazione Nginx
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">1. Configurazione del Backend Server (es. 192.168.1.200:8080)</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code># Esempio di servizio web su una porta non standard</code></pre>
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">2. Installazione di Nginx (sul Reverse Proxy Server)</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto text-sm"><code>sudo apt update
+sudo apt install nginx -y</code></pre>
+                            </div>
+                        </details>
+                        
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE B: Configurazione Base del Reverse Proxy
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">3. Creazione File Configurazione Nginx</h3>
+                                <pre class="bg-slate-900 text-yellow-300 p-4 rounded-md overflow-x-auto text-sm"><code>server {
+    listen 80;
+    server_name www.miositoesterno.com;
+
+    location / {
+        proxy_pass http://192.168.1.200:8080;
+
+        # Propagazione degli header originali
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}</code></pre>
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">4. Abilitazione Configurazione</h3>
+                                <pre class="bg-slate-900 text-green-300 p-4 rounded-md overflow-x-auto text-sm"><code>sudo ln -s /etc/nginx/sites-available/reverse-app.conf /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl restart nginx</code></pre>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg text-red-700">
+                                FASE C: Hardening e Minacce (CRITICO)
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-red-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">5. Protezione Avanzata e Logging</h3>
+                                <p class="mb-2 text-slate-700">Aggiungi nel blocco <code>server</code> o a livello <code>http</code> in Nginx:</p>
+                                <pre class="bg-slate-900 text-red-300 p-4 rounded-md overflow-x-auto mb-4 text-sm"><code># Nasconde la versione di Nginx
+server_tokens off;
+
+# Rate Limiting per prevenire attacchi DoS/Brute Force
+# Definisci la zona in http block (es. 1r/s)
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s; 
+
+# Applica il limite alla location
+location / {
+    limit_req zone=one burst=5 nodelay; 
+    # ... altre direttive proxy_pass
+}</code></pre>
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">Minacce Specifiche</h3>
+                                <ul class="list-disc list-inside text-slate-700 space-y-1">
+                                    <li><strong>DoS/DDoS:</strong> Il RP è il bersaglio primario. Rate limiting e l'uso di servizi anti-DDoS sono cruciali.</li>
+                                    <li><strong>Header Injection:</strong> Se gli header proxy non sono gestiti correttamente (<code>proxy_set_header</code>), un utente malevolo può iniettare header dannosi nel backend.</li>
+                                    <li><strong>Exposure di Backend:</strong> Una configurazione errata delle regole di <code>location</code> può esporre URL o path destinati solo all'uso interno.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                FASE D: Verifica Funzionale
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <h3 class="font-semibold text-md text-slate-800 mb-2">6. Test di Accesso</h3>
+                                <p class="mb-2 text-slate-700">Sul Client, verifica l'accesso tramite dominio (<code>http://www.miositoesterno.com</code>).</p>
+                            </div>
+                        </details>
+
+                        <div class="pt-6 mt-6 border-t border-gray-200">
+                            <h2 class="text-2xl font-bold text-teal-700 mb-4">❓ Domande di Riflessione</h2>
+                            <ul class="list-disc list-inside space-y-2 text-slate-700">
+                                <li>Se <code>server_tokens off</code> non fosse configurato, quali informazioni sensibili potrebbe rivelare Nginx?</li>
+                                <li>In che modo il Rate Limiting in Nginx aiuta a mitigare un attacco DoS?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="security-content" role="tabpanel" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-slate-700 text-lg mb-6">
+                        Questa sezione fornisce un'analisi dettagliata degli attacchi comuni ai proxy e una checklist per l'hardening, essenziale per qualsiasi implementazione in produzione.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-red-700 mb-4">Analisi delle Minacce e Attacchi</h2>
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full min-w-max border border-gray-200 rounded-lg">
+                            <thead class="bg-red-100">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-red-800">Attacco/Minaccia</th>
+                                    <th class="p-3 text-left font-semibold text-red-800">Forward Proxy (FP)</th>
+                                    <th class="p-3 text-left font-semibold text-red-800">Reverse Proxy (RP)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="p-3 font-medium">DoS/DDoS</td>
+                                    <td class="p-3 text-slate-700">Rischio: Moderato (se usato internamente, l'attacco proviene dall'interno).</td>
+                                    <td class="p-3 text-slate-700">Rischio: <strong>Alto</strong> (Punto di ingresso pubblico).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Cache Poisoning</td>
+                                    <td class="p-3 text-slate-700">Rischio: <strong>Alto</strong> (FP memorizza contenuti per molti client).</td>
+                                    <td class="p-3 text-slate-700">Rischio: Basso/Moderato (se usato per caching, ma l'impatto è minore).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Remote Code Execution (RCE)</td>
+                                    <td class="p-3 text-slate-700">Rischio: Moderato (se il software proxy ha vulnerabilità).</td>
+                                    <td class="p-3 text-slate-700">Rischio: Moderato (il focus è sul web server, ma Nginx non è immune).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Fingerprinting</td>
+                                    <td class="p-3 text-slate-700">Rischio: Alto (rivelare il tipo/versione di proxy).</td>
+                                    <td class="p-3 text-slate-700">Rischio: Alto (rivelare il tipo/versione di Nginx/Server).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Header Forgery/Injection</td>
+                                    <td class="p-3 text-slate-700">Rischio: Basso (il proxy è il destinazione).</td>
+                                    <td class="p-3 text-slate-700">Rischio: <strong>Alto</strong> (manipolazione di X-Forwarded-For per ingannare il backend).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-red-700 mb-4">Checklist di Hardening (Protezione Totale)</h2>
+                    <div class="space-y-4">
+                        
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                🔒 Hardening Fisico e Sistema Operativo
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <ul class="list-disc list-inside text-slate-700 space-y-2">
+                                    <li><strong>Firewall (IPTables/UFW):</strong> Permetti il traffico solo sulla porta del proxy e verso i server necessari. Blocca tutto il resto.</li>
+                                    <li><strong>Aggiornamenti:</strong> Mantieni il sistema operativo e il software proxy (Squid/Nginx) costantemente aggiornati.</li>
+                                    <li><strong>Principio del Minimo Privilegio:</strong> Esegui il software proxy con un utente non privilegiato (<code>nobody</code> o utente dedicato).</li>
+                                    <li><strong>Separazione della Rete:</strong> Posiziona il Reverse Proxy in una DMZ (Demilitarized Zone) e il Forward Proxy lontano dal traffico pubblico.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                🛠️ Hardening del Software Proxy
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <ul class="list-disc list-inside text-slate-700 space-y-2">
+                                    <li><strong>Header Hiding:</strong> Nascondi gli header che rivelano la tua architettura (<code>Via</code>, <code>Server</code>, <code>X-Powered-By</code>).</li>
+                                    <li><strong>Rate Limiting:</strong> Implementa il blocco delle richieste eccessive (Nginx <code>limit_req_zone</code>, Squid <code>maxconn</code>).</li>
+                                    <li><strong>Access Control Rigoroso:</strong> Usa le ACL per definire precisamente chi può accedere al proxy (IP, reti, utenti autenticati).</li>
+                                    <li><strong>Disabilitazione Funzionalità Inutilizzate:</strong> Disabilita moduli Nginx non necessari o le direttive Squid non utilizzate.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <summary class="p-4 font-semibold text-lg cursor-pointer hover:bg-gray-50 rounded-t-lg">
+                                👁️ Logging e Monitoraggio
+                            </summary>
+                            <div class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+                                <ul class="list-disc list-inside text-slate-700 space-y-2">
+                                    <li><strong>Log Dettagliati:</strong> Configura il logging per registrare IP di origine, destinazione, tempo di risposta e header critici.</li>
+                                    <li><strong>Monitoraggio Real-Time:</strong> Utilizza strumenti come Fail2Ban per analizzare i log e bannare automaticamente gli IP che tentano attacchi Brute Force o DoS.</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            function setupTabs() {
+                const tabs = document.querySelectorAll('[role="tab"]');
+                const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                // Attiva la prima scheda di default
+                document.getElementById('riepilogo-content').classList.remove('hidden');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const targetId = tab.getAttribute('data-tab-target');
+                        
+                        tabPanels.forEach(panel => {
+                            if (panel.id === targetId) {
+                                panel.classList.remove('hidden');
+                            } else {
+                                panel.classList.add('hidden');
+                            }
+                        });
+                        
+                        tabs.forEach(t => {
+                            t.classList.remove('active');
+                        });
+                        
+                        tab.classList.add('active');
+                    });
+                });
+            }
+
+            function createChart() {
+                const ctx = document.getElementById('stepsChart').getContext('2d');
+                if (!ctx) return;
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Forward Proxy (Squid)', 'Reverse Proxy (Nginx)', 'Hardening di Sicurezza Aggiuntivo'],
+                        datasets: [{
+                            label: 'Numero di Fasi',
+                            data: [5, 4, 3],
+                            backgroundColor: [
+                                'rgba(79, 70, 229, 0.7)',
+                                'rgba(13, 148, 136, 0.7)',
+                                'rgba(239, 68, 68, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(79, 70, 229, 1)',
+                                'rgba(13, 148, 136, 1)',
+                                'rgba(239, 68, 68, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        family: 'Inter',
+                                        size: 14
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                titleFont: { family: 'Inter' },
+                                bodyFont: { family: 'Inter' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupTabs();
+            createChart();
+        });
+    </script>
+</body>
+</html>
