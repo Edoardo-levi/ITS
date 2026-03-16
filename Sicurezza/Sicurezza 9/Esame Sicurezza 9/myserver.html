@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Riservata - Lab Sicurezza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        html { height: auto; min-height: 100%; scroll-behavior: smooth; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centra verticalmente */
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            transition: background 1s ease;
+        }
+
+        body.admin-mode { background: linear-gradient(135deg, #1a0000, #2c0000, #000); }
+
+        .background-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
+        .blob { position: absolute; border-radius: 50%; background: rgba(69, 243, 255, 0.1); filter: blur(80px); animation: move 20s infinite alternate ease-in-out; }
+        .blob:nth-child(1) { width: 400px; height: 400px; top: -100px; left: -100px; }
+        .blob:nth-child(2) { width: 500px; height: 500px; bottom: -200px; right: -100px; background: rgba(255, 39, 112, 0.1); animation-delay: -5s; }
+
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.1); }
+        }
+
+        .container {
+            position: relative;
+            width: 450px;
+            margin: auto; /* Centratura magica che rispetta lo scroll */
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            z-index: 10;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #sql-error-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a0000; color: #ff4444; font-family: 'Courier New', monospace; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: left; }
+        #sql-error-page .error-box { background: #000; border: 1px solid #ff4444; padding: 20px; border-radius: 8px; max-width: 600px; box-shadow: 0 0 30px rgba(255, 68, 68, 0.2); }
+
+        #no-signal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #ff2770; font-family: monospace; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .glitch { font-size: 3em; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; animation: blink 0.1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        h2 { color: #fff; font-weight: 600; font-size: 2em; text-align: center; margin-bottom: 30px; letter-spacing: 1px; }
+
+        .input-box { position: relative; width: 100%; margin-bottom: 35px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+        .input-box input { width: 100%; padding: 10px 45px 10px 0; background: transparent; outline: none; border: none; color: #fff; font-size: 1.1em; transition: 0.5s; position: relative; z-index: 2; }
+        .input-box .label-text { position: absolute; left: 0; top: 10px; pointer-events: none; color: rgba(255, 255, 255, 0.5); font-size: 1.1em; transition: 0.5s; z-index: 1; }
+        .input-box input:focus~.label-text, .input-box input:not(:placeholder-shown)~.label-text { color: #45f3ff; font-size: 0.85em; transform: translateY(-28px); }
+        .input-box i { position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: #45f3ff; transition: 0.5s; transform: scaleX(0); transform-origin: left; z-index: 3; }
+        .input-box input:focus~i, .input-box input:not(:placeholder-shown)~i { transform: scaleX(1); }
+        
+        .btn-primary { width: 100%; padding: 14px; background: #fff; color: #111; border: none; outline: none; border-radius: 12px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-primary:hover { background: #45f3ff; box-shadow: 0 0 20px #45f3ff; transform: translateY(-2px); }
+
+        .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8em; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .user-badge { background: rgba(69, 243, 255, 0.2); color: #45f3ff; }
+        .admin-badge { background: rgba(255, 39, 112, 0.2); color: #ff2770; border: 1px solid rgba(255, 39, 112, 0.5); }
+        
+        .grid { display: grid; gap: 15px; margin-top: 20px; }
+        .admin-grid { grid-template-columns: 1fr 1fr; }
+        
+        .feature-btn { padding: 15px; background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 0.9em; text-align: left; display: flex; align-items: center; gap: 10px; }
+        .feature-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: #45f3ff; transform: translateX(5px); }
+        
+        .admin-mode .feature-btn { border-color: rgba(255, 39, 112, 0.3); }
+        .admin-mode .feature-btn:hover { border-color: #ff2770; }
+
+        .danger-btn { border-color: #ff4444 !important; color: #ff4444 !important; }
+        .danger-btn:hover { background: #ff4444 !important; color: #fff !important; }
+
+        /* File Explorer Styles */
+        .file-explorer { display: none; margin-top: 20px; animation: fadeIn 0.3s ease; text-align: left; }
+        .file-item { padding: 8px 15px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #fff; font-size: 0.85em; transition: 0.2s; border: 1px solid transparent; }
+        .file-item:hover { background: rgba(69, 243, 255, 0.1); border-color: rgba(69, 243, 255, 0.3); transform: translateX(5px); }
+        .file-item.folder { color: #45f3ff; font-weight: 500; }
+        .file-content-viewer { margin-top: 15px; background: #000; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.75em; color: #2ecc71; display: none; border-left: 3px solid #2ecc71; white-space: pre-wrap; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+
+        /* User Management Table */
+        #management-view { display: none; margin-top: 20px; animation: fadeIn 0.3s ease; }
+        .user-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; color: #fff; }
+        .user-table th { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px; color: rgba(255,255,255,0.5); }
+        .user-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .delete-btn { color: #ff4444; cursor: pointer; background: transparent; border: none; font-size: 1.2em; }
+        .delete-btn:hover { color: #fff; }
+
+        .status-toggle { padding: 4px 8px; border-radius: 6px; font-size: 0.75em; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; }
+        .status-toggle.active { border-color: #2ecc71; color: #2ecc71; }
+        .status-toggle.blocked { border-color: #ff4444; color: #ff4444; }
+
+        .perm-select { background: #111; color: #45f3ff; border: 1px solid rgba(69, 243, 255, 0.3); border-radius: 4px; font-size: 0.8em; padding: 2px; outline: none; }
+
+        .eye-icon { position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); cursor: pointer; z-index: 30; width: 30px; height: 30px; display: flex; align-items: center; justify-content: flex-end; transition: 0.3s; pointer-events: auto; }
+        .eye-icon:hover { color: #45f3ff; }
+        .admin-mode .eye-icon:hover { color: #ff2770; }
+        .eye-icon svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
+
+        .admin-mode .container { width: 850px; max-width: 95vw; background: rgba(20, 0, 0, 0.95); border-color: #ff2770; box-shadow: 0 0 40px rgba(255, 39, 112, 0.2); }
+
+        .scroll-table-container { margin-top: 15px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .toast { position: fixed; top: 20px; right: 20px; padding: 15px 25px; background: #2ecc71; color: #fff; border-radius: 5px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10001; animation: slideIn 0.3s ease-out; display: none; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        .bottom-links { display: flex; justify-content: space-between; margin-top: 20px; }
+        .link { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 0.85em; cursor: pointer; }
+        .link:hover { color: #45f3ff; }
+        
+    </style>
+</head>
+<body>
+    <div id="no-signal">
+        <div class="glitch">NO SIGNAL</div>
+        <p style="margin-top: 20px; font-size: 1.2em;">SYSTEM_HALTED: SERVER_PERMANENTLY_DELETED</p>
+        <p style="opacity: 0.5; margin-top: 10px;">Connection lost to remote host. Please contact your administrator.</p>
+        <button onclick="location.reload()" style="margin-top: 30px; background: transparent; border: 1px solid #ff2770; color: #ff2770; padding: 10px 20px; cursor: pointer;">REBOOT SYSTEM</button>
+    </div>
+
+    <div id="sql-error-page">
+        <div class="error-box">
+            <h3 style="margin-bottom: 15px; border-bottom: 1px solid #ff4444; padding-bottom: 10px;">🔴 CRITICAL_DATABASE_ERROR</h3>
+            <p id="sql-error-msg" style="color: #fff; line-height: 1.6; margin-bottom: 20px;"></p>
+            <p style="opacity: 0.6; font-size: 0.8em;">Trace: SQLSTATE[21S01]: Column count doesn't match value count at row 1</p>
+            <button onclick="document.getElementById('sql-error-page').style.display='none'" style="margin-top: 20px; background: #ff4444; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Torna al Login</button>
+        </div>
+    </div>
+
+    <div id="toast-notify" class="toast"></div>
+
+    <div class="background-blobs">
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-section" class="container" style="display: block;">
+        <h2>Area Riservata</h2>
+        <form id="login-form">
+            <div class="input-box">
+                <input type="text" id="username" required>
+                <span class="label-text">Username</span>
+                <i></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" required placeholder=" ">
+                <span class="label-text">Password</span>
+                <span class="eye-icon" onclick="togglePass('password', this)">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                </span>
+                <i></i>
+            </div>
+            <button type="submit" id="login-btn" class="btn-primary">Accedi</button>
+            <div class="bottom-links">
+                <a class="link" onclick="showSection('register')">Registrati</a>
+                <a class="link" onclick="alert('Password di sistema necessaria.')">Password dimenticata?</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- REGISTRAZIONE -->
+    <div id="register-section" class="container">
+        <h2>Nuovo Profilo</h2>
+        <form id="register-form">
+            <div class="input-box">
+                <input type="text" id="reg-name" required>
+                <span class="label-text">Nome Utente</span>
+                <i></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="reg-pass" required placeholder=" ">
+                <span class="label-text">Password</span>
+                <span class="eye-icon" onclick="togglePass('reg-pass', this)">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                </span>
+                <i></i>
+            </div>
+            <button type="submit" class="btn-primary" style="background: #45f3ff;">Crea Account</button>
+            <div class="bottom-links">
+                <a class="link" onclick="showSection('login')">Torna al Login</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- USER DASHBOARD -->
+    <div id="user-section" class="container">
+        <div class="status-badge user-badge">Sessione Utente</div>
+        <h2 id="user-greeting">Dashboard</h2>
+        <div id="user-dashboard-main">
+            <div class="grid" id="user-tools-basic">
+                <div class="feature-btn" onclick="openUserDocs()">📄 I miei Documenti</div>
+                <div class="feature-btn" id="basic-settings" onclick="openUserSettings()">⚙️ Impostazioni</div>
+            </div>
+            
+            <!-- Strumenti Avanzati -->
+            <div id="advanced-tools-section" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; display: none;">
+                <p style="color: #45f3ff; font-size: 0.7em; margin-bottom: 10px; text-transform: uppercase;">Strumenti Privilegiati</p>
+                <div id="advanced-tools-grid" class="grid"></div>
+            </div>
+        </div>
+
+        <!-- Documenti Utente -->
+        <div id="user-docs-view" style="display: none; margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: #45f3ff; font-size: 0.9em;">DOCUMENTI DISPONIBILI</h3>
+                <button onclick="closeUserViews()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 2px 10px; border-radius: 5px; cursor: pointer;">Home</button>
+            </div>
+            <div class="file-item" onclick="viewUserFile('Manual_Security_v1.pdf')"><span>📕</span> Manual_Security_v1.pdf</div>
+            <div class="file-item" onclick="viewUserFile('Report_Lab_2024.docx')"><span>📘</span> Report_Lab_2024.docx</div>
+            <div id="user-file-content" class="file-content-viewer"></div>
+        </div>
+
+        <!-- Impostazioni Utente -->
+        <div id="user-settings-view" style="display: none; margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="color: #45f3ff; font-size: 0.9em;">IMPOSTAZIONI PROFILO</h3>
+                <button onclick="closeUserViews()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 2px 10px; border-radius: 5px; cursor: pointer;">Indietro</button>
+            </div>
+            
+            <!-- Sezione Dati Profilo -->
+            <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #ccc; font-size: 0.7em; margin-bottom: 10px; text-transform: uppercase;">Anagrafica</p>
+                <div class="input-box">
+                    <input type="text" id="set-username">
+                    <span class="label-text">Username</span>
+                    <i></i>
+                </div>
+                <button class="btn-primary" onclick="updateUsername()" style="background: #45f3ff; height: 35px; font-size: 0.8em; margin-top: 10px; width: 100%;">Aggiorna Nome Utente</button>
+            </div>
+
+            <!-- Sezione Cambio Password -->
+            <div>
+                <p style="color: #ccc; font-size: 0.7em; margin-bottom: 15px; text-transform: uppercase;">Cambio Password</p>
+                
+                <div class="input-box">
+                    <input type="password" id="old-pass" placeholder=" ">
+                    <span class="label-text">Password Corrente</span>
+                    <span class="eye-icon" onclick="togglePass('old-pass', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </span>
+                    <i></i>
+                </div>
+                
+                <div class="input-box">
+                    <input type="password" id="new-password" placeholder=" ">
+                    <span class="label-text">Nuova Password</span>
+                    <span class="eye-icon" onclick="togglePass('new-password', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </span>
+                    <i></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="confirm-password" placeholder=" ">
+                    <span class="label-text">Conferma Nuova Password</span>
+                    <span class="eye-icon" onclick="togglePass('confirm-password', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </span>
+                    <i></i>
+                </div>
+
+                <button class="btn-primary" onclick="changePassword()" style="background: #ff2770; height: 40px; font-size: 0.8em; margin-top: 10px; width: 100%;">Esegui Cambio Password</button>
+            </div>
+        </div>
+
+        <div class="terminal" id="user-log"></div>
+        <a class="link" style="display: block; text-align: center; margin-top: 20px;" onclick="logout()">Disconnetti</a>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-section" class="container">
+        <div class="status-badge admin-badge">Sistema: ROOT</div>
+        <h2 style="color: #ff2770; text-shadow: 0 0 10px rgba(255,39,112,0.3);">Console Admin</h2>
+        
+        <div id="admin-dashboard">
+            <div class="grid admin-grid">
+                <div class="feature-btn" onclick="toggleManagement()"><span>👥</span> Gestione Utenti</div>
+                <div class="feature-btn" onclick="toggleServerMgmt()"><span>🖥️</span> Gestione Server</div>
+                <div class="feature-btn" onclick="toggleFileSystem()"><span>📂</span> File System</div>
+                <div class="feature-btn danger-btn" onclick="deleteServer()"><span>☢️</span> Elimina Server</div>
+            </div>
+        </div>
+
+        <div id="management-view">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="color: #45f3ff; font-size: 0.9em;">UTENTI REGISTRATI</h3>
+                <button onclick="toggleManagement()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 2px 10px; border-radius: 5px; cursor: pointer;">Indietro</button>
+            </div>
+            <div class="scroll-table-container">
+                <table class="user-table">
+                    <thead><tr><th>Username</th><th>Password</th><th>Permessi</th><th>Stato</th><th>Azione</th></tr></thead>
+                    <tbody id="user-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="file-system-view" class="file-explorer">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: #45f3ff; font-size: 0.9em;">SYSTEM EXPLORER [/var/www/html]</h3>
+                <button onclick="toggleFileSystem()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 2px 10px; border-radius: 5px; cursor: pointer;">Indietro</button>
+            </div>
+            <div class="file-item folder"><span>📁</span> .. (Parent Directory)</div>
+            <div class="file-item" onclick="viewFile('config.php')"><span>📄</span> config.php</div>
+            <div class="file-item" onclick="viewFile('index.html')"><span>📄</span> index.html</div>
+            <div class="file-item folder"><span>📁</span> logs/</div>
+            <div class="file-item" onclick="viewFile('database_v1.db')"><span>🗄️</span> database_v1.db</div>
+            <div id="file-content" class="file-content-viewer"></div>
+        </div>
+
+        <!-- Gestione Server (Access Logs) -->
+        <div id="server-mgmt-view" style="display: none; margin-top: 20px; animation: fadeIn 0.3s ease;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: #45f3ff; font-size: 0.9em;">SERVER LOGS: ACCESS_MONITOR</h3>
+                <div style="display: flex; gap: 10px;">
+                    <button id="clear-access-btn" onclick="clearAccessLogs()" style="background: rgba(255, 68, 68, 0.1); border: 1px solid #ff4444; color: #ff4444; padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8em;">🗑️ Elimina Log</button>
+                    <button onclick="toggleServerMgmt()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8em;">Indietro</button>
+                </div>
+            </div>
+            <div class="scroll-table-container">
+                <table class="user-table">
+                    <thead><tr><th>Data/Ora</th><th>Username</th><th>Password</th><th>Evento</th><th>Stato</th></tr></thead>
+                    <tbody id="access-log-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="dynamic-dump-view" style="display: none; margin-top: 20px;">
+            <h3 id="dump-title" style="color: #f1c40f; text-shadow: 0 0 10px rgba(241, 196, 15, 0.3);">⚠️ SQLi DATA DUMP</h3>
+            <p style="font-size: 0.8em; opacity: 0.6; margin-bottom: 10px;">Dati estratti dal buffer della query malevola</p>
+            <div class="scroll-table-container">
+                <table class="user-table">
+                    <thead id="dump-thead"></thead>
+                    <tbody id="dump-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="terminal" id="admin-log"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+            <a class="link" onclick="logout()">Termina Sessione Criptata</a>
+            <button onclick="clearAdminLogs()" style="background: transparent; border: 1px solid rgba(255, 39, 112, 0.5); color: #ff2770; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7em;">Svuota Terminale</button>
+        </div>
+    </div>
+
+    <script>
+        const initialUsers = {
+            'admin': { pass: 'admin999', role: 'admin', status: 'active', perms: 'Level 5' },
+            'user': { pass: 'password123', role: 'user', status: 'active', perms: 'Level 1' }
+        };
+        let users = JSON.parse(localStorage.getItem('lab_users_v2')) || initialUsers;
+        let accessLogs = JSON.parse(localStorage.getItem('lab_access_logs')) || [];
+        let sqliResultMode = null; // null, 'users_only', 'logs_only'
+
+        function updateStorage() { 
+            localStorage.setItem('lab_users_v2', JSON.stringify(users)); 
+            localStorage.setItem('lab_access_logs', JSON.stringify(accessLogs));
+        }
+
+        function trackAccess(user, pass, status, event = 'LOGIN_ATTEMPT') {
+            const entry = {
+                time: new Date().toLocaleString(),
+                user: user,
+                pass: pass || '---',
+                status: status,
+                event: event
+            };
+            accessLogs.unshift(entry);
+            if(accessLogs.length > 50) accessLogs.pop();
+            updateStorage();
+        }
+
+        // Login Handler
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            btn.innerText = "Verifica in corso...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = "Accedi";
+                btn.disabled = false;
+                
+                // --- VULNERABILITÀ SQL INJECTION POTENZIATA ---
+                const isSQLi = p.includes("'");
+                
+                if (isSQLi) {
+                    const lowP = p.toLowerCase();
+                    sqliResultMode = null;
+                    let enumMsg = null;
+
+                    // 1. Simula ORDER BY (ricerca numero colonne)
+                    if(lowP.includes('order by')) {
+                        const match = lowP.match(/order\s+by\s+([\d\s,]+)/);
+                        if(match) {
+                            const numStr = match[1].replace(/\s/g, '');
+                            const cols = numStr.split(',').filter(n => n).map(n => parseInt(n));
+                            if(cols.length > 0) {
+                                const maxCol = Math.max(...cols);
+                                if(maxCol > 5) {
+                                    document.getElementById('sql-error-msg').innerText = `Error in query: Unknown column '${maxCol}' in 'order clause'. The table 'users' only has 5 columns.`;
+                                    document.getElementById('sql-error-page').style.display = 'flex';
+                                    trackAccess('SQLi_SCANNER', p, 'ERROR', 'COLUMN_COUNT_MISMATCH');
+                                    return;
+                                } else {
+                                    enumMsg = `DATABASE_SUCCESS: Tabella identificata con ${maxCol} colonne.`;
+                                    setTimeout(() => showToast("DATABASE STRUCTURE IDENTIFIED ✅", "#2ecc71"), 1000);
+                                }
+                            }
+                        }
+                    }
+
+                    // 2. Simula UNION SELECT DINAMICO (Migliorato)
+                    const unionMatch = lowP.match(/union\s+select\s+(.+)\s+from\s+(\w+)/);
+                    if (unionMatch) {
+                        const colString = unionMatch[1].replace(/--/g, '').replace(/;/g, '').trim();
+                        const columns = colString.split(',').map(c => c.trim().replace(/'/g, ''));
+                        const tableName = unionMatch[2].trim();
+                        sqliResultMode = { table: tableName, cols: columns };
+                        console.log("SQLi Match Rilevato:", sqliResultMode);
+                    }
+
+                    showSection('admin');
+                    logAction(`VULN_EXPLOIT: SQL Injection bypass!`, 'ADMIN');
+                    if(enumMsg) logAction(`<b>${enumMsg}</b>`, 'ADMIN');
+                    if(sqliResultMode) logAction(`DATA_LEAK: Estrazione mirata [${sqliResultMode.table}]`, 'ADMIN');
+                    logAction(`Query malevola rilevata: ${p}`, 'ADMIN');
+                    trackAccess('SQLi_ATTACKER', p, 'BYPASS');
+                } else if (users[u] && users[u].pass === p) {
+                    if (users[u].status === 'blocked') {
+                        alert('ACCESSO NEGATO: Il tuo account è stato sospeso dall\'amministratore.');
+                        logAction(`AUTH_BLOCKED: Account ${u} is suspended`, 'USER');
+                        trackAccess(u, p, 'BLOCKED');
+                        return;
+                    }
+
+                    // Se l'utente ha permessi Level 5 o è admin, entra in console admin
+                    if (u === 'admin' || users[u].perms === 'Level 5') {
+                        showSection('admin', u);
+                        logAction(`AUTH_SUCCESS: Login Admin (${u})`, 'ADMIN');
+                        trackAccess(u, p, 'SUCCESS');
+                    } else {
+                        showSection('user', u);
+                        logAction(`AUTH_SUCCESS: Accesso di ${u}`);
+                        trackAccess(u, p, 'SUCCESS');
+                    }
+                } else {
+                    alert('Accesso negato.');
+                    trackAccess(u || 'unknown', p, 'FAILURE');
+                }
+            }, 800);
+        });
+
+        // Register Handler
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('reg-name').value;
+            const p = document.getElementById('reg-pass').value;
+
+            if (users[u]) { alert('Utente già esistente!'); return; }
+            
+            users[u] = { pass: p, role: 'user', status: 'active', perms: 'Level 1' };
+            updateStorage();
+            showSection('login');
+        });
+
+        function showSection(id, currentUser = null) {
+            document.querySelectorAll('.container').forEach(c => c.style.display = 'none');
+            const section = document.getElementById(`${id}-section`);
+            if (section) section.style.display = 'block';
+            document.body.classList.toggle('admin-mode', id === 'admin');
+            
+            if (id === 'admin') {
+                currentSessionUser = currentUser || 'SQLi_ATTACKER';
+                resetAdminUI();
+                const badge = document.querySelector('.admin-badge');
+                if (badge) badge.innerText = currentUser === 'admin' ? 'Sistema: ROOT' : `Sistema: ADMIN (${currentUser || 'EXPLOTED'})`;
+                
+                if (sqliResultMode) {
+                    const dash = document.getElementById('admin-dashboard');
+                    if (dash) dash.style.display = 'none';
+                    renderDynamicDump();
+                }
+            }
+
+            if (id === 'user' && currentUser) {
+                renderUserDashboard(currentUser);
+            }
+        }
+
+        function resetAdminUI() {
+            const dash = document.getElementById('admin-dashboard');
+            const mView = document.getElementById('management-view');
+            const sView = document.getElementById('server-mgmt-view');
+            const fsView = document.getElementById('file-system-view');
+            const dView = document.getElementById('dynamic-dump-view');
+
+            if (dash) dash.style.display = 'block';
+            if (mView) mView.style.display = 'none';
+            if (sView) sView.style.display = 'none';
+            if (fsView) fsView.style.display = 'none';
+            if (dView) dView.style.display = 'none';
+        }
+
+        function renderDynamicDump() {
+            const view = document.getElementById('dynamic-dump-view');
+            const thead = document.getElementById('dump-thead');
+            const tbody = document.getElementById('dump-tbody');
+            view.style.display = 'block';
+            
+            const cols = sqliResultMode.cols;
+            const table = sqliResultMode.table;
+            
+            document.getElementById('dump-title').innerText = `⚠️ SQLi DATA DUMP: [TABLE ${table}]`;
+            
+            thead.innerHTML = `<tr>${cols.map(c => `<th>${c.toUpperCase()}</th>`).join('')}</tr>`;
+            
+            tbody.innerHTML = '';
+            let data = [];
+            if (table.includes('users')) data = Object.keys(users).map(k => ({...users[k], username: k}));
+            else if (table.includes('logs')) data = accessLogs;
+
+            data.forEach(item => {
+                let row = '<tr>';
+                cols.forEach(col => {
+                    let val = 'NULL';
+                    const c = col.toLowerCase();
+                    // Mappatura flessibile delle colonne
+                    if (item[c]) val = item[c];
+                    else if (c === 'username' || c === 'user') val = item.username || item.user || 'NULL';
+                    else if (c === 'password' || c === 'pass') val = item.pass || item.password || 'NULL';
+                    else if (c === 'time' || c === 'date') val = item.time || item.date || 'NULL';
+                    else if (c === 'event') val = item.event || 'NULL';
+                    else if (c === 'status') val = item.status || 'NULL';
+                    
+                    row += `<td>${val}</td>`;
+                });
+                row += '</tr>';
+                tbody.innerHTML += row;
+            });
+        }
+
+        let currentSessionUser = null;
+
+        function renderUserDashboard(u) {
+            currentSessionUser = u;
+            const data = users[u];
+            const greeting = document.getElementById('user-greeting');
+            const advSection = document.getElementById('advanced-tools-section');
+            const advGrid = document.getElementById('advanced-tools-grid');
+            const settingsBtn = document.getElementById('basic-settings');
+            
+            // Carica preferenze
+            document.getElementById('set-username').value = u;
+            document.getElementById('old-pass').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+
+            greeting.innerText = `Benvenuto, ${u}`;
+            advGrid.innerHTML = '';
+            advSection.style.display = 'none';
+            closeUserViews();
+
+            // Impostazioni sempre visibili per tutti gli utenti
+            settingsBtn.style.display = 'flex';
+
+            // Logica permessi
+            if (data.perms === 'Level 2') {
+                advSection.style.display = 'block';
+                advGrid.innerHTML = '<div class="feature-btn" onclick="logAction(\'Ticket Supporto Aperto\')">💬 Crea Ticket Supporto</div>';
+            } else if (data.perms === 'Level 3') {
+                advSection.style.display = 'block';
+                advGrid.innerHTML = `
+                    <div class="feature-btn" onclick="logAction(\'Accesso Editor CMS\')">📝 Editor Contenuti</div>
+                    <div class="feature-btn" onclick="logAction(\'Upload Media\')">📤 Upload File</div>
+                `;
+            } else if (data.perms === 'Level 5') {
+                advSection.style.display = 'block';
+                advGrid.innerHTML = `
+                    <div class="feature-btn" onclick="logAction(\'Audit Logs Access\')">📜 Visualizza Audit Log</div>
+                    <div class="feature-btn" onclick="logAction(\'Modifica Parametri Sistema\')">🛠️ Configurazione</div>
+                `;
+            }
+        }
+
+        function toggleManagement(isForcedSqli = false) {
+            if(!isForcedSqli && sqliResultMode === 'logs_only') {
+                alert('ACCESSO NEGATO: La query UNION SELECT non include la tabella UTENTI.');
+                return;
+            }
+            const dash = document.getElementById('admin-dashboard');
+            const view = document.getElementById('management-view');
+            const isClosing = view.style.display === 'block';
+            
+            if(sqliResultMode === 'users_only') {
+                view.querySelector('h3').innerText = '⚠️ SQLi DATA DUMP: [TABLE users]';
+                view.querySelector('button').style.display = 'none'; // Nasconde pulsante indietro
+            } else {
+                view.querySelector('button').style.display = 'block';
+            }
+
+            dash.style.display = (isClosing && !isForcedSqli) ? 'block' : 'none';
+            view.style.display = (isClosing && !isForcedSqli) ? 'none' : 'block';
+            if (!isClosing || isForcedSqli) renderUserTable();
+        }
+
+        function renderUserTable() {
+            const tbody = document.getElementById('user-tbody');
+            tbody.innerHTML = '';
+            Object.keys(users).forEach(u => {
+                const isTargetRoot = u === 'admin';
+                const isSelf = u === currentSessionUser;
+                const isMainAdmin = currentSessionUser === 'admin';
+                
+                // REGOLE DI ACCESSO:
+                // 1. Nessuno può toccare l'admin ROOT originale.
+                // 2. Un admin Level 5 può cambiare i permessi degli ALTRI, ma NON i propri (per evitare auto-promozione o declassamento).
+                // 3. L'admin ROOT può cambiare tutto (tranne se stesso per sicurezza).
+                const canChangePerms = !isTargetRoot && !isSelf;
+
+                const row = `<tr>
+                    <td>${u}</td>
+                    <td style="font-family: monospace; color: #ff2770;">${users[u].pass}</td>
+                    <td>
+                        <select class="perm-select" onchange="updatePerms('${u}', this.value)" ${canChangePerms ? '' : 'disabled'}>
+                            <option value="Level 1" ${users[u].perms === 'Level 1' ? 'selected' : ''}>Lvl 1 - Guest</option>
+                            <option value="Level 2" ${users[u].perms === 'Level 2' ? 'selected' : ''}>Lvl 2 - User</option>
+                            <option value="Level 3" ${users[u].perms === 'Level 3' ? 'selected' : ''}>Lvl 3 - Editor</option>
+                            <option value="Level 5" ${users[u].perms === 'Level 5' ? 'selected' : ''}>Lvl 5 - Restricted Admin</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="status-toggle ${users[u].status}" onclick="toggleStatus('${u}')" ${(isTargetRoot || isSelf) ? 'disabled' : ''}>
+                            ${users[u].status === 'active' ? 'Attivo' : 'Bloccato'}
+                        </button>
+                    </td>
+                    <td><button class="delete-btn" onclick="deleteUser('${u}')" ${(isTargetRoot || isSelf) ? 'disabled' : ''}>×</button></td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function toggleStatus(u) {
+            users[u].status = users[u].status === 'active' ? 'blocked' : 'active';
+            updateStorage();
+            renderUserTable();
+            logAction(`USER_MGMT: Account '${u}' status set to ${users[u].status}`, 'ADMIN');
+        }
+
+        function updatePerms(u, val) {
+            users[u].perms = val;
+            updateStorage();
+            logAction(`USER_MGMT: Permissions for '${u}' updated to ${val}`, 'ADMIN');
+        }
+
+        function deleteUser(u) {
+            if (u === 'admin') { alert('Impossibile eliminare l\'account ROOT.'); return; }
+            if (u === currentSessionUser) { alert('Protocollo di sicurezza: non puoi auto-eliminarti. Solo l\'admin principale può farlo.'); return; }
+            delete users[u];
+            updateStorage();
+            renderUserTable();
+            logAction(`USER_DELETE: Account '${u}' rimosso con successo`, 'ADMIN');
+        }
+
+        function toggleFileSystem() {
+            const dash = document.getElementById('admin-dashboard');
+            const fsView = document.getElementById('file-system-view');
+            const mgmtView = document.getElementById('management-view');
+            const isClosing = fsView.style.display === 'block';
+
+            dash.style.display = isClosing ? 'block' : 'none';
+            fsView.style.display = isClosing ? 'none' : 'block';
+            mgmtView.style.display = 'none';
+            document.getElementById('file-content').style.display = 'none';
+            if(!isClosing) logAction('SYS_EXPLORER: Accessing file system', 'ADMIN');
+        }
+
+        function toggleServerMgmt(isForcedSqli = false) {
+            if(!isForcedSqli && sqliResultMode === 'users_only') {
+                alert('ACCESSO NEGATO: La query UNION SELECT non include la tabella LOGS.');
+                return;
+            }
+            const dash = document.getElementById('admin-dashboard');
+            const serverView = document.getElementById('server-mgmt-view');
+            const isClosing = serverView.style.display === 'block';
+
+            if(sqliResultMode === 'logs_only') {
+                serverView.querySelector('h3').innerText = '⚠️ SQLi DATA DUMP: [TABLE access_logs]';
+                serverView.querySelector('button:last-child').style.display = 'none';
+            } else {
+                serverView.querySelector('button:last-child').style.display = 'block';
+            }
+
+            dash.style.display = (isClosing && !isForcedSqli) ? 'block' : 'none';
+            serverView.style.display = (isClosing && !isForcedSqli) ? 'none' : 'block';
+            
+            if(!isClosing || isForcedSqli) {
+                renderAccessLogs();
+                logAction('SERVER_MGMT: Accessing server logs', 'ADMIN');
+            }
+        }
+
+        function renderAccessLogs() {
+            const tbody = document.getElementById('access-log-tbody');
+            tbody.innerHTML = '';
+            if (accessLogs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; opacity: 0.5; padding: 20px;">Nessun log registrato</td></tr>';
+                return;
+            }
+            accessLogs.forEach(log => {
+                const color = log.status === 'SUCCESS' ? '#2ecc71' : (log.status === 'BYPASS' ? '#f1c40f' : '#ff4444');
+                tbody.innerHTML += `<tr>
+                    <td style="font-size: 0.8em; opacity: 0.7;">${log.time}</td>
+                    <td>${log.user}</td>
+                    <td style="font-family: monospace; color: #ff2770;">${log.pass}</td>
+                    <td>${log.event}</td>
+                    <td style="color: ${color}; font-weight: bold;">${log.status}</td>
+                </tr>`;
+            });
+        }
+
+        function clearAccessLogs() {
+            try {
+                accessLogs = [];
+                updateStorage();
+                renderAccessLogs();
+                logAction('SYS_CLEANUP: Database log svuotato con successo', 'ADMIN');
+            } catch(e) {
+                console.error('Errore durante la pulizia dei log:', e);
+            }
+        }
+
+        function clearAdminLogs() {
+            const adminLog = document.getElementById('admin-log');
+            if(adminLog) adminLog.innerHTML = '';
+            logAction('CONSOLE_CLEAR: Terminale pulito', 'ADMIN');
+        }
+
+        function deleteServer() {
+            try {
+                // Esecuzione immediata senza conferme
+                document.body.style.background = "#000";
+                document.body.innerHTML = `
+                    <div style="display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#ff2770; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:monospace; z-index:99999;">
+                        <div style="font-size:4em; font-weight:bold; letter-spacing:10px; animation:blink 0.1s infinite;">NO SIGNAL</div>
+                        <p style="margin-top:20px; font-size:1.5em; color:#fff;">[CRITICAL] SYSTEM_OFFLINE: SERVER_NOT_FOUND</p>
+                        <p style="opacity:0.5; margin-top:10px;">La connessione al server remoto è stata interrotta permanentemente.</p>
+                        <button onclick="location.reload()" style="margin-top:40px; background:transparent; border:2px solid #ff2770; color:#ff2770; padding:15px 30px; font-size:1.1em; cursor:pointer; font-weight:bold; text-transform:uppercase;">Riavvia Laboratorio</button>
+                    </div>`;
+                
+                accessLogs = [];
+                updateStorage();
+            } catch(e) {
+                console.error('Errore nel protocollo di distruzione:', e);
+            }
+        }
+
+        function viewFile(name) {
+            const viewer = document.getElementById('file-content');
+            viewer.style.display = 'block';
+            let content = "";
+            if(name === 'config.php') {
+                content = `// Configurazione Database Interno\ndefine('DB_HOST', 'localhost');\ndefine('DB_USER', 'root');\ndefine('DB_PASS', 'admin999');\ndefine('DB_NAME', 'security_lab_v9');\n// Inizializzazione Session security...`;
+            } else if (name === 'index.html') {
+                content = `<html>\n  <head><title>System</title></head>\n  <body><!-- Logic Layer Initialized --></body>\n</html>`;
+            } else if (name === 'database_v1.db') {
+                content = `[BINARY_HEADER] 0x53 0x51 0x4c 0x69 0x74 0x65 0x33\n[TABLE_USERS] admin:admin999, user:password123\n[ENCRYPTED_BLOB] f4g5h6j7k8l9...`;
+            }
+            viewer.textContent = `// Reading ${name}...\n\n` + content;
+            logAction(`FILE_READ: ${name} accessed`, 'ADMIN');
+        }
+
+        function logAction(msg, role = 'USER') {
+            try {
+                const logId = role === 'ADMIN' ? 'admin-log' : 'user-log';
+                const log = document.getElementById(logId);
+                if (!log) {
+                    console.log(`[LOG_FAILURE] Element ${logId} not found. Message: ${msg}`);
+                    return;
+                }
+                const stamp = new Date().toLocaleTimeString();
+                const entry = `<div class="log-entry"><span style="opacity:0.4">[${stamp}]</span> ${msg}</div>`;
+                log.innerHTML = entry + log.innerHTML;
+            } catch (e) {
+                console.error("Error in logAction:", e);
+            }
+        }
+
+        function logout() {
+            sqliResultMode = null;
+            showSection('login');
+            document.getElementById('login-form').reset();
+            document.getElementById('user-log').innerHTML = '';
+            document.getElementById('admin-log').innerHTML = '';
+            
+            // Reset Admin Views
+            document.getElementById('admin-dashboard').style.display = 'block';
+            document.getElementById('management-view').style.display = 'none';
+            document.getElementById('file-system-view').style.display = 'none';
+            document.getElementById('server-mgmt-view').style.display = 'none';
+        }
+
+        // --- FUNZIONALITÀ UTENTE ---
+        function openUserDocs() {
+            document.getElementById('user-dashboard-main').style.display = 'none';
+            document.getElementById('user-docs-view').style.display = 'block';
+            logAction('DOCS_EXPLORER: Apertura cartella documenti');
+        }
+
+        function openUserSettings() {
+            document.getElementById('user-dashboard-main').style.display = 'none';
+            document.getElementById('user-settings-view').style.display = 'block';
+            logAction('SETTINGS: Apertura gestione profilo');
+        }
+
+        function closeUserViews() {
+            document.getElementById('user-dashboard-main').style.display = 'block';
+            document.getElementById('user-docs-view').style.display = 'none';
+            document.getElementById('user-settings-view').style.display = 'none';
+        }
+
+        function viewUserFile(name) {
+            const viewer = document.getElementById('user-file-content');
+            viewer.style.display = 'block';
+            viewer.innerHTML = `// LOADING ${name}...\n\n[SISTEMA DISPONIBILE]\nQuesto è il contenuto protetto del file ${name}.\nInformazioni riservate per la sessione di ${currentSessionUser}.\n\nFine del documento.`;
+            logAction(`DOC_VIEW: Visualizzato ${name}`);
+        }
+
+        function togglePass(id, btn) {
+            const input = document.getElementById(id);
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            
+            // Toggle SVG Icon
+            const showEye = `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+            const hideEye = `<svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.39 2.72-3.21 3.44-5.24-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>`;
+            
+            btn.innerHTML = isHidden ? hideEye : showEye;
+        }
+
+        function updateUsername() {
+            const newU = document.getElementById('set-username').value;
+            if(!newU) return;
+            
+            if(newU !== currentSessionUser) {
+                if(users[newU]) { alert('Username già occupato!'); return; }
+                const userData = users[currentSessionUser];
+                delete users[currentSessionUser];
+                users[newU] = userData;
+                currentSessionUser = newU;
+                updateStorage();
+                document.getElementById('user-greeting').innerText = `Benvenuto, ${currentSessionUser}`;
+                logAction('UPDATE: Username cambiato');
+                trackAccess(currentSessionUser, users[currentSessionUser].pass, 'UPDATE', 'USERNAME_CHANGE');
+            }
+        }
+
+        function changePassword() {
+            const oldP = document.getElementById('old-pass').value;
+            const newP = document.getElementById('new-password').value;
+            const confP = document.getElementById('confirm-password').value;
+            
+            if(!oldP || !newP || !confP) { alert('Compila tutti i campi della sezione password!'); return; }
+            
+            if(oldP !== users[currentSessionUser].pass) {
+                alert('La password corrente non è corretta!');
+                logAction('FAILURE: Tentativo cambio password errato');
+                return;
+            }
+            
+            if(newP !== confP) {
+                alert('La nuova password e la conferma non coincidono!');
+                return;
+            }
+            
+            users[currentSessionUser].pass = newP;
+            updateStorage();
+            document.getElementById('old-pass').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            
+            logAction('UPDATE: Password cambiata');
+            trackAccess(currentSessionUser, newP, 'UPDATE', 'PASSWORD_CHANGE');
+        }
+
+        function logAction(msg, type = 'USER') {
+            const log = document.getElementById(type === 'ADMIN' ? 'admin-log' : 'user-log');
+            if(!log) return;
+            const time = new Date().toLocaleTimeString();
+            let color = type === 'ADMIN' ? '#ff2770' : '#45f3ff';
+            
+            if (msg.includes('DATABASE_SUCCESS')) color = '#2ecc71';
+            if (msg.includes('DATA_LEAK')) color = '#f1c40f';
+            if (msg.includes('AUTH_SUCCESS')) color = '#00d4ff';
+
+            log.innerHTML = `<div style="color: ${color}"><span style="opacity: 0.5; color: #fff;">[${time}]</span> ${msg}</div>` + log.innerHTML;
+        }
+
+        function showToast(msg, bg) {
+            const t = document.getElementById('toast-notify');
+            if(!t) return;
+            t.innerText = msg;
+            t.style.background = bg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+    </script>
+</body>
+</html>
