@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca Utenti</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 50px; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        input[type="text"] { width: 70%; padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+        #messaggio-ricerca { margin-top: 20px; font-size: 18px; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Dashboard Ricerca Utenti</h2>
+        <p>Inserisci il nome dell'utente per visualizzare i dettagli.</p>
+
+        <form method="GET" action="">
+            <input type="text" id="inputRicerca" name="nome" placeholder="Es: Mario Rossi">
+            <button type="submit">Cerca</button>
+        </form>
+
+        <div id="messaggio-ricerca"></div>
+    </div>
+
+    <script>
+        // Estraiamo il parametro 'nome' dall'URL
+        const parametriUrl = new URLSearchParams(window.location.search);
+        const nomeCercato = parametriUrl.get('nome');
+
+        if (nomeCercato) {
+            // VULNERABILITÀ: L'uso di innerHTML permette l'esecuzione di codice
+            document.getElementById('messaggio-ricerca').innerHTML = "Risultati per: <b>" + nomeCercato + "</b>";
+        }
+    </script>
+
+</body>
+</html>

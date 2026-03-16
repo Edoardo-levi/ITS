@@ -1,0 +1,27 @@
+// DEFINE ipset dichiara un insieme di indirizzi IP gestiti con accesso diretto (costo O(1)
+DEFINE ipset miosito = { *.*.*.*:32456 };
+DEFINE ipset tuttigliip = { *.*.*.*:* };
+
+(*
+	quando faccio localhost:
+	se un utente ha chiesto /login/1, allora può chiedere esclusivamente /profile/1
+	Inoltre c'è un session cookie che si chiama Cookie: session=eyJ1c2VyX2lkIjoxfQ.abBE6A.lzDO0SmzvrO0Ir2IMFRY7eqZTs0
+*)
+
+DEFINE AR "BucoNero"
+	CONDITION
+		net.ipdst is in tuttigliip
+	ACTION
+		ANSWER "<p>Richiesta accettata correttamente</p>"
+	;
+
+DEFINE VR PrintAll
+	CONDITION
+		obs.event is net.send
+	ACTION
+		REPORT log { CAT { 
+			http.header["0_FULL_DATA"], 
+			" - ",
+			http.data["0_FULL_DATA"]
+		}}
+	;
