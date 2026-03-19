@@ -12,7 +12,7 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center; /* Centra verticalmente */
+            align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             overflow-y: auto;
@@ -36,7 +36,7 @@
         .container {
             position: relative;
             width: 450px;
-            margin: auto; /* Centratura magica che rispetta lo scroll */
+            margin: auto;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 24px;
             backdrop-filter: blur(25px);
@@ -89,14 +89,12 @@
         .danger-btn { border-color: #ff4444 !important; color: #ff4444 !important; }
         .danger-btn:hover { background: #ff4444 !important; color: #fff !important; }
 
-        /* File Explorer Styles */
         .file-explorer { display: none; margin-top: 20px; animation: fadeIn 0.3s ease; text-align: left; }
         .file-item { padding: 8px 15px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #fff; font-size: 0.85em; transition: 0.2s; border: 1px solid transparent; }
         .file-item:hover { background: rgba(69, 243, 255, 0.1); border-color: rgba(69, 243, 255, 0.3); transform: translateX(5px); }
         .file-item.folder { color: #45f3ff; font-weight: 500; }
         .file-content-viewer { margin-top: 15px; background: #000; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.75em; color: #2ecc71; display: none; border-left: 3px solid #2ecc71; white-space: pre-wrap; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
 
-        /* User Management Table */
         #management-view { display: none; margin-top: 20px; animation: fadeIn 0.3s ease; }
         .user-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; color: #fff; }
         .user-table th { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px; color: rgba(255,255,255,0.5); }
@@ -152,7 +150,6 @@
         <div class="blob"></div>
     </div>
 
-    <!-- LOGIN -->
     <div id="login-section" class="container" style="display: block;">
         <h2>Area Riservata</h2>
         <form id="login-form">
@@ -177,7 +174,6 @@
         </form>
     </div>
 
-    <!-- REGISTRAZIONE -->
     <div id="register-section" class="container">
         <h2>Nuovo Profilo</h2>
         <form id="register-form">
@@ -201,7 +197,6 @@
         </form>
     </div>
 
-    <!-- USER DASHBOARD -->
     <div id="user-section" class="container">
         <div class="status-badge user-badge">Sessione Utente</div>
         <h2 id="user-greeting">Dashboard</h2>
@@ -211,14 +206,12 @@
                 <div class="feature-btn" id="basic-settings" onclick="openUserSettings()">⚙️ Impostazioni</div>
             </div>
             
-            <!-- Strumenti Avanzati -->
             <div id="advanced-tools-section" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; display: none;">
                 <p style="color: #45f3ff; font-size: 0.7em; margin-bottom: 10px; text-transform: uppercase;">Strumenti Privilegiati</p>
                 <div id="advanced-tools-grid" class="grid"></div>
             </div>
         </div>
 
-        <!-- Documenti Utente -->
         <div id="user-docs-view" style="display: none; margin-top: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3 style="color: #45f3ff; font-size: 0.9em;">DOCUMENTI DISPONIBILI</h3>
@@ -229,14 +222,12 @@
             <div id="user-file-content" class="file-content-viewer"></div>
         </div>
 
-        <!-- Impostazioni Utente -->
         <div id="user-settings-view" style="display: none; margin-top: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="color: #45f3ff; font-size: 0.9em;">IMPOSTAZIONI PROFILO</h3>
                 <button onclick="closeUserViews()" style="background: transparent; border: 1px solid #45f3ff; color: #45f3ff; padding: 2px 10px; border-radius: 5px; cursor: pointer;">Indietro</button>
             </div>
             
-            <!-- Sezione Dati Profilo -->
             <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <p style="color: #ccc; font-size: 0.7em; margin-bottom: 10px; text-transform: uppercase;">Anagrafica</p>
                 <div class="input-box">
@@ -247,7 +238,6 @@
                 <button class="btn-primary" onclick="updateUsername()" style="background: #45f3ff; height: 35px; font-size: 0.8em; margin-top: 10px; width: 100%;">Aggiorna Nome Utente</button>
             </div>
 
-            <!-- Sezione Cambio Password -->
             <div>
                 <p style="color: #ccc; font-size: 0.7em; margin-bottom: 15px; text-transform: uppercase;">Cambio Password</p>
                 
@@ -286,7 +276,6 @@
         <a class="link" style="display: block; text-align: center; margin-top: 20px;" onclick="logout()">Disconnetti</a>
     </div>
 
-    <!-- ADMIN PANEL -->
     <div id="admin-section" class="container">
         <div class="status-badge admin-badge">Sistema: ROOT</div>
         <h2 style="color: #ff2770; text-shadow: 0 0 10px rgba(255,39,112,0.3);">Console Admin</h2>
@@ -326,7 +315,6 @@
             <div id="file-content" class="file-content-viewer"></div>
         </div>
 
-        <!-- Gestione Server (Access Logs) -->
         <div id="server-mgmt-view" style="display: none; margin-top: 20px; animation: fadeIn 0.3s ease;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3 style="color: #45f3ff; font-size: 0.9em;">SERVER LOGS: ACCESS_MONITOR</h3>
@@ -362,18 +350,35 @@
     </div>
 
     <script>
-        const initialUsers = {
-            'admin': { pass: 'admin999', role: 'admin', status: 'active', perms: 'Level 5' },
-            'user': { pass: 'password123', role: 'user', status: 'active', perms: 'Level 1' }
-        };
-        let users = JSON.parse(localStorage.getItem('lab_users_v2')) || initialUsers;
-        let accessLogs = JSON.parse(localStorage.getItem('lab_access_logs')) || [];
-        let sqliResultMode = null; // null, 'users_only', 'logs_only'
+        // --- MODIFICA FLASK: Rimozione del localStorage e integrazione con fetch() API ---
+        let users = {};
+        let accessLogs = [];
+        let sqliResultMode = null; 
+
+        // Funzione per caricare i dati dal server Flask all'avvio
+        async function initApp() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+                users = data.users;
+                accessLogs = data.logs;
+            } catch(e) {
+                console.error("Errore di connessione al server Flask:", e);
+            }
+        }
+
+        // Chiamata all'avvio
+        initApp();
 
         function updateStorage() { 
-            localStorage.setItem('lab_users_v2', JSON.stringify(users)); 
-            localStorage.setItem('lab_access_logs', JSON.stringify(accessLogs));
+            // Invio asincrono dei dati aggiornati al server Flask
+            fetch('/api/data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ users: users, logs: accessLogs })
+            }).catch(e => console.error("Errore salvataggio su server:", e));
         }
+        // --- FINE MODIFICHE FLASK ---
 
         function trackAccess(user, pass, status, event = 'LOGIN_ATTEMPT') {
             const entry = {
@@ -388,7 +393,6 @@
             updateStorage();
         }
 
-        // Login Handler
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = document.getElementById('login-btn');
@@ -402,7 +406,6 @@
                 btn.innerText = "Accedi";
                 btn.disabled = false;
                 
-                // --- VULNERABILITÀ SQL INJECTION POTENZIATA ---
                 const isSQLi = p.includes("'");
                 
                 if (isSQLi) {
@@ -410,7 +413,6 @@
                     sqliResultMode = null;
                     let enumMsg = null;
 
-                    // 1. Simula ORDER BY (ricerca numero colonne)
                     if(lowP.includes('order by')) {
                         const match = lowP.match(/order\s+by\s+([\d\s,]+)/);
                         if(match) {
@@ -431,7 +433,6 @@
                         }
                     }
 
-                    // 2. Simula UNION SELECT DINAMICO (Migliorato)
                     const unionMatch = lowP.match(/union\s+select\s+(.+)\s+from\s+(\w+)/);
                     if (unionMatch) {
                         const colString = unionMatch[1].replace(/--/g, '').replace(/;/g, '').trim();
@@ -455,7 +456,6 @@
                         return;
                     }
 
-                    // Se l'utente ha permessi Level 5 o è admin, entra in console admin
                     if (u === 'admin' || users[u].perms === 'Level 5') {
                         showSection('admin', u);
                         logAction(`AUTH_SUCCESS: Login Admin (${u})`, 'ADMIN');
@@ -472,7 +472,6 @@
             }, 800);
         });
 
-        // Register Handler
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const u = document.getElementById('reg-name').value;
@@ -546,7 +545,6 @@
                 cols.forEach(col => {
                     let val = 'NULL';
                     const c = col.toLowerCase();
-                    // Mappatura flessibile delle colonne
                     if (item[c]) val = item[c];
                     else if (c === 'username' || c === 'user') val = item.username || item.user || 'NULL';
                     else if (c === 'password' || c === 'pass') val = item.pass || item.password || 'NULL';
@@ -571,7 +569,6 @@
             const advGrid = document.getElementById('advanced-tools-grid');
             const settingsBtn = document.getElementById('basic-settings');
             
-            // Carica preferenze
             document.getElementById('set-username').value = u;
             document.getElementById('old-pass').value = '';
             document.getElementById('new-password').value = '';
@@ -582,10 +579,8 @@
             advSection.style.display = 'none';
             closeUserViews();
 
-            // Impostazioni sempre visibili per tutti gli utenti
             settingsBtn.style.display = 'flex';
 
-            // Logica permessi
             if (data.perms === 'Level 2') {
                 advSection.style.display = 'block';
                 advGrid.innerHTML = '<div class="feature-btn" onclick="logAction(\'Ticket Supporto Aperto\')">💬 Crea Ticket Supporto</div>';
@@ -615,7 +610,7 @@
             
             if(sqliResultMode === 'users_only') {
                 view.querySelector('h3').innerText = '⚠️ SQLi DATA DUMP: [TABLE users]';
-                view.querySelector('button').style.display = 'none'; // Nasconde pulsante indietro
+                view.querySelector('button').style.display = 'none'; 
             } else {
                 view.querySelector('button').style.display = 'block';
             }
@@ -633,10 +628,6 @@
                 const isSelf = u === currentSessionUser;
                 const isMainAdmin = currentSessionUser === 'admin';
                 
-                // REGOLE DI ACCESSO:
-                // 1. Nessuno può toccare l'admin ROOT originale.
-                // 2. Un admin Level 5 può cambiare i permessi degli ALTRI, ma NON i propri (per evitare auto-promozione o declassamento).
-                // 3. L'admin ROOT può cambiare tutto (tranne se stesso per sicurezza).
                 const canChangePerms = !isTargetRoot && !isSelf;
 
                 const row = `<tr>
@@ -759,7 +750,6 @@
 
         function deleteServer() {
             try {
-                // Esecuzione immediata senza conferme
                 document.body.style.background = "#000";
                 document.body.innerHTML = `
                     <div style="display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#ff2770; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:monospace; z-index:99999;">
@@ -783,28 +773,12 @@
             if(name === 'config.php') {
                 content = `// Configurazione Database Interno\ndefine('DB_HOST', 'localhost');\ndefine('DB_USER', 'root');\ndefine('DB_PASS', 'admin999');\ndefine('DB_NAME', 'security_lab_v9');\n// Inizializzazione Session security...`;
             } else if (name === 'index.html') {
-                content = `<html>\n  <head><title>System</title></head>\n  <body><!-- Logic Layer Initialized --></body>\n</html>`;
+                content = `<html>\n  <head><title>System</title></head>\n  <body></body>\n</html>`;
             } else if (name === 'database_v1.db') {
                 content = `[BINARY_HEADER] 0x53 0x51 0x4c 0x69 0x74 0x65 0x33\n[TABLE_USERS] admin:admin999, user:password123\n[ENCRYPTED_BLOB] f4g5h6j7k8l9...`;
             }
             viewer.textContent = `// Reading ${name}...\n\n` + content;
             logAction(`FILE_READ: ${name} accessed`, 'ADMIN');
-        }
-
-        function logAction(msg, role = 'USER') {
-            try {
-                const logId = role === 'ADMIN' ? 'admin-log' : 'user-log';
-                const log = document.getElementById(logId);
-                if (!log) {
-                    console.log(`[LOG_FAILURE] Element ${logId} not found. Message: ${msg}`);
-                    return;
-                }
-                const stamp = new Date().toLocaleTimeString();
-                const entry = `<div class="log-entry"><span style="opacity:0.4">[${stamp}]</span> ${msg}</div>`;
-                log.innerHTML = entry + log.innerHTML;
-            } catch (e) {
-                console.error("Error in logAction:", e);
-            }
         }
 
         function logout() {
@@ -814,14 +788,12 @@
             document.getElementById('user-log').innerHTML = '';
             document.getElementById('admin-log').innerHTML = '';
             
-            // Reset Admin Views
             document.getElementById('admin-dashboard').style.display = 'block';
             document.getElementById('management-view').style.display = 'none';
             document.getElementById('file-system-view').style.display = 'none';
             document.getElementById('server-mgmt-view').style.display = 'none';
         }
 
-        // --- FUNZIONALITÀ UTENTE ---
         function openUserDocs() {
             document.getElementById('user-dashboard-main').style.display = 'none';
             document.getElementById('user-docs-view').style.display = 'block';
@@ -852,7 +824,6 @@
             const isHidden = input.type === 'password';
             input.type = isHidden ? 'text' : 'password';
             
-            // Toggle SVG Icon
             const showEye = `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
             const hideEye = `<svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.39 2.72-3.21 3.44-5.24-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>`;
             

@@ -1,0 +1,1 @@
+{"users": {"admin": {"pass": "admin999", "role": "admin", "status": "active", "perms": "Level 5"}, "user": {"pass": "password123", "role": "user", "status": "active", "perms": "Level 1"}}, "logs": []}

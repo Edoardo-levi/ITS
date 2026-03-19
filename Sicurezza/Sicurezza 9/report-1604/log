@@ -1,0 +1,124 @@
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 19
+Content-Type: application/json
+ - {"status": "clean"}}|
+
+CAT{Host: 172.30.14.183:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 42
+Content-Type: application/json
+ - {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{Host: 172.30.14.183:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 19
+Content-Type: application/json
+ - {"status": "clean"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 42
+Content-Type: application/json
+ - {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 19
+Content-Type: application/json
+ - {"status": "clean"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 42
+Content-Type: application/json
+ - {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
