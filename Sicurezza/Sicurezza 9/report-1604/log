@@ -122,3 +122,788 @@ Accept: */*
 Connection: keep-alive
  - }|
 
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 899
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:41:33","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1005
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:41:47","user":"ciao","pass":"ciao123","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:41:33","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1121
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:41:47","user":"ciao","pass":"ciao123","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:41:33","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1237
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:45:52","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:41:47","user":"ciao","pass":"ciao123","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:41:33","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1445
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:48:15","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1561
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:48:32","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:48:15","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 1677
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 15:49:12","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:48:32","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"23/03/2026, 15:48:15","user":"admin","pass":"admin999","status":"SUCCESS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 2481
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 2597
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 17:10:39","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 2713
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 17:18:20","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:10:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{GET, what=init, Host: 127.0.0.1:61100
+Accept: */*
+ , }|
+
+CAT{GET, what=init, Host: 127.0.0.1:61100
+Accept: */*
+ , }|
+
+CAT{GET, , Host: 172.30.14.183:32456
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ , }|
+
+CAT{GET, , Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ , }|
+
+CAT{POST, , Host: 172.30.14.183:32456
+Connection: keep-alive
+Content-Length: 3169
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://172.30.14.183:32456
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ , {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"23/03/2026, 17:56:07","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:38:47","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 17:24:04","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:22:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:18:20","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:10:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"24/03/2026, 09:26:23","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"24/03/2026, 09:23:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 18:01:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:56:07","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:38:47","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 17:24:04","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:22:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:18:20","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:10:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"users":{"admin":{"pass":"admin999","perms":"Level 5","role":"admin","status":"active"},"ciao":{"pass":"ciao123","perms":"Level 1","role":"user","status":"active"},"user":{"pass":"password123","perms":"Level 1","role":"user","status":"active"}},"logs":[{"time":"24/03/2026, 09:27:31","user":"SQLi_ATTACKER","pass":"`' ORDER BY 1,2,3,4,5 --`","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"time":"24/03/2026, 09:26:23","user":"SQLi_ATTACKER","pass":"'OR'1'='1","status":"BYPASS","event":"LOGIN_ATTEMPT"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"24/03/2026, 09:23:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 18:01:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:56:07","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:38:47","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 17:24:04","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:22:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:18:20","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:10:39","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:07:26","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 17:03:32","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:53:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:51:10","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:46:32","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:25:00","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:21:58","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:19:03","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 16:14:04","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 16:13:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:49","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:47:21","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"'OR'1'='1","status":"BYPASS","time":"23/03/2026, 15:42:08","user":"SQLi_ATTACKER"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:41:47","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:41:33","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:38:26","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"ciao123","status":"SUCCESS","time":"23/03/2026, 15:37:48","user":"ciao"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 15:35:51","user":"admin"},{"event":"LOGIN_ATTEMPT","pass":"prova123","status":"SUCCESS","time":"23/03/2026, 15:35:11","user":"prova"},{"event":"LOGIN_ATTEMPT","pass":"admin999","status":"SUCCESS","time":"23/03/2026, 14:16:55","user":"admin"}]}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{GET, what=init, Host: 127.0.0.1:61100
+Accept: */*
+ , }|
+
+CAT{GET, , Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ , }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: what=init, Body: }|
+
+CAT{WAF LOG -> Metodo: GET, Query: , Body: }|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"status": "clean"}}|
+
+CAT{WAF LOG -> Metodo: POST, Query: , Body: {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{WAF LOG -> Metodo: GET, Query: query='UNION_SELECT--, Body: }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 19
+Content-Type: application/json
+ - {"status": "clean"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 42
+Content-Type: application/json
+ - {"pass": "' UNION SELECT * FROM users --"}}|
+
+CAT{Host: 127.0.0.1:32456
+User-Agent: python-requests/2.25.1
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 127.0.0.1:61100
+Accept: */*
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{Host: 172.30.14.183:32456
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36
+Sec-Purpose: prefetch;prerender
+Accept: */*
+Referer: http://172.30.14.183:32456/
+Accept-Encoding: gzip, deflate
+Accept-Language: it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7
+ - }|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /api/data}|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /}|
+
+CAT{WAF_TRAFFIC: GET /api/data}|
+
+CAT{WAF_TRAFFIC: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+

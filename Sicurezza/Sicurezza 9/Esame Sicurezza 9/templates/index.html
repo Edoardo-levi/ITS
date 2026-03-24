@@ -393,7 +393,7 @@
             updateStorage();
         }
 
-        document.getElementById('login-form').addEventListener('submit', (e) => {
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('login-btn');
             const u = document.getElementById('username').value;
@@ -402,76 +402,51 @@
             btn.innerText = "Verifica in corso...";
             btn.disabled = true;
 
-            setTimeout(() => {
-                btn.innerText = "Accedi";
-                btn.disabled = false;
+            // Prepariamo i dati da inviare al server in formato Form
+            const params = new URLSearchParams();
+            params.append('username', u);
+            params.append('password', p);
+
+            try {
+                // Invia la richiesta HTTP al WAF
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    body: params
+                });
+
+                // 1. Leggiamo SEMPRE la risposta come testo puro (evita errori JSON)
+                const text = await response.text();
+
+                // 2. Controllo se il WAF ha intercettato e bloccato la richiesta
+                if (text.includes('403 Forbidden') || text.includes('WAF') || text.includes('<html')) {
+                    document.body.innerHTML = text; // Sovrascrive la pagina con il blocco WAF
+                    return;
+                }
+
+                // 3. Se il WAF non ha bloccato, convertiamo il testo in JSON per gestire l'accesso
+                const result = JSON.parse(text);
                 
-                const isSQLi = p.includes("'");
-                
-                if (isSQLi) {
-                    const lowP = p.toLowerCase();
-                    sqliResultMode = null;
-                    let enumMsg = null;
-
-                    if(lowP.includes('order by')) {
-                        const match = lowP.match(/order\s+by\s+([\d\s,]+)/);
-                        if(match) {
-                            const numStr = match[1].replace(/\s/g, '');
-                            const cols = numStr.split(',').filter(n => n).map(n => parseInt(n));
-                            if(cols.length > 0) {
-                                const maxCol = Math.max(...cols);
-                                if(maxCol > 5) {
-                                    document.getElementById('sql-error-msg').innerText = `Error in query: Unknown column '${maxCol}' in 'order clause'. The table 'users' only has 5 columns.`;
-                                    document.getElementById('sql-error-page').style.display = 'flex';
-                                    trackAccess('SQLi_SCANNER', p, 'ERROR', 'COLUMN_COUNT_MISMATCH');
-                                    return;
-                                } else {
-                                    enumMsg = `DATABASE_SUCCESS: Tabella identificata con ${maxCol} colonne.`;
-                                    setTimeout(() => showToast("DATABASE STRUCTURE IDENTIFIED ✅", "#2ecc71"), 1000);
-                                }
-                            }
-                        }
-                    }
-
-                    const unionMatch = lowP.match(/union\s+select\s+(.+)\s+from\s+(\w+)/);
-                    if (unionMatch) {
-                        const colString = unionMatch[1].replace(/--/g, '').replace(/;/g, '').trim();
-                        const columns = colString.split(',').map(c => c.trim().replace(/'/g, ''));
-                        const tableName = unionMatch[2].trim();
-                        sqliResultMode = { table: tableName, cols: columns };
-                        console.log("SQLi Match Rilevato:", sqliResultMode);
-                    }
-
-                    showSection('admin');
+                if (result.status === 'sqli_bypass') {
+                    showSection('admin', 'admin');
                     logAction(`VULN_EXPLOIT: SQL Injection bypass!`, 'ADMIN');
-                    if(enumMsg) logAction(`<b>${enumMsg}</b>`, 'ADMIN');
-                    if(sqliResultMode) logAction(`DATA_LEAK: Estrazione mirata [${sqliResultMode.table}]`, 'ADMIN');
-                    logAction(`Query malevola rilevata: ${p}`, 'ADMIN');
-                    trackAccess('SQLi_ATTACKER', p, 'BYPASS');
-                } else if (users[u] && users[u].pass === p) {
-                    if (users[u].status === 'blocked') {
-                        alert('ACCESSO NEGATO: Il tuo account è stato sospeso dall\'amministratore.');
-                        logAction(`AUTH_BLOCKED: Account ${u} is suspended`, 'USER');
-                        trackAccess(u, p, 'BLOCKED');
-                        return;
-                    }
-
-                    if (u === 'admin' || users[u].perms === 'Level 5') {
-                        showSection('admin', u);
-                        logAction(`AUTH_SUCCESS: Login Admin (${u})`, 'ADMIN');
-                        trackAccess(u, p, 'SUCCESS');
+                } else if (result.status === 'success') {
+                    if (result.role === 'admin') {
+                        showSection('admin', result.user);
                     } else {
-                        showSection('user', u);
-                        logAction(`AUTH_SUCCESS: Accesso di ${u}`);
-                        trackAccess(u, p, 'SUCCESS');
+                        showSection('user', result.user);
                     }
                 } else {
-                    alert('Accesso negato.');
-                    trackAccess(u || 'unknown', p, 'FAILURE');
+                    alert('Accesso negato. Credenziali errate.');
                 }
-            }, 800);
+            } catch (err) {
+                console.error("Errore di rete o di parsing:", err);
+                alert("Connessione interrotta dal WAF o errore imprevisto.");
+            } finally {
+                btn.innerText = "Accedi";
+                btn.disabled = false;
+            }
         });
-
+    
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const u = document.getElementById('reg-name').value;

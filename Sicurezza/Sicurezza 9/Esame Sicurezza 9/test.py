@@ -25,7 +25,8 @@ def test_post_malicious_data():
     print(f"\n[3] TEST: Attacco nel Body (POST {TARGET_URL}/api/data)")
     payload = {"pass": "' UNION SELECT * FROM users --"}
     response = requests.post(f"{TARGET_URL}/api/data", json=payload)
-    print(f"  -> Status Code : {response.status_code} (Passa perché il WAF controlla l'URL)")
+    print(f"  -> Status Code : {response.status_code}")
+    print(f"  -> Risposta    : {response.text}") # <--- AGGIUNGI QUESTA RIGA!
 
 def test_get_malicious_url():
     print(f"\n[4] TEST: Attacco Diretto via URL (GET {TARGET_URL}/api/data?query='UNION_SELECT--)")

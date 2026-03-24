@@ -1,40 +1,48 @@
-// DEFINE ipset dichiara un insieme di indirizzi IP
-DEFINE ipset server_flask = { *.*.*.*:32456 };
-DEFINE ipset tuttigliip = { *.*.*.*:* };
+// Definizione degli IP e porte
+DEFINE ipset miosito = { *.*.*.*:32456 };
 
-DEFINE set pattern_da_bloccare = {
-    // Vettori SQL Injection
-    "'", "%27", "UNION", "union", "ORDER BY", "order by", "--", "1=1", "1%3D1"
+// Blacklist delle firme SQL Injection (URL-Encoded e stringhe esatte)
+DEFINE set blacklist = { 
+    "'", "%27", 
+    "--", "%2D%2D", 
+    ";", "%3B",
+    "union", "select", 
+    "%27OR%271%27%3D%271",  
+    "%27+OR+1%3D1",         
+    "%27%20OR%201%3D1",
+    "aaa' OR 1=1",
+    "aaa%27+OR+1%3D1"
 };
 
-// 1. REGOLA PER IL TRAFFICO SICURO
-// La funzione restituisce TRUE se NON trova minacce. In tal caso, inoltriamo a Flask!
-DEFINE AR "Passa_Tutto_Sicuro"
+// REGOLA 1: Blocco password
+DEFINE AR BlockPasswordSQLi
     CONDITION
-        net.ipdst is in tuttigliip
-        CALL "va::vaeng::fast-scan-stringset" WITH "checkuri", "pattern_da_bloccare", "false", http.uri, "false"
+        http.query["password"] is in blacklist
+    ACTION
+        ANSWER "<html><body style='background:#1a0000;color:red;padding:50px;text-align:center;font-family:monospace;'><h1>403 Forbidden</h1><p>WAF SMART BLOCK: Rilevata firma SQL Injection nota nel campo Password.</p></body></html>"
+    ;
+
+// REGOLA 2: Blocco username
+DEFINE AR BlockUserSQLi
+    CONDITION
+        http.query["username"] is in blacklist
+    ACTION
+        ANSWER "<html><body style='background:#1a0000;color:red;padding:50px;text-align:center;font-family:monospace;'><h1>403 Forbidden</h1><p>WAF SMART BLOCK: Rilevata firma SQL Injection nota nel campo Username.</p></body></html>"
+    ;
+
+// REGOLA 3: Inoltro traffico pulito
+DEFINE AR ForwardTraffic
+    CONDITION
+        net.ipdst is in miosito
     ACTION
         tcp.redirect "127.0.0.1:5020"
     ;
 
-// 2. REGOLA DI BLOCCO (Catch-All)
-// Se la regola sopra ha restituito FALSE (attacco rilevato!), la richiesta viene ignorata 
-// dalla prima regola, cade in questa seconda regola e viene bloccata.
-DEFINE AR "BucoNero_SQLi"
-    CONDITION
-        net.ipdst is in tuttigliip
-    ACTION
-        ANSWER "<p>🔴 ATTACCO INTERCETTATO E NEUTRALIZZATO DAL WAF.</p>"
-    ;
 
-// 3. REGOLA DI LOGGING
-DEFINE VR PrintAll
+// REGOLA VIRTUALE: Logga nel terminale Docker solo il traffico "pulito"
+DEFINE VR LogTrafficoPulito
     CONDITION
         obs.event is net.send
     ACTION
-        REPORT log { CAT { 
-            http.header["0_FULL_DATA"], 
-            " - ",
-            http.data["0_FULL_DATA"]
-        }}
+        REPORT log { CAT { "[WAF] Traffico sicuro inoltrato a Flask: ", http.method, " ", http.url } }
     ;
