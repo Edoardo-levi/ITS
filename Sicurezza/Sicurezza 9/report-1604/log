@@ -907,3 +907,47 @@ CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
 
 CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
 
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /favicon.ico}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: GET /api/data}|
+
+CAT{[WAF] Traffico sicuro inoltrato a Flask: POST /api/login}|
+
